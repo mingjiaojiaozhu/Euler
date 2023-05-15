@@ -20,7 +20,7 @@ void Problem055(void) {
     int target = 10000;
     Decimal *decimal = (Decimal *) malloc(sizeof(Decimal));
     decimal->value = (int *) malloc(sizeof(int) * 100);
-    for (int i = 1; i < 100; ++i) {
+    for (int i = 0; i < 100; ++i) {
         decimal->value[i] = 0;
     }
     decimal->length = 0;

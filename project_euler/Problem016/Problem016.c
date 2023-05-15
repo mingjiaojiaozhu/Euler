@@ -27,7 +27,7 @@ void Problem016(void) {
     int result = 0;
     for (int i = 0; i < decimal->length; ++i) {
         int value = decimal->value[i];
-        while (value > 0) {
+        while (value) {
             result += value % 10;
             value /= 10;
         }

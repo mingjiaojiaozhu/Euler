@@ -5,7 +5,7 @@ import "fmt"
 func Problem020() {
     target := 100
     decimal := Decimal{make([]int, target), 0}
-    for i := 1; i < target; i++ {
+    for i := 0; i < target; i++ {
         decimal.value[i] = 0
     }
     decimal.value[0] = target
@@ -17,7 +17,7 @@ func Problem020() {
 
     result := 0
     for _, value := range decimal.value[:decimal.length] {
-        for value > 0 {
+        for 0 != value {
             result += value % 10
             value /= 10
         }

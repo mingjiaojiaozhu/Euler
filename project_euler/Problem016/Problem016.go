@@ -17,7 +17,7 @@ func Problem016() {
 
     result := 0
     for _, value := range decimal.value[:decimal.length] {
-        for value > 0 {
+        for 0 != value {
             result += value % 10
             value /= 10
         }

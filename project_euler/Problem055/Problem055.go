@@ -8,7 +8,7 @@ import (
 func Problem055() {
     target := 10000
     decimal := Decimal{make([]int, 100), 0}
-    for i := 1; i < 100; i++ {
+    for i := 0; i < 100; i++ {
         decimal.value[i] = 0
     }
     auxiliary := make([]int, 100)

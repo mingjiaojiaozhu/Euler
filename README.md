@@ -55,3 +55,4 @@
 * [053. Combinatoric selections](project_euler/Problem053/README.md)
 * [054. Poker hands](project_euler/Problem054/README.md)
 * [055. Lychrel numbers](project_euler/Problem055/README.md)
+* [056. Powerful digit sum](project_euler/Problem056/README.md)

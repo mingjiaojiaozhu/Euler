@@ -7,7 +7,7 @@ function Problem016() {
 
     let result = 0
     for (let value of decimal.value.slice(0, decimal.length)) {
-        while (value > 0) {
+        while (value) {
             result += value % 10
             value = Math.floor(value / 10)
         }

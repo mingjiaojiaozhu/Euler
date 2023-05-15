@@ -9,7 +9,7 @@ class Problem020:
 
         result = 0
         for value in decimal.value[:decimal.length]:
-            while value > 0:
+            while value:
                 result += value % 10
                 value //= 10
         print(result)
