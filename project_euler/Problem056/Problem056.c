@@ -63,5 +63,5 @@ static int get_digital(Decimal *decimal, int pivot) {
             value /= 10;
         }
     }
-    return (pivot < result) ? result : pivot;
+    return (result < pivot) ? pivot : result;
 }

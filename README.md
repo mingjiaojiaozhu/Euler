@@ -56,3 +56,5 @@
 * [054. Poker hands](project_euler/Problem054/README.md)
 * [055. Lychrel numbers](project_euler/Problem055/README.md)
 * [056. Powerful digit sum](project_euler/Problem056/README.md)
+* [057. Square root convergents](project_euler/Problem057/README.md)
+* [058. Spiral primes](project_euler/Problem058/README.md)
