@@ -1,9 +1,9 @@
 function Problem050() {
-    let border = 1000000
+    let target = 1000000
     let primes = [2]
     let index = 3
     let summation = 2
-    while (summation < border) {
+    while (summation < target) {
         if (isPrime(index)) {
             primes.push(index)
             summation += index
@@ -22,7 +22,7 @@ function Problem050() {
 
         for (let j = i; j < length; ++j) {
             value += primes[j] - primes[j - i]
-            if (isPrime(value) && value < border) {
+            if (isPrime(value) && value < target) {
                 console.log(value)
                 return
             }

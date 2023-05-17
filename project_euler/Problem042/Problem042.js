@@ -11,7 +11,7 @@ function Problem042() {
         }
         let delta = (value << 3) + 1
         if (Math.abs(Math.floor(Math.sqrt(delta) + 0.5) - Math.sqrt(delta)) < 0.00000001 && (Math.floor(Math.sqrt(delta)) & 1)) {
-            ++result;
+            ++result
         }
     }
     console.log(result)

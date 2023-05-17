@@ -10,9 +10,14 @@ void Problem048(void) {
     long long product[2];
     long long auxiliary[2];
     long long result = 0L;
-    for (int i = 1; i <= target; ++i) {
-        if (i % 10) {
-            get_power(i, i, product, auxiliary);
+    for (int i = target / 10 * 10 + 1; i <= target; ++i) {
+        get_power(i, i, product, auxiliary);
+        result += product[1] * (long) 1e5 + product[0];
+    }
+    for (int i = target / 10 - 1; i >= 0; --i) {
+        for (int j = 1; j < 10; ++j) {
+            int value = i * 10 + j;
+            get_power(value, value, product, auxiliary);
             result += product[1] * (long long) 1e5 + product[0];
         }
     }

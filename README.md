@@ -58,3 +58,5 @@
 * [056. Powerful digit sum](project_euler/Problem056/README.md)
 * [057. Square root convergents](project_euler/Problem057/README.md)
 * [058. Spiral primes](project_euler/Problem058/README.md)
+* [059. XOR decryption](project_euler/Problem059/README.md)
+* [067. Maximum path sum II](project_euler/Problem067/README.md)

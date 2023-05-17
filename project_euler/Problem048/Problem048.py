@@ -3,9 +3,13 @@ from typing import List
 class Problem048:
     def solution(self) -> None:
         target, product, auxiliary, result = 1000, [0 for _ in range(2)], [0 for _ in range(2)], 0
-        for i in range(1, target + 1):
-            if i % 10:
-                self.__get_power(i, i, product, auxiliary)
+        for i in range(target // 10 * 10 + 1, target + 1):
+            self.__get_power(i, i, product, auxiliary)
+            result += product[1] * int(1e5) + product[0]
+        for i in range(target // 10 - 1, -1, -1):
+            for j in range(1, 10):
+                value = i * 10 + j
+                self.__get_power(value, value, product, auxiliary)
                 result += product[1] * int(1e5) + product[0]
         print(result % int(1e10))
 

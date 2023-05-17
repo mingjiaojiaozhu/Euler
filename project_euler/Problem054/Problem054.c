@@ -3,7 +3,8 @@
 #include <string.h>
 
 #define LENGTH 1024
-#define SIZE 256
+#define SIZE_SET 256
+#define SIZE_ARRAY 64
 
 typedef struct node {
     char value;
@@ -13,6 +14,7 @@ typedef struct node {
 typedef struct {
     int *value;
     int length;
+    int capacity;
 } Array;
 
 typedef struct {
@@ -38,11 +40,12 @@ void Problem054(void) {
     for (int i = 0; i < 2; ++i) {
         players[i] = (Player *) malloc(sizeof(Player));
         players[i]->value = (int *) malloc(sizeof(int) * 5);
-        players[i]->suits = (Set **) malloc(sizeof(Set *) * SIZE);
+        players[i]->suits = (Set **) malloc(sizeof(Set *) * SIZE_SET);
         players[i]->hand = 0;
         players[i]->ranks = (Array *) malloc(sizeof(Array));
-        players[i]->ranks->value = (int *) malloc(sizeof(int) * 5);
+        players[i]->ranks->value = (int *) malloc(sizeof(int) * SIZE_ARRAY);
         players[i]->ranks->length = 0;
+        players[i]->ranks->capacity = SIZE_ARRAY;
     }
     int counts[2];
     int pairs[2];
@@ -66,7 +69,7 @@ void Problem054(void) {
 }
 
 static void set_cards(Player *player, char **elements, int start, int *counts, int *pairs) {
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < SIZE_SET; ++i) {
         player->suits[i] = NULL;
     }
     player->ranks->length = 0;
@@ -204,14 +207,14 @@ static char **split(char *line, const char *delimiter) {
 }
 
 static void append_set(char value, Set **set) {
-    if (!set[value % SIZE]) {
-        set[value % SIZE] = (Set *) malloc(sizeof(Set));
-        set[value % SIZE]->value = value;
-        set[value % SIZE]->next = NULL;
+    if (!set[value % SIZE_SET]) {
+        set[value % SIZE_SET] = (Set *) malloc(sizeof(Set));
+        set[value % SIZE_SET]->value = value;
+        set[value % SIZE_SET]->next = NULL;
         return;
     }
 
-    Set *current = set[value % SIZE];
+    Set *current = set[value % SIZE_SET];
     if (current->value == value) {
         return;
     }
@@ -229,7 +232,7 @@ static void append_set(char value, Set **set) {
 
 static int get_count(Set **set) {
     int count = 0;
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < SIZE_SET; ++i) {
         Set *current = set[i];
         while (current) {
             ++count;
@@ -240,6 +243,11 @@ static int get_count(Set **set) {
 }
 
 static void append_array(int value, Array *array) {
+    if (array->length >= array->capacity) {
+        array->value = (int *) realloc(array->value, sizeof(int) * (array->capacity + SIZE_ARRAY));
+        array->capacity += SIZE_ARRAY;
+    }
+
     array->value[array->length] = value;
     ++array->length;
 }

@@ -6,12 +6,12 @@ using namespace std;
 class Problem050 {
 public:
     void solution() {
-        int border = 1000000;
+        int target = 1000000;
         vector<int> primes(0);
         primes.emplace_back(2);
         int index = 3;
         int summation = 2;
-        while (summation < border) {
+        while (summation < target) {
             if (is_prime(index)) {
                 primes.emplace_back(index);
                 summation += index;
@@ -30,7 +30,7 @@ public:
 
             for (int j = i; j < length; ++j) {
                 value += primes[j] - primes[j - i];
-                if (is_prime(value) && value < border) {
+                if (is_prime(value) && value < target) {
                     cout << value << endl;
                     return;
                 }

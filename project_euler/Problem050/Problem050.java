@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Problem050 {
     public void solution() {
-        int border = 1000000;
+        int target = 1000000;
         List<Integer> primes = new ArrayList<>();
         primes.add(2);
         int index = 3;
         int summation = 2;
-        while (summation < border) {
+        while (summation < target) {
             if (isPrime(index)) {
                 primes.add(index);
                 summation += index;
@@ -29,7 +29,7 @@ public class Problem050 {
 
             for (int j = i; j < length; ++j) {
                 value += primes.get(j) - primes.get(j - i);
-                if (isPrime(value) && value < border) {
+                if (isPrime(value) && value < target) {
                     System.out.println(value);
                     return;
                 }

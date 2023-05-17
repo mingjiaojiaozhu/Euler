@@ -14,7 +14,7 @@ static int is_prime(int value);
 static void append(int value, Array *array);
 
 void Problem050(void) {
-    int border = 1000000;
+    int target = 1000000;
     Array *primes = (Array *) malloc(sizeof(Array));
     primes->value = (int *) malloc(sizeof(int) * SIZE);
     primes->length = 0;
@@ -23,7 +23,7 @@ void Problem050(void) {
 
     int index = 3;
     int summation = 2;
-    while (summation < border) {
+    while (summation < target) {
         if (is_prime(index)) {
             append(index, primes);
             summation += index;
@@ -41,7 +41,7 @@ void Problem050(void) {
 
         for (int j = i; j < primes->length; ++j) {
             value += primes->value[j] - primes->value[j - i];
-            if (is_prime(value) && value < border) {
+            if (is_prime(value) && value < target) {
                 printf("%d\n", value);
                 return;
             }

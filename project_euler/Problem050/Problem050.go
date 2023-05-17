@@ -6,12 +6,12 @@ import (
 )
 
 func Problem050() {
-    border := 1000000
+    target := 1000000
     primes := make([]int, 0)
     primes = append(primes, 2)
     index := 3
     summation := 2
-    for summation < border {
+    for summation < target {
         if isPrime(index) {
             primes = append(primes, index)
             summation += index
@@ -30,7 +30,7 @@ func Problem050() {
 
         for j := i; j < length; j++ {
             value += primes[j] - primes[j - i]
-            if isPrime(value) && value < border {
+            if isPrime(value) && value < target {
                 fmt.Println(value)
                 return
             }

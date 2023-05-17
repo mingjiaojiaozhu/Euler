@@ -9,9 +9,14 @@ func Problem048() {
     product := make([]int64, 2)
     auxiliary := make([]int64, 2)
     result := int64(0)
-    for i := 1; i <= target; i++ {
-        if 0 != i % 10 {
-            getPower(i, i, product, auxiliary)
+    for i := target / 10 * 10 + 1; i <= target; i++ {
+        getPower(i, i, product, auxiliary)
+        result += product[1] * int64(1e5) + product[0]
+    }
+    for i := target / 10 - 1; i >= 0; i-- {
+        for j := 1; j < 10; j++ {
+            value := i * 10 + j
+            getPower(value, value, product, auxiliary)
             result += product[1] * int64(1e5) + product[0]
         }
     }

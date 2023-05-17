@@ -3,10 +3,15 @@ function Problem048() {
     let product = Array(2)
     let auxiliary = Array(2)
     let result = 0
-    for (let i = 1; i <= target; ++i) {
-        if (i % 10) {
-            getPower(i, i, product, auxiliary);
-            result += product[1] * 1e5 + product[0];
+    for (let i = Math.floor(target / 10) * 10 + 1; i <= target; ++i) {
+        getPower(i, i, product, auxiliary)
+        result += product[1] * 1e5 + product[0]
+    }
+    for (let i = Math.floor(target / 10) - 1; i >= 0; --i) {
+        for (let j = 1; j < 10; ++j) {
+            let value = i * 10 + j
+            getPower(value, value, product, auxiliary)
+            result += product[1] * 1e5 + product[0]
         }
     }
     console.log(result % 1e10)
@@ -16,7 +21,7 @@ function getPower(base, index, product, auxiliary) {
     if (1 === index) {
         product[0] = base
         product[1] = 0
-        return;
+        return
     }
 
     getPower(base, index >> 1, product, auxiliary)

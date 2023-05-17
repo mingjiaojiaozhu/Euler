@@ -2,8 +2,8 @@ import math
 
 class Problem050:
     def solution(self) -> None:
-        border, primes, index, summation = 1000000, [2], 3, 2
-        while summation < border:
+        target, primes, index, summation = 1000000, [2], 3, 2
+        while summation < target:
             if self.__is_prime(index):
                 primes.append(index)
                 summation += index
@@ -19,7 +19,7 @@ class Problem050:
 
             for j in range(i, length):
                 value += primes[j] - primes[j - i]
-                if self.__is_prime(value) and value < border:
+                if self.__is_prime(value) and value < target:
                     print(value)
                     return
 

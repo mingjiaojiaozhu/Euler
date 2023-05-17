@@ -6,9 +6,14 @@ public class Problem048 {
         long[] product = new long[2];
         long[] auxiliary = new long[2];
         long result = 0L;
-        for (int i = 1; i <= target; ++i) {
-            if (0 != i % 10) {
-                getPower(i, i, product, auxiliary);
+        for (int i = target / 10 * 10 + 1; i <= target; ++i) {
+            getPower(i, i, product, auxiliary);
+            result += product[1] * (long) 1e5 + product[0];
+        }
+        for (int i = target / 10 - 1; i >= 0; --i) {
+            for (int j = 1; j < 10; ++j) {
+                int value = i * 10 + j;
+                getPower(value, value, product, auxiliary);
                 result += product[1] * (long) 1e5 + product[0];
             }
         }
