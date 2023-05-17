@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define SIZE 64
+
 typedef struct {
     int *value;
     int length;
+    int capacity;
 } Array;
 
 static int is_prime(int value);
@@ -15,8 +18,9 @@ static int find(int value, Array *array);
 void Problem026(void) {
     int target = 1000;
     Array *remainders = (Array *) malloc(sizeof(Array));
-    remainders->value = (int *) malloc(sizeof(int) * target);
+    remainders->value = (int *) malloc(sizeof(int) * SIZE);
     remainders->length = 0;
+    remainders->capacity = SIZE;
 
     int result = 0;
     int pivot = 0;
@@ -63,6 +67,11 @@ static int get_digit(int value, Array *remainders) {
 }
 
 static void append(int value, Array *array) {
+    if (array->length >= array->capacity) {
+        array->value = (int *) realloc(array->value, sizeof(int) * (array->capacity + SIZE));
+        array->capacity += SIZE;
+    }
+
     array->value[array->length] = value;
     ++array->length;
 }

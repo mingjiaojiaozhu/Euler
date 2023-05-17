@@ -91,15 +91,16 @@ static void append_array(int value, Array *array) {
 }
 
 static void append_map(int key, Map **map) {
-    if (!map[key % SIZE_MAP]) {
-        map[key % SIZE_MAP] = (Map *) malloc(sizeof(Map));
-        map[key % SIZE_MAP]->key = key;
-        map[key % SIZE_MAP]->value = 1;
-        map[key % SIZE_MAP]->next = NULL;
+    int index = key % SIZE_MAP;
+    if (!map[index]) {
+        map[index] = (Map *) malloc(sizeof(Map));
+        map[index]->key = key;
+        map[index]->value = 1;
+        map[index]->next = NULL;
         return;
     }
 
-    Map *current = map[key % SIZE_MAP];
+    Map *current = map[index];
     if (current->key == key) {
         ++current->value;
         return;

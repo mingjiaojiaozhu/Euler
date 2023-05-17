@@ -10,7 +10,8 @@ function Problem057() {
         getSummation(denominator, numerator)
         getSummation(numerator, denominator)
         swapDecimal(numerator, denominator)
-        if (numerator.length > denominator.length || getDigits(numerator.value[numerator.length - 1]) > getDigits(denominator.value[denominator.length - 1])) {
+        if (numerator.length > denominator.length
+                || Math.floor(Math.log10(numerator.value[numerator.length - 1])) > Math.floor(Math.log10(denominator.value[denominator.length - 1]))) {
             ++result
         }
     }
@@ -48,15 +49,6 @@ function swapDecimal(numerator, denominator) {
     numerator.length ^= denominator.length
     denominator.length ^= numerator.length
     numerator.length ^= denominator.length
-}
-
-function getDigits(value) {
-    let result = 0
-    while (value) {
-        ++result
-        value = Math.floor(value / 10)
-    }
-    return result
 }
 
 function Decimal(capacity, length) {

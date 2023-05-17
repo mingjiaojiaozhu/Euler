@@ -68,14 +68,15 @@ static int is_pandigital(int value, int *digits) {
 }
 
 static void append(int value, Set **set) {
-    if (!set[value % SIZE]) {
-        set[value % SIZE] = (Set *) malloc(sizeof(Set));
-        set[value % SIZE]->value = value;
-        set[value % SIZE]->next = NULL;
+    int index = value % SIZE;
+    if (!set[index]) {
+        set[index] = (Set *) malloc(sizeof(Set));
+        set[index]->value = value;
+        set[index]->next = NULL;
         return;
     }
 
-    Set *current = set[value % SIZE];
+    Set *current = set[index];
     if (current->value == value) {
         return;
     }

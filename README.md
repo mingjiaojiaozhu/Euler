@@ -59,4 +59,5 @@
 * [057. Square root convergents](project_euler/Problem057/README.md)
 * [058. Spiral primes](project_euler/Problem058/README.md)
 * [059. XOR decryption](project_euler/Problem059/README.md)
+* [062. Cubic permutations](project_euler/Problem062/README.md)
 * [067. Maximum path sum II](project_euler/Problem067/README.md)

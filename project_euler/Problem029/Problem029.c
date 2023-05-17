@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define SIZE 64
+
 typedef struct {
     double *value;
     int length;
+    int capacity;
 } Array;
 
 static void append(double value, Array *array);
@@ -14,8 +17,9 @@ void Problem029(void) {
     int start = 2;
     int end = 100;
     Array *terms = (Array *) malloc(sizeof(Array));
-    terms->value = (double *) malloc(sizeof(double) * end * end);
+    terms->value = (double *) malloc(sizeof(double) * SIZE);
     terms->length = 0;
+    terms->capacity = SIZE;
 
     for (int i = start; i <= end; ++i) {
         for (int j = start; j <= end; ++j) {
@@ -35,6 +39,11 @@ void Problem029(void) {
 }
 
 static void append(double value, Array *array) {
+    if (array->length >= array->capacity) {
+        array->value = (double *) realloc(array->value, sizeof(double) * (array->capacity + SIZE));
+        array->capacity += SIZE;
+    }
+
     array->value[array->length] = value;
     ++array->length;
 }

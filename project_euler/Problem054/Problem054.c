@@ -207,14 +207,15 @@ static char **split(char *line, const char *delimiter) {
 }
 
 static void append_set(char value, Set **set) {
-    if (!set[value % SIZE_SET]) {
-        set[value % SIZE_SET] = (Set *) malloc(sizeof(Set));
-        set[value % SIZE_SET]->value = value;
-        set[value % SIZE_SET]->next = NULL;
+    int index = value % SIZE_SET;
+    if (!set[index]) {
+        set[index] = (Set *) malloc(sizeof(Set));
+        set[index]->value = value;
+        set[index]->next = NULL;
         return;
     }
 
-    Set *current = set[value % SIZE_SET];
+    Set *current = set[index];
     if (current->value == value) {
         return;
     }

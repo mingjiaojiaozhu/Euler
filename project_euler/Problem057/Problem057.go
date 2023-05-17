@@ -21,7 +21,8 @@ func Problem057() {
         getSummation(&denominator, &numerator)
         getSummation(&numerator, &denominator)
         swapDecimal(&numerator, &denominator)
-        if numerator.length > denominator.length || getDigits(numerator.value[numerator.length - 1]) > getDigits(denominator.value[denominator.length - 1]) {
+        if numerator.length > denominator.length ||
+                int(math.Log10(float64(numerator.value[numerator.length-1]))) > int(math.Log10(float64(denominator.value[denominator.length-1]))) {
             result++
         }
     }
@@ -55,15 +56,6 @@ func swapDecimal(numerator *Decimal, denominator *Decimal) {
         numerator.value[i], denominator.value[i] = denominator.value[i], numerator.value[i]
     }
     numerator.length, denominator.length = denominator.length, numerator.length
-}
-
-func getDigits(value int) int {
-    result := 0
-    for 0 != value {
-        result++
-        value /= 10
-    }
-    return result
 }
 
 type Decimal struct {

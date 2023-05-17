@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 class Problem057 {
@@ -16,7 +17,8 @@ public:
             get_summation(denominator, numerator);
             get_summation(numerator, denominator);
             swap_decimal(numerator, denominator);
-            if (numerator->length > denominator->length || get_digits(numerator->value[numerator->length - 1]) > get_digits(denominator->value[denominator->length - 1])) {
+            if (numerator->length > denominator->length
+                    || (int) log10(numerator->value[numerator->length - 1]) > (int) log10(denominator->value[denominator->length - 1])) {
                 ++result;
             }
         }
@@ -62,14 +64,5 @@ private:
         numerator->length ^= denominator->length;
         denominator->length ^= numerator->length;
         numerator->length ^= denominator->length;
-    }
-
-    int get_digits(int value) {
-        int result = 0;
-        while (value) {
-            ++result;
-            value /= 10;
-        }
-        return result;
     }
 };
