@@ -5,26 +5,26 @@ function Problem062() {
     let pivot = 0
     while (true) {
         let value = Math.pow(index, 3)
-        let summation = getSummation(value)
-        let digit = Math.floor(Math.log10(value))
-        if (pivot !== digit) {
+        let digits = getDigits(value)
+        let count = Math.floor(Math.log10(value))
+        if (pivot !== count) {
             cubes.clear()
-            pivot = digit
+            pivot = count
         } else {
-            if (cubes.has(summation) && cubes.get(summation).length === target - 1) {
-                console.log(cubes.get(summation)[0])
+            if (cubes.has(digits) && cubes.get(digits).length === target - 1) {
+                console.log(cubes.get(digits)[0])
                 return
             }
         }
-        if (!cubes.has(summation)) {
-            cubes.set(summation, [])
+        if (!cubes.has(digits)) {
+            cubes.set(digits, [])
         }
-        cubes.get(summation).push(value)
+        cubes.get(digits).push(value)
         ++index
     }
 }
 
-function getSummation(value) {
+function getDigits(value) {
     let result = 0
     while (value) {
         result += Math.pow(10, value % 10)

@@ -13,27 +13,27 @@ public:
         int pivot = 0;
         while (true) {
             long long value = (long long) pow(index, 3);
-            long long summation = get_summation(value);
-            int digit = (int) log10(value);
-            if (pivot != digit) {
+            long long digits = get_digits(value);
+            int count = (int) log10(value);
+            if (pivot != count) {
                 cubes.clear();
-                pivot = digit;
+                pivot = count;
             } else {
-                if (cubes.find(summation) != cubes.end() && (int) cubes[summation].size() == target - 1) {
-                    cout << cubes[summation][0] << endl;
+                if (cubes.find(digits) != cubes.end() && (int) cubes[digits].size() == target - 1) {
+                    cout << cubes[digits][0] << endl;
                     return;
                 }
             }
-            if (cubes.find(summation) == cubes.end()) {
-                cubes[summation] = vector<long long>(0);
+            if (cubes.find(digits) == cubes.end()) {
+                cubes.insert(pair<long long, vector<long long>>(digits, vector<long long>(0)));
             }
-            cubes[summation].emplace_back(value);
+            cubes[digits].emplace_back(value);
             ++index;
         }
     }
 
 private:
-    long long get_summation(long long value) {
+    long long get_digits(long long value) {
         long long result = 0L;
         while (value) {
             result += (long long) pow(10, value % 10);

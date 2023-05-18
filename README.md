@@ -60,4 +60,7 @@
 * [058. Spiral primes](project_euler/Problem058/README.md)
 * [059. XOR decryption](project_euler/Problem059/README.md)
 * [062. Cubic permutations](project_euler/Problem062/README.md)
+* [063. Powerful digit counts](project_euler/Problem063/README.md)
+* [064. Odd period square roots](project_euler/Problem064/README.md)
+* [065. Convergents of e](project_euler/Problem065/README.md)
 * [067. Maximum path sum II](project_euler/Problem067/README.md)

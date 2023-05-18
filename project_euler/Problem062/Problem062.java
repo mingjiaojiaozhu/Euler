@@ -13,26 +13,26 @@ public class Problem062 {
         int pivot = 0;
         while (true) {
             long value = (long) Math.pow(index, 3);
-            long summation = getSummation(value);
-            int digit = (int) Math.log10(value);
-            if (pivot != digit) {
+            long digits = getDigits(value);
+            int count = (int) Math.log10(value);
+            if (pivot != count) {
                 cubes.clear();
-                pivot = digit;
+                pivot = count;
             } else {
-                if (cubes.containsKey(summation) && cubes.get(summation).size() == target - 1) {
-                    System.out.println(cubes.get(summation).get(0));
+                if (cubes.containsKey(digits) && cubes.get(digits).size() == target - 1) {
+                    System.out.println(cubes.get(digits).get(0));
                     return;
                 }
             }
-            if (!cubes.containsKey(summation)) {
-                cubes.put(summation, new ArrayList<>());
+            if (!cubes.containsKey(digits)) {
+                cubes.put(digits, new ArrayList<>());
             }
-            cubes.get(summation).add(value);
+            cubes.get(digits).add(value);
             ++index;
         }
     }
 
-    private long getSummation(long value) {
+    private long getDigits(long value) {
         long result = 0L;
         while (0L != value) {
             result += (long) Math.pow(10, value % 10);

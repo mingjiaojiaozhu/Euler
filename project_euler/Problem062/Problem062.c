@@ -17,7 +17,7 @@ typedef struct node {
     struct node *next;
 } Map;
 
-static long long get_summation(long long value);
+static long long get_digits(long long value);
 static void append_map(long long key, long long value, Map **map);
 static void append_array(long long value, Array *array);
 
@@ -31,29 +31,29 @@ void Problem062(void) {
     int pivot = 0;
     while (1) {
         long long value = (long long) pow(index, 3);
-        long long summation = get_summation(value);
-        int digit = (int) log10(value);
-        if (pivot != digit) {
+        long long digits = get_digits(value);
+        int count = (int) log10(value);
+        if (pivot != count) {
             for (int i = 0; i < SIZE_MAP; ++i) {
                 cubes[i] = NULL;
             }
-            pivot = digit;
+            pivot = count;
         } else {
-            Map *current = cubes[(int) (summation % SIZE_MAP)];
+            Map *current = cubes[(int) (digits % SIZE_MAP)];
             while (current) {
-                if (summation == current->key && current->value->length == target - 1) {
+                if (digits == current->key && current->value->length == target - 1) {
                     printf("%lld\n", current->value->value[0]);
                     return;
                 }
                 current = current->next;
             }
         }
-        append_map(summation, value, cubes);
+        append_map(digits, value, cubes);
         ++index;
     }
 }
 
-static long long get_summation(long long value) {
+static long long get_digits(long long value) {
     long long result = 0L;
     while (value) {
         result += (long long) pow(10, value % 10);
