@@ -65,7 +65,7 @@ void Problem059(void) {
                 current = current->next;
             }
         }
-        keys[i] ^= 32;
+        keys[i] ^= ' ';
     }
 
     int result = 0;

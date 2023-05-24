@@ -26,13 +26,13 @@ function permutation(elements, index, length, pivot) {
 }
 
 function isPrime(value) {
-    if (0 === (value & 1)) {
-        return 2 === value
+    if (1 !== value % 6 && 5 !== value % 6) {
+        return 2 === value || 3 === value
     }
 
     let border = Math.floor(Math.sqrt(value))
-    for (let i = 3; i <= border; i += 2) {
-        if (!(value % i)) {
+    for (let i = 5; i <= border; i += 6) {
+        if (!(value % i) || !(value % (i + 2))) {
             return false
         }
     }

@@ -35,17 +35,17 @@ static long long permutation(int *elements, int index, long long pivot) {
 }
 
 static int is_prime(long long value) {
-    if (!(value & 1)) {
-        return (2L == value) ? 1 : 0;
+    if (1 != value % 6 && 5 != value % 6) {
+        return (2 == value || 3 == value) ? 1 : 0;
     }
 
     long long border = (long long) sqrt(value);
-    for (long long i = 3L; i <= border; i += 2) {
-        if (!(value % i)) {
+    for (long long i = 5L; i <= border; i += 6) {
+        if (!(value % i) || !(value % (i + 2))) {
             return 0;
         }
     }
-    return (1L != value) ? 1 : 0;
+    return (1 != value) ? 1 : 0;
 }
 
 static void swap(int *p, int *q) {

@@ -20,7 +20,7 @@ class Problem059:
             for key, value in counts[i].items():
                 if pivot < value:
                     pivot, keys[i] = value, key
-            keys[i] ^= 32
+            keys[i] ^= ord(' ')
 
         result, index = 0, 0
         for code in codes:

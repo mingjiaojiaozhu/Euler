@@ -39,7 +39,7 @@ public:
                     keys[i] = p.first;
                 }
             }
-            keys[i] ^= 32;
+            keys[i] ^= ' ';
         }
 
         int result = 0;

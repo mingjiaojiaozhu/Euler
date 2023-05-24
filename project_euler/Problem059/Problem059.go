@@ -50,7 +50,7 @@ func Problem059() {
                 keys[i] = key
             }
         }
-        keys[i] ^= 32
+        keys[i] ^= int(' ')
     }
 
     result := 0

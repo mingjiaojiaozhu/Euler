@@ -19,13 +19,13 @@ func Problem007() {
 }
 
 func isPrime(value int) bool {
-    if 0 == (value & 1) {
-        return 2 == value
+    if 1 != value % 6 && 5 != value % 6 {
+        return 2 == value || 3 == value
     }
 
     border := int(math.Sqrt(float64(value)))
-    for i := 3; i <= border; i += 2 {
-        if 0 == value % i {
+    for i := 5; i <= border; i += 6 {
+        if 0 == value % i || 0 == value % (i + 2) {
             return false
         }
     }

@@ -33,7 +33,7 @@ function Problem059() {
                 keys[i] = key
             }
         }
-        keys[i] ^= 32
+        keys[i] ^= ' '.charCodeAt(0)
     }
 
     let result = 0

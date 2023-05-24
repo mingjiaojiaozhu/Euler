@@ -40,13 +40,13 @@ void Problem026(void) {
 }
 
 static int is_prime(int value) {
-    if (!(value & 1)) {
-        return (2 == value) ? 1 : 0;
+    if (1 != value % 6 && 5 != value % 6) {
+        return (2 == value || 3 == value) ? 1 : 0;
     }
 
     int border = (int) sqrt(value);
-    for (int i = 3; i <= border; i += 2) {
-        if (!(value % i)) {
+    for (int i = 5; i <= border; i += 6) {
+        if (!(value % i) || !(value % (i + 2))) {
             return 0;
         }
     }

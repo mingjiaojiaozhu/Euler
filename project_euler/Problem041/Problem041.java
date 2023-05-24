@@ -29,17 +29,17 @@ public class Problem041 {
     }
 
     private boolean isPrime(long value) {
-        if (0 == (value & 1)) {
-            return 2L == value;
+        if (1 != value % 6 && 5 != value % 6) {
+            return 2 == value || 3 == value;
         }
 
         long border = (long) Math.sqrt(value);
-        for (long i = 3L; i <= border; i += 2) {
-            if (0 == value % i) {
+        for (long i = 5L; i <= border; i += 6) {
+            if (0 == value % i || 0 == value % (i + 2)) {
                 return false;
             }
         }
-        return 1L != value;
+        return 1 != value;
     }
 
     private static void swap(int[] arrays, int i, int j) {

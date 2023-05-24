@@ -41,7 +41,7 @@ public class Problem059 {
                     keys[i] = entry.getKey();
                 }
             }
-            keys[i] ^= 32;
+            keys[i] ^= ' ';
         }
 
         int result = 0;

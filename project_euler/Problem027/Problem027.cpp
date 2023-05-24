@@ -33,13 +33,13 @@ private:
         if (value <= 0) {
             return false;
         }
-        if (!(value & 1)) {
-            return 2 == value;
+        if (1 != value % 6 && 5 != value % 6) {
+            return 2 == value || 3 == value;
         }
 
         int border = (int) sqrt(value);
-        for (int i = 3; i <= border; i += 2) {
-            if (!(value % i)) {
+        for (int i = 5; i <= border; i += 6) {
+            if (!(value % i) || !(value % (i + 2))) {
                 return false;
             }
         }

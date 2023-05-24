@@ -33,13 +33,13 @@ func permutation(elements []int, index int, length int, pivot int64) int64 {
 }
 
 func isPrime(value int64) bool {
-    if 0 == (value & 1) {
-        return 2 == value
+    if 1 != value % 6 && 5 != value % 6 {
+        return 2 == value || 3 == value
     }
 
     border := int64(math.Sqrt(float64(value)))
-    for i := int64(3); i <= border; i += 2 {
-        if 0 == value % i {
+    for i := int64(5); i <= border; i += 6 {
+        if 0 == value % i || 0 == value % (i + 2) {
             return false
         }
     }
