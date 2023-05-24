@@ -3,19 +3,19 @@
 
 #define LENGTH 7
 
-static long long permutation(int *elements, int index, long long pivot);
-static int is_prime(long long value);
+static int permutation(int *elements, int index, int pivot);
+static int is_prime(int value);
 static void swap(int *p, int *q);
 
 void Problem041(void) {
     int elements[LENGTH] = {7, 6, 5, 4, 3, 2, 1};
-    long long result = permutation(elements, 0, 0L);
-    printf("%lld\n", result);
+    int result = permutation(elements, 0, 0);
+    printf("%d\n", result);
 }
 
-static long long permutation(int *elements, int index, long long pivot) {
+static int permutation(int *elements, int index, int pivot) {
     if (index == LENGTH) {
-        long long result = 0L;
+        int result = 0L;
         for (int i = 0; i < LENGTH; ++i) {
             result = result * 10 + elements[i];
         }
@@ -25,7 +25,7 @@ static long long permutation(int *elements, int index, long long pivot) {
         return pivot;
     }
 
-    long long result = permutation(elements, index + 1, pivot);
+    int result = permutation(elements, index + 1, pivot);
     for (int i = index + 1; i < LENGTH; ++i) {
         swap(&elements[index], &elements[i]);
         result = permutation(elements, index + 1, result);
@@ -34,13 +34,13 @@ static long long permutation(int *elements, int index, long long pivot) {
     return result;
 }
 
-static int is_prime(long long value) {
+static int is_prime(int value) {
     if (1 != value % 6 && 5 != value % 6) {
         return (2 == value || 3 == value) ? 1 : 0;
     }
 
-    long long border = (long long) sqrt(value);
-    for (long long i = 5L; i <= border; i += 6) {
+    int border = (int) sqrt(value);
+    for (int i = 5; i <= border; i += 6) {
         if (!(value % i) || !(value % (i + 2))) {
             return 0;
         }

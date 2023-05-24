@@ -59,6 +59,8 @@
 * [057. Square root convergents](project_euler/Problem057/README.md)
 * [058. Spiral primes](project_euler/Problem058/README.md)
 * [059. XOR decryption](project_euler/Problem059/README.md)
+* [060. Prime pair sets](project_euler/Problem060/README.md)
+* [061. Cyclical figurate numbers](project_euler/Problem061/README.md)
 * [062. Cubic permutations](project_euler/Problem062/README.md)
 * [063. Powerful digit counts](project_euler/Problem063/README.md)
 * [064. Odd period square roots](project_euler/Problem064/README.md)

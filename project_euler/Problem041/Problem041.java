@@ -3,13 +3,13 @@ package project_euler;
 public class Problem041 {
     public void solution() {
         int[] elements = new int[]{7, 6, 5, 4, 3, 2, 1};
-        long result = permutation(elements, 0, elements.length, 0L);
+        int result = permutation(elements, 0, elements.length, 0);
         System.out.println(result);
     }
 
-    private long permutation(int[] elements, int index, int length, long pivot) {
+    private int permutation(int[] elements, int index, int length, int pivot) {
         if (index == length) {
-            long result = 0L;
+            int result = 0;
             for (int element : elements) {
                 result = result * 10 + element;
             }
@@ -19,7 +19,7 @@ public class Problem041 {
             return pivot;
         }
 
-        long result = permutation(elements, index + 1, length, pivot);
+        int result = permutation(elements, index + 1, length, pivot);
         for (int i = index + 1; i < length; ++i) {
             swap(elements, index, i);
             result = permutation(elements, index + 1, length, result);
@@ -28,13 +28,13 @@ public class Problem041 {
         return result;
     }
 
-    private boolean isPrime(long value) {
+    private boolean isPrime(int value) {
         if (1 != value % 6 && 5 != value % 6) {
             return 2 == value || 3 == value;
         }
 
-        long border = (long) Math.sqrt(value);
-        for (long i = 5L; i <= border; i += 6) {
+        int border = (int) Math.sqrt(value);
+        for (int i = 5; i <= border; i += 6) {
             if (0 == value % i || 0 == value % (i + 2)) {
                 return false;
             }
