@@ -27,20 +27,21 @@ void Problem051(void) {
     Array *steps = create_array();
     Array *auxiliary = create_array();
 
-    int index = 1111;
+    int result = 1111;
     while (1) {
-        int prime = get_next_prime(index);
-        if (check_digits(prime, digits) && check_prime_family(prime, target, digits, steps, auxiliary)) {
-            printf("%d\n", prime);
+        result = get_next_prime(result);
+        if (check_digits(result, digits) && check_prime_family(result, target, digits, steps, auxiliary)) {
+            printf("%d\n", result);
             return;
         }
-        index = prime + 1;
     }
 }
 
 static int get_next_prime(int value) {
     if (!(value & 1)) {
         ++value;
+    } else {
+        value += 2;
     }
 
     while (!is_prime(value)) {

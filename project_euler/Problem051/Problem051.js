@@ -7,20 +7,21 @@ function Problem051() {
     let steps = []
     let auxiliary = []
 
-    let index = 1111
+    let result = 1111
     while (true) {
-        let prime = getNextPrime(index)
-        if (checkDigits(prime, digits) && checkPrimeFamily(prime, target, digits, steps, auxiliary)) {
-            console.log(prime)
+        result = getNextPrime(result)
+        if (checkDigits(result, digits) && checkPrimeFamily(result, target, digits, steps, auxiliary)) {
+            console.log(result)
             return
         }
-        index = prime + 1
     }
 }
 
 function getNextPrime(value) {
     if (0 === (value & 1)) {
         ++value
+    } else {
+        value += 2
     }
 
     while (!isPrime(value)) {

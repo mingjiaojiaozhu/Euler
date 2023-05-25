@@ -14,20 +14,21 @@ func Problem051() {
     steps := make([]int, 0)
     auxiliary := make([]int, 0)
 
-    index := 1111
+    result := 1111
     for true {
-        prime := getNextPrime(index)
-        if checkDigits(prime, digits) && checkPrimeFamily(prime, target, digits, steps, auxiliary) {
-            fmt.Println(prime)
+        result = getNextPrime(result)
+        if checkDigits(result, digits) && checkPrimeFamily(result, target, digits, steps, auxiliary) {
+            fmt.Println(result)
             return
         }
-        index = prime + 1
     }
 }
 
 func getNextPrime(value int) int {
     if 0 == (value & 1) {
         value++
+    } else {
+        value += 2
     }
 
     for !isPrime(value) {

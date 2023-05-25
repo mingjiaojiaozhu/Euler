@@ -65,4 +65,8 @@
 * [063. Powerful digit counts](project_euler/Problem063/README.md)
 * [064. Odd period square roots](project_euler/Problem064/README.md)
 * [065. Convergents of e](project_euler/Problem065/README.md)
+* [066. Diophantine equation](project_euler/Problem066/README.md)
 * [067. Maximum path sum II](project_euler/Problem067/README.md)
+* [068. Magic 5-gon ring](project_euler/Problem068/README.md)
+* [069. Totient maximum](project_euler/Problem069/README.md)
+* [070. Totient permutation](project_euler/Problem070/README.md)

@@ -13,20 +13,21 @@ public class Problem051 {
         List<Integer> steps = new ArrayList<>();
         List<Integer> auxiliary = new ArrayList<>();
 
-        int index = 1111;
+        int result = 1111;
         while (true) {
-            int prime = getNextPrime(index);
-            if (checkDigits(prime, digits) && checkPrimeFamily(prime, target, digits, steps, auxiliary)) {
-                System.out.println(prime);
+            result = getNextPrime(result);
+            if (checkDigits(result, digits) && checkPrimeFamily(result, target, digits, steps, auxiliary)) {
+                System.out.println(result);
                 return;
             }
-            index = prime + 1;
         }
     }
 
     private int getNextPrime(int value) {
         if (0 == (value & 1)) {
             ++value;
+        } else {
+            value += 2;
         }
 
         while (!isPrime(value)) {

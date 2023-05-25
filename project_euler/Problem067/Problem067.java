@@ -10,7 +10,6 @@ public class Problem067 {
         String fileName = "triangle.txt";
         int border = 100;
         int[][] target = new int[border][border];
-
         try (BufferedReader handle = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)))) {
             String line;
             int index = 0;

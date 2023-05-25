@@ -11,14 +11,13 @@ public:
         vector<int> steps(0);
         vector<int> auxiliary(0);
 
-        int index = 1111;
+        int result = 1111;
         while (true) {
-            int prime = get_next_prime(index);
-            if (check_digits(prime, digits) && check_prime_family(prime, target, digits, steps, auxiliary)) {
-                cout << prime << endl;
+            result = get_next_prime(result);
+            if (check_digits(result, digits) && check_prime_family(result, target, digits, steps, auxiliary)) {
+                cout << result << endl;
                 return;
             }
-            index = prime + 1;
         }
     }
 
@@ -26,6 +25,8 @@ private:
     int get_next_prime(int value) {
         if (!(value & 1)) {
             ++value;
+        } else {
+            value += 2;
         }
 
         while (!is_prime(value)) {

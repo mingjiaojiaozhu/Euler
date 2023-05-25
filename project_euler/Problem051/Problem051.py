@@ -4,17 +4,18 @@ from typing import List
 class Problem051:
     def solution(self) -> None:
         target, digits, steps, auxiliary = 8, [[] for _ in range(3)], [], []
-        index = 1111
+        result = 1111
         while True:
-            prime = self.__get_next_prime(index)
-            if self.__check_digits(prime, digits) and self.__check_prime_family(prime, target, digits, steps, auxiliary):
-                print(prime)
+            result = self.__get_next_prime(result)
+            if self.__check_digits(result, digits) and self.__check_prime_family(result, target, digits, steps, auxiliary):
+                print(result)
                 return
-            index = prime + 1
 
     def __get_next_prime(self, value: int) -> int:
         if not (value & 1):
             value += 1
+        else:
+            value += 2
 
         while not self.__is_prime(value):
             value += 2
