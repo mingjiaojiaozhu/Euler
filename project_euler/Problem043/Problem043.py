@@ -48,9 +48,7 @@ class Problem043:
 
     def __permutation(self, elements: List[int], index: int, length: int) -> int:
         if index == length:
-            if not elements[0] or (elements[3] & 1) \
-                    or (elements[2] + elements[3] + elements[4]) % 3 \
-                    or (10 * elements[4] + elements[5] - (elements[6] << 1)) % 7:
+            if not elements[0] or (elements[3] & 1) or (elements[2] + elements[3] + elements[4]) % 3 or (10 * elements[4] + elements[5] - (elements[6] << 1)) % 7:
                 return 0
 
             result = 0

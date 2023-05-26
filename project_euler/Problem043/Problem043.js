@@ -63,9 +63,7 @@ function fill(elements, digits) {
 
 function permutation(elements, index, length) {
     if (index === length) {
-        if (!elements[0] || (elements[3] & 1)
-                || (elements[2] + elements[3] + elements[4]) % 3
-                || (10 * elements[4] + elements[5] - (elements[6] << 1)) % 7) {
+        if (!elements[0] || (elements[3] & 1) || (elements[2] + elements[3] + elements[4]) % 3 || (10 * elements[4] + elements[5] - (elements[6] << 1)) % 7) {
             return 0
         }
 

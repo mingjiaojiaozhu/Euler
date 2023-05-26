@@ -12,11 +12,18 @@ function Problem060() {
     for (let i = 0; i < length; ++i) {
         edges[i] = Array(length).fill(0)
     }
-    for (let i = 0; i < length; ++i) {
+    for (let i = 1; i < length; ++i) {
+        let value = primes[i]
+        if (checkPrime(merge(3, value), primes) && checkPrime(merge(value, 3), primes)) {
+            edges[0][i] = 1
+            edges[i][0] = 1
+        }
+    }
+    for (let i = 1; i < length; ++i) {
         let pivot = primes[i]
         for (let j = i + 1; j < length; ++j) {
             let value = primes[j]
-            if (checkPrime(merge(pivot, value), primes) && checkPrime(merge(value, pivot), primes)) {
+            if (pivot % 3 === value % 3 && checkPrime(merge(pivot, value), primes) && checkPrime(merge(value, pivot), primes)) {
                 edges[i][j] = 1
                 edges[j][i] = 1
             }

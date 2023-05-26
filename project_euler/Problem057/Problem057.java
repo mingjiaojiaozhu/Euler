@@ -15,8 +15,7 @@ public class Problem057 {
             getSummation(denominator, numerator);
             getSummation(numerator, denominator);
             swapDecimal(numerator, denominator);
-            if (numerator.length > denominator.length
-                    || (int) Math.log10(numerator.value[numerator.length - 1]) > (int) Math.log10(denominator.value[denominator.length - 1])) {
+            if (numerator.length > denominator.length || (int) Math.log10(numerator.value[numerator.length - 1]) > (int) Math.log10(denominator.value[denominator.length - 1])) {
                 ++result;
             }
         }

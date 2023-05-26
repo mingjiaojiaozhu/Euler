@@ -17,11 +17,18 @@ public:
 
         int length = (int) primes.size();
         vector<vector<int>> edges(length, vector<int>(length, 0));
-        for (int i = 0; i < length; ++i) {
+        for (int i = 1; i < length; ++i) {
+            int value = primes[i];
+            if (check_prime(merge(3, value), primes) && check_prime(merge(value, 3), primes)) {
+                edges[0][i] = 1;
+                edges[i][0] = 1;
+            }
+        }
+        for (int i = 1; i < length; ++i) {
             int pivot = primes[i];
             for (int j = i + 1; j < length; ++j) {
                 int value = primes[j];
-                if (check_prime(merge(pivot, value), primes) && check_prime(merge(value, pivot), primes)) {
+                if (pivot % 3 == value % 3 && check_prime(merge(pivot, value), primes) && check_prime(merge(value, pivot), primes)) {
                     edges[i][j] = 1;
                     edges[j][i] = 1;
                 }

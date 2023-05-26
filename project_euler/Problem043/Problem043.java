@@ -69,9 +69,7 @@ public class Problem043 {
 
     private long permutation(int[] elements, int index, int length) {
         if (index == length) {
-            if (0 == elements[0] || 0 != (elements[3] & 1)
-                    || 0 != (elements[2] + elements[3] + elements[4]) % 3
-                    || 0 != (10 * elements[4] + elements[5] - (elements[6] << 1)) % 7) {
+            if (0 == elements[0] || 0 != (elements[3] & 1) || 0 != (elements[2] + elements[3] + elements[4]) % 3 || 0 != (10 * elements[4] + elements[5] - (elements[6] << 1)) % 7) {
                 return 0L;
             }
 

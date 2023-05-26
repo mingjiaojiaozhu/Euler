@@ -10,11 +10,15 @@ class Problem060:
 
         length = len(primes)
         edges = [[0 for _ in range(length)] for _ in range(length)]
-        for i in range(length):
+        for i in range(1, length):
+            value = primes[i]
+            if self.__check_prime(self.__merge(3, value), primes) and self.__check_prime(self.__merge(value, 3), primes):
+                edges[0][i], edges[i][0] = 1, 1
+        for i in range(1, length):
             pivot = primes[i]
             for j in range(i + 1, length):
                 value = primes[j]
-                if self.__check_prime(self.__merge(pivot, value), primes) and self.__check_prime(self.__merge(value, pivot), primes):
+                if pivot % 3 == value % 3 and self.__check_prime(self.__merge(pivot, value), primes) and self.__check_prime(self.__merge(value, pivot), primes):
                     edges[i][j], edges[j][i] = 1, 1
 
         cliques, indexes = [], []

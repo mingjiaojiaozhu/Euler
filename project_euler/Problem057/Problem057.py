@@ -11,8 +11,7 @@ class Problem057:
             self.__get_summation(denominator, numerator)
             self.__get_summation(numerator, denominator)
             self.__swap_decimal(numerator, denominator)
-            if numerator.length > denominator.length \
-                    or int(math.log10(numerator.value[numerator.length - 1])) > int(math.log10(denominator.value[denominator.length - 1])):
+            if numerator.length > denominator.length or int(math.log10(numerator.value[numerator.length - 1])) > int(math.log10(denominator.value[denominator.length - 1])):
                 result += 1
         print(result)
 

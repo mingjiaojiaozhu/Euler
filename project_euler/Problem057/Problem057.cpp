@@ -17,8 +17,7 @@ public:
             get_summation(denominator, numerator);
             get_summation(numerator, denominator);
             swap_decimal(numerator, denominator);
-            if (numerator->length > denominator->length
-                    || (int) log10(numerator->value[numerator->length - 1]) > (int) log10(denominator->value[denominator->length - 1])) {
+            if (numerator->length > denominator->length || (int) log10(numerator->value[numerator->length - 1]) > (int) log10(denominator->value[denominator->length - 1])) {
                 ++result;
             }
         }
