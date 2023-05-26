@@ -14,7 +14,7 @@ class Problem060:
             pivot = primes[i]
             for j in range(i + 1, length):
                 value = primes[j]
-                if self.__is_prime(self.__merge(pivot, value)) and self.__is_prime(self.__merge(value, pivot)):
+                if self.__check_prime(self.__merge(pivot, value), primes) and self.__check_prime(self.__merge(value, pivot), primes):
                     edges[i][j], edges[j][i] = 1, 1
 
         cliques, indexes = [], []
@@ -31,6 +31,29 @@ class Problem060:
             if not value % i or not value % (i + 2):
                 return False
         return 1 != value
+
+    def __check_prime(self, value: int, primes: List[int]) -> bool:
+        if value < 10000:
+            start, end = 0, len(primes) - 1
+            while start <= end:
+                current = start + ((end - start) >> 1)
+                prime = primes[current]
+                if prime == value:
+                    return True
+
+                if prime < value:
+                    start = current + 1
+                else:
+                    end = current - 1
+            return False
+
+        border = int(math.sqrt(value))
+        for prime in primes:
+            if prime > border:
+                break
+            if not value % prime:
+                return False
+        return True
 
     def __merge(self, head: int, tail: int) -> int:
         return head * int(math.pow(10, int(math.log10(tail)) + 1)) + tail

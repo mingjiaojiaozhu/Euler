@@ -21,7 +21,7 @@ public:
             int pivot = primes[i];
             for (int j = i + 1; j < length; ++j) {
                 int value = primes[j];
-                if (is_prime(merge(pivot, value)) && is_prime(merge(value, pivot))) {
+                if (check_prime(merge(pivot, value), primes) && check_prime(merge(value, pivot), primes)) {
                     edges[i][j] = 1;
                     edges[j][i] = 1;
                 }
@@ -49,6 +49,38 @@ private:
             }
         }
         return 1 != value;
+    }
+
+    bool check_prime(int value, const vector<int> &primes) {
+        if (value < 10000) {
+            int start = 0;
+            int end = (int) primes.size() - 1;
+            while (start <= end) {
+                int current = start + ((end - start) >> 1);
+                int prime = primes[current];
+                if (prime == value) {
+                    return true;
+                }
+
+                if (prime < value) {
+                    start = current + 1;
+                } else {
+                    end = current - 1;
+                }
+            }
+            return false;
+        }
+
+        int border = (int) sqrt(value);
+        for (int prime : primes) {
+            if (prime > border) {
+                break;
+            }
+            if (!(value % prime)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     int merge(int head, int tail) {

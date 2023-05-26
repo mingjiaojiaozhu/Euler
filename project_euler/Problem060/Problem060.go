@@ -26,7 +26,7 @@ func Problem060() {
         pivot := primes[i]
         for j := i + 1; j < length; j++ {
             value := primes[j]
-            if isPrime(merge(pivot, value)) && isPrime(merge(value, pivot)) {
+            if checkPrime(merge(pivot, value), primes) && checkPrime(merge(value, pivot), primes) {
                 edges[i][j] = 1
                 edges[j][i] = 1
             }
@@ -53,6 +53,37 @@ func isPrime(value int) bool {
         }
     }
     return 1 != value
+}
+
+func checkPrime(value int, primes []int) bool {
+    if value < 10000 {
+        start := 0
+        end := len(primes) - 1
+        for start <= end {
+            current := start + ((end - start) >> 1)
+            prime := primes[current]
+            if prime == value {
+                return true
+            }
+
+            if prime < value {
+                start = current + 1
+            } else {
+                end = current - 1
+            }
+        }
+    }
+
+    border := int(math.Sqrt(float64(value)))
+    for _, prime := range primes {
+        if prime > border {
+            break
+        }
+        if 0 == value % prime {
+            return false
+        }
+    }
+    return true
 }
 
 func merge(head int, tail int) int {

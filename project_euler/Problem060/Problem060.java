@@ -23,7 +23,7 @@ public class Problem060 {
             int pivot = primes.get(i);
             for (int j = i + 1; j < length; ++j) {
                 int value = primes.get(j);
-                if (isPrime(merge(pivot, value)) && isPrime(merge(value, pivot))) {
+                if (checkPrime(merge(pivot, value), primes) && checkPrime(merge(value, pivot), primes)) {
                     edges[i][j] = 1;
                     edges[j][i] = 1;
                 }
@@ -50,6 +50,38 @@ public class Problem060 {
             }
         }
         return 1 != value;
+    }
+
+    private boolean checkPrime(int value, List<Integer> primes) {
+        if (value < 10000) {
+            int start = 0;
+            int end = primes.size() - 1;
+            while (start <= end) {
+                int current = start + ((end - start) >> 1);
+                int prime = primes.get(current);
+                if (prime == value) {
+                    return true;
+                }
+
+                if (prime < value) {
+                    start = current + 1;
+                } else {
+                    end = current - 1;
+                }
+            }
+            return false;
+        }
+
+        int border = (int) Math.sqrt(value);
+        for (int prime : primes) {
+            if (prime > border) {
+                break;
+            }
+            if (0 == value % prime) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private int merge(int head, int tail) {

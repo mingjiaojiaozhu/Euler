@@ -16,7 +16,7 @@ function Problem060() {
         let pivot = primes[i]
         for (let j = i + 1; j < length; ++j) {
             let value = primes[j]
-            if (isPrime(merge(pivot, value)) && isPrime(merge(value, pivot))) {
+            if (checkPrime(merge(pivot, value), primes) && checkPrime(merge(value, pivot), primes)) {
                 edges[i][j] = 1
                 edges[j][i] = 1
             }
@@ -43,6 +43,38 @@ function isPrime(value) {
         }
     }
     return 1 !== value
+}
+
+function checkPrime(value, primes) {
+    if (value < 10000) {
+        let start = 0
+        let end = primes.length - 1
+        while (start <= end) {
+            let current = start + ((end - start) >>> 1)
+            let prime = primes[current]
+            if (prime === value) {
+                return true
+            }
+
+            if (prime < value) {
+                start = current + 1
+            } else {
+                end = current - 1
+            }
+        }
+        return false
+    }
+
+    let border = Math.floor(Math.sqrt(value))
+    for (let prime of primes) {
+        if (prime > border) {
+            break
+        }
+        if (!(value % prime)) {
+            return false
+        }
+    }
+    return true
 }
 
 function merge(head, tail) {

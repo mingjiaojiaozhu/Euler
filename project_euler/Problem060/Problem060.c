@@ -11,6 +11,7 @@ typedef struct {
 } Array;
 
 static int is_prime(int value);
+static int check_prime(int value, Array *primes);
 static int merge(int head, int tail);
 static void search(Array *primes, int **edges, Array *cliques, Array *indexes, int target);
 static Array *get_adjacents(int **edges, Array *indexes, int start);
@@ -38,7 +39,7 @@ void Problem060(void) {
         int pivot = primes->value[i];
         for (int j = i + 1; j < primes->length; ++j) {
             int value = primes->value[j];
-            if (is_prime(merge(pivot, value)) && is_prime(merge(value, pivot))) {
+            if (check_prime(merge(pivot, value), primes) && check_prime(merge(value, pivot), primes)) {
                 edges[i][j] = 1;
                 edges[j][i] = 1;
             }
@@ -65,6 +66,39 @@ static int is_prime(int value) {
         }
     }
     return (1 != value) ? 1 : 0;
+}
+
+static int check_prime(int value, Array *primes) {
+    if (value < 10000) {
+        int start = 0;
+        int end = primes->length - 1;
+        while (start <= end) {
+            int current = start + ((end - start) >> 1);
+            int prime = primes->value[current];
+            if (prime == value) {
+                return 1;
+            }
+
+            if (prime < value) {
+                start = current + 1;
+            } else {
+                end = current - 1;
+            }
+        }
+        return 0;
+    }
+
+    int border = (int) sqrt(value);
+    for (int i = 0; i < primes->length; ++i) {
+        int prime = primes->value[i];
+        if (prime > border) {
+            break;
+        }
+        if (!(value % prime)) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 static int merge(int head, int tail) {
