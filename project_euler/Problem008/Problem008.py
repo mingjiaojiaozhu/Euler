@@ -21,40 +21,29 @@ class Problem008:
                 '05886116467109405077541002256983155200055935729725' + \
                 '71636269561882670428252483600823257530420752963450'
         size, length = 13, len(target)
-
-        product = self.__Product(1, 0)
-        self.__multiply(target, length, size, product)
-
-        result = product.value
-        while product.index < length:
-            value = ord(target[product.index]) - ord('0')
+        product, index = self.__multiply(target, length, size, 0)
+        result = product
+        while index < length:
+            value = ord(target[index]) - ord('0')
             if value:
-                product.value = product.value // (ord(target[product.index - size]) - ord('0')) * value
-                product.index += 1
+                product = product // (ord(target[index - size]) - ord('0')) * value
+                index += 1
             else:
-                product.value = 1
-                product.index += 1
-                self.__multiply(target, length, size, product)
-            if result < product.value:
-                result = product.value
+                product, index = self.__multiply(target, length, size, index + 1)
+            if result < product:
+                result = product
         print(result)
 
-    def __multiply(self, target: str, length: int, size: int, product: '__Product') -> None:
-        if product.index + size >= length:
-            product.value, product.index = 1, length
-            return
+    def __multiply(self, target: str, length: int, size: int, index: int) -> tuple:
+        if index + size >= length:
+            return 1, length
 
+        result = 1
         for i in range(size):
-            value = ord(target[product.index]) - ord('0')
+            value = ord(target[index]) - ord('0')
             if not value:
-                product.value = 1
-                product.index += 1
-                self.__multiply(target, length, size, product)
-                return
+                return self.__multiply(target, length, size, index + 1)
 
-            product.value *= value
-            product.index += 1
-
-    class __Product:
-        def __init__(self, value: int, index: int):
-            self.value, self.index = value, index
+            result *= value
+            index += 1
+        return result, index

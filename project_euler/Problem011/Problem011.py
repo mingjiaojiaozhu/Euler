@@ -24,181 +24,150 @@ class Problem011:
                 [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]
         size, length = 4, len(target)
 
-        product = self.__Product(1, 0, 0)
-        result = self.__calculate_row(target, length, size, product, 0)
-        result = self.__calculate_column(target, length, size, product, result)
-        result = self.__calculate_diagonal_left(target, length, size, product, result)
-        result = self.__calculate_diagonal_right(target, length, size, product, result)
+        result = self.__calculate_row(target, length, size, 0)
+        result = self.__calculate_column(target, length, size, result)
+        result = self.__calculate_diagonal_left(target, length, size, result)
+        result = self.__calculate_diagonal_right(target, length, size, result)
         print(result)
 
-    def __calculate_row(self, target: List[List[int]], length: int, size: int, product: '__Product', pivot: int) -> int:
+    def __calculate_row(self, target: List[List[int]], length: int, size: int, pivot: int) -> int:
         for i in range(length):
-            product.value, product.index_row, product.index_column = 1, i, 0
-            self.__multiply_row(target, length, size, product)
-            if pivot < product.value:
-                pivot = product.value
+            product, index_column = self.__multiply_row(target, length, size, i, 0)
+            if pivot < product:
+                pivot = product
 
-            while product.index_column < length:
-                value = target[product.index_row][product.index_column]
+            while index_column < length:
+                value = target[i][index_column]
                 if value:
-                    product.value = product.value // target[product.index_row][product.index_column - size] * value
-                    product.index_column += 1
+                    product = product // target[i][index_column - size] * value
+                    index_column += 1
                 else:
-                    product.value = 1
-                    product.index_column += 1
-                    self.__multiply_row(target, length, size, product)
-                if pivot < product.value:
-                    pivot = product.value
+                    product, index_column = self.__multiply_row(target, length, size, i, index_column)
+                if pivot < product:
+                    pivot = product
         return pivot
 
-    def __calculate_column(self, target: List[List[int]], length: int, size: int, product: '__Product', pivot: int) -> int:
+    def __calculate_column(self, target: List[List[int]], length: int, size: int, pivot: int) -> int:
         for i in range(length):
-            product.value, product.index_row, product.index_column = 1, 0, i
-            self.__multiply_column(target, length, size, product)
-            if pivot < product.value:
-                pivot = product.value
+            product, index_row = self.__multiply_column(target, length, size, 0, i)
+            if pivot < product:
+                pivot = product
 
-            while product.index_row < length:
-                value = target[product.index_row][product.index_column]
+            while index_row < length:
+                value = target[index_row][i]
                 if value:
-                    product.value = product.value // target[product.index_row - size][product.index_column] * value
-                    product.index_row += 1
+                    product = product // target[index_row - size][i] * value
+                    index_row += 1
                 else:
-                    product.value = 1
-                    product.index_row += 1
-                    self.__multiply_column(target, length, size, product)
-                if pivot < product.value:
-                    pivot = product.value
+                    product, index_row = self.__multiply_column(target, length, size, index_row + 1, i)
+                if pivot < product:
+                    pivot = product
         return pivot
 
-    def __calculate_diagonal_left(self, target: List[List[int]], length: int, size: int, product: '__Product', pivot: int) -> int:
+    def __calculate_diagonal_left(self, target: List[List[int]], length: int, size: int, pivot: int) -> int:
         for i in range(size - 1, length):
-            product.value, product.index_row, product.index_column = 1, 0, i
-            pivot = self.__calculate_left(target, length, size, product, pivot)
+            pivot = self.__calculate_left(target, length, size, 0, i, pivot)
 
         for i in range(length - size, 0, -1):
-            product.value, product.index_row, product.index_column = 1, i, length - 1
-            pivot = self.__calculate_left(target, length, size, product, pivot)
+            pivot = self.__calculate_left(target, length, size, i, length - 1, pivot)
         return pivot
 
-    def __calculate_diagonal_right(self, target: List[List[int]], length: int, size: int, product: '__Product', pivot: int) -> int:
+    def __calculate_diagonal_right(self, target: List[List[int]], length: int, size: int, pivot: int) -> int:
         for i in range(length - size, -1, -1):
-            product.value, product.index_row, product.index_column = 1, 0, i
-            pivot = self.__calculate_right(target, length, size, product, pivot)
+            pivot = self.__calculate_right(target, length, size, 0, i, pivot)
 
         for i in range(length - size, 0, -1):
-            product.value, product.index_row, product.index_column = 1, i, 0
-            pivot = self.__calculate_right(target, length, size, product, pivot)
+            pivot = self.__calculate_right(target, length, size, i, 0, pivot)
         return pivot
 
-    def __calculate_left(self, target: List[List[int]], length: int, size: int, product: '__Product', pivot: int) -> int:
-        self.__multiply_left(target, length, size, product)
-        if pivot < product.value:
-            pivot = product.value
+    def __calculate_left(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int, pivot: int) -> int:
+        product, index_row, index_column = self.__multiply_left(target, length, size, index_row, index_column)
+        if pivot < product:
+            pivot = product
 
-        while product.index_row < length and product.index_column >= 0:
-            value = target[product.index_row][product.index_column]
+        while index_row < length and index_column >= 0:
+            value = target[index_row][index_column]
             if value:
-                product.value = product.value // target[product.index_row - size][product.index_column + size] * value
-                product.index_row += 1
-                product.index_column -= 1
+                product = product // target[index_row - size][index_column + size] * value
+                index_row += 1
+                index_column -= 1
             else:
-                product.value = 1
-                product.index_row += 1
-                product.index_column -= 1
-                self.__multiply_left(target, length, size, product)
-            if pivot < product.value:
-                pivot = product.value
+                product, index_row, index_column = self.__multiply_left(target, length, size, index_row + 1, index_column - 1)
+            if pivot < product:
+                pivot = product
         return pivot
 
-    def __calculate_right(self, target: List[List[int]], length: int, size: int, product: '__Product', pivot: int) -> int:
-        self.__multiply_right(target, length, size, product)
-        if pivot < product.value:
-            pivot = product.value
+    def __calculate_right(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int, pivot: int) -> int:
+        product, index_row, index_column = self.__multiply_right(target, length, size, index_row, index_column)
+        if pivot < product:
+            pivot = product
 
-        while product.index_row < length and product.index_column < length:
-            value = target[product.index_row][product.index_column]
+        while index_row < length and index_column < length:
+            value = target[index_row][index_column]
             if value:
-                product.value = product.value // target[product.index_row - size][product.index_column - size] * value
-                product.index_row += 1
-                product.index_column += 1
+                product = product // target[index_row - size][index_column - size] * value
+                index_row += 1
+                index_column += 1
             else:
-                product.value = 1
-                product.index_row += 1
-                product.index_column += 1
-                self.__multiply_right(target, length, size, product)
-            if pivot < product.value:
-                pivot = product.value
+                product, index_row, index_column = self.__multiply_right(target, length, size, index_row + 1, index_column + 1)
+            if pivot < product:
+                pivot = product
         return pivot
 
-    def __multiply_row(self, target: List[List[int]], length: int, size: int, product: '__Product') -> None:
-        if product.index_column + size > length:
-            product.value, product.index_column = 1, length
-            return
+    def __multiply_row(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple:
+        if index_column + size > length:
+            return 1, length
 
+        result = 1
         for i in range(size):
-            value = target[product.index_row][product.index_column]
+            value = target[index_row][index_column]
             if not value:
-                product.value = 1
-                product.index_column += 1
-                self.__multiply_row(target, length, size, product)
-                return
+                return self.__multiply_row(target, length, size, index_row, index_column + 1)
 
-            product.value *= value
-            product.index_column += 1
+            result *= value
+            index_column += 1
+        return result, index_column
 
-    def __multiply_column(self, target: List[List[int]], length: int, size: int, product: '__Product') -> None:
-        if product.index_row + size > length:
-            product.value, product.index_row = 1, length
-            return
+    def __multiply_column(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple:
+        if index_row + size > length:
+            return 1, length
 
+        result = 1
         for i in range(size):
-            value = target[product.index_row][product.index_column]
+            value = target[index_row][index_column]
             if not value:
-                product.value = 1
-                product.index_row += 1
-                self.__multiply_column(target, length, size, product)
-                return
+                return self.__multiply_column(target, length, size, index_row + 1, index_column)
 
-            product.value *= value
-            product.index_row += 1
+            result *= value
+            index_row += 1
+        return result, index_row
 
-    def __multiply_left(self, target: List[List[int]], length: int, size: int, product: '__Product') -> None:
-        if product.index_row + size > length or product.index_column - size + 1 < 0:
-            product.value, product.index_row, product.index_column = 1, length, -1
-            return
+    def __multiply_left(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple:
+        if index_row + size > length or index_column - size + 1 < 0:
+            return 1, length, -1
 
+        result = 1
         for i in range(size):
-            value = target[product.index_row][product.index_column]
+            value = target[index_row][index_column]
             if not value:
-                product.value = 1
-                product.index_row += 1
-                product.index_column -= 1
-                self.__multiply_left(target, length, size, product)
-                return
+                return self.__multiply_left(target, length, size, index_row + 1, index_column - 1)
 
-            product.value *= value
-            product.index_row += 1
-            product.index_column -= 1
+            result *= value
+            index_row += 1
+            index_column -= 1
+        return result, index_row, index_column
 
-    def __multiply_right(self, target: List[List[int]], length: int, size: int, product: '__Product') -> None:
-        if product.index_row + size > length or product.index_column + size > length:
-            product.value, product.index_row, product.index_column = 1, length, length
-            return
+    def __multiply_right(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple:
+        if index_row + size > length or index_column + size > length:
+            return 1, length, length
 
+        result = 1
         for i in range(size):
-            value = target[product.index_row][product.index_column]
+            value = target[index_row][index_column]
             if not value:
-                product.value = 1
-                product.index_row += 1
-                product.index_column += 1
-                self.__multiply_right(target, length, size, product)
-                return
+                return self.__multiply_right(target, length, size, index_row + 1, index_column + 1)
 
-            product.value *= value
-            product.index_row += 1
-            product.index_column += 1
-
-    class __Product:
-        def __init__(self, value: int, index_row: int, index_column: int):
-            self.value, self.index_row, self.index_column = value, index_row, index_column
+            result *= value
+            index_row += 1
+            index_column += 1
+        return result, index_row, index_column
