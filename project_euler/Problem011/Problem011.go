@@ -26,246 +26,196 @@ func Problem011() {
     size := 4
     length := len(target)
 
-    product := Product{1, 0, 0}
-    result := calculateRow(target, length, size, &product, 0)
-    result = calculateColumn(target, length, size, &product, result)
-    result = calculateDiagonalLeft(target, length, size, &product, result)
-    result = calculateDiagonalRight(target, length, size, &product, result)
+    result := calculateRow(target, length, size, 0)
+    result = calculateColumn(target, length, size, result)
+    result = calculateDiagonalLeft(target, length, size, result)
+    result = calculateDiagonalRight(target, length, size, result)
     fmt.Println(result)
 }
 
-func calculateRow(target [][]int, length int, size int, product *Product, pivot int) int {
+func calculateRow(target [][]int, length int, size int, pivot int) int {
     for i := 0; i < length; i++ {
-        product.value = 1
-        product.indexRow = i
-        product.indexColumn = 0
-        multiplyRow(target, length, size, product)
-        if pivot < product.value {
-            pivot = product.value
+        product, indexColumn := multiplyRow(target, length, size, i, 0)
+        if pivot < product {
+            pivot = product
         }
 
-        for product.indexColumn < length {
-            value := target[product.indexRow][product.indexColumn]
+        for indexColumn < length {
+            value := target[i][indexColumn]
             if 0 != value {
-                product.value = product.value / target[product.indexRow][product.indexColumn - size] * value
-                product.indexColumn++
+                product = product / target[i][indexColumn - size] * value
+                indexColumn++
             } else {
-                product.value = 1
-                product.indexColumn++
-                multiplyRow(target, length, size, product)
+                product, indexColumn = multiplyRow(target, length, size, i, indexColumn + 1)
             }
-            if pivot < product.value {
-                pivot = product.value
+            if pivot < product {
+                pivot = product
             }
         }
     }
     return pivot
 }
 
-func calculateColumn(target [][]int, length int, size int, product *Product, pivot int) int {
+func calculateColumn(target [][]int, length int, size int, pivot int) int {
     for i := 0; i < length; i++ {
-        product.value = 1
-        product.indexRow = 0
-        product.indexColumn = i
-        multiplyColumn(target, length, size, product)
-        if pivot < product.value {
-            pivot = product.value
+        product, indexRow := multiplyColumn(target, length, size, 0, i)
+        if pivot < product {
+            pivot = product
         }
 
-        for product.indexRow < length {
-            value := target[product.indexRow][product.indexColumn]
+        for indexRow < length {
+            value := target[indexRow][i]
             if 0 != value {
-                product.value = product.value / target[product.indexRow - size][product.indexColumn] * value
-                product.indexRow++
+                product = product / target[indexRow - size][i] * value
+                indexRow++
             } else {
-                product.value = 1
-                product.indexRow++
-                multiplyColumn(target, length, size, product)
+                product, indexRow = multiplyColumn(target, length, size, indexRow + 1, i)
             }
-            if pivot < product.value {
-                pivot = product.value
+            if pivot < product {
+                pivot = product
             }
         }
     }
     return pivot
 }
 
-func calculateDiagonalLeft(target [][]int, length int, size int, product *Product, pivot int) int {
+func calculateDiagonalLeft(target [][]int, length int, size int, pivot int) int {
     for i := size - 1; i < length; i++ {
-        product.value = 1
-        product.indexRow = 0
-        product.indexColumn = i
-        pivot = calculateLeft(target, length, size, product, pivot)
+        pivot = calculateLeft(target, length, size, 0, i, pivot)
     }
 
     for i := length - size; i > 0; i-- {
-        product.value = 1
-        product.indexRow = i
-        product.indexColumn = length - 1
-        pivot = calculateLeft(target, length, size, product, pivot)
+        pivot = calculateLeft(target, length, size, i, length - 1, pivot)
     }
     return pivot
 }
 
-func calculateDiagonalRight(target [][]int, length int, size int, product *Product, pivot int) int {
+func calculateDiagonalRight(target [][]int, length int, size int, pivot int) int {
     for i := length - size; i >= 0; i-- {
-        product.value = 1
-        product.indexRow = 0
-        product.indexColumn = i
-        pivot = calculateRight(target, length, size, product, pivot)
+        pivot = calculateRight(target, length, size, 0, i, pivot)
     }
 
     for i := length - size; i > 0; i-- {
-        product.value = 1
-        product.indexRow = i
-        product.indexColumn = 0
-        pivot = calculateRight(target, length, size, product, pivot)
+        pivot = calculateRight(target, length, size, i, 0, pivot)
     }
     return pivot
 }
 
-func calculateLeft(target [][]int, length int, size int, product *Product, pivot int) int {
-    multiplyLeft(target, length, size, product)
-    if pivot < product.value {
-        pivot = product.value
+func calculateLeft(target [][]int, length int, size int, indexRow int, indexColumn int, pivot int) int {
+    product, indexRow, indexColumn := multiplyLeft(target, length, size, indexRow, indexColumn)
+    if pivot < product {
+        pivot = product
     }
 
-    for product.indexRow < length && product.indexColumn >= 0 {
-        value := target[product.indexRow][product.indexColumn]
+    for indexRow < length && indexColumn >= 0 {
+        value := target[indexRow][indexColumn]
         if 0 != value {
-            product.value = product.value / target[product.indexRow - size][product.indexColumn + size] * value
-            product.indexRow++
-            product.indexColumn--
+            product = product / target[indexRow - size][indexColumn + size] * value
+            indexRow++
+            indexColumn--
         } else {
-            product.value = 1
-            product.indexRow++
-            product.indexColumn--
-            multiplyLeft(target, length, size, product)
+            product, indexRow, indexColumn = multiplyLeft(target, length, size, indexRow + 1, indexColumn - 1)
         }
-        if pivot < product.value {
-            pivot = product.value
+        if pivot < product {
+            pivot = product
         }
     }
     return pivot
 }
 
-func calculateRight(target [][]int, length int, size int, product *Product, pivot int) int {
-    multiplyRight(target, length, size, product)
-    if pivot < product.value {
-        pivot = product.value
+func calculateRight(target [][]int, length int, size int, indexRow int, indexColumn int, pivot int) int {
+    product, indexRow, indexColumn := multiplyRight(target, length, size, indexRow, indexColumn)
+    if pivot < product {
+        pivot = product
     }
 
-    for product.indexRow < length && product.indexColumn < length {
-        value := target[product.indexRow][product.indexColumn]
+    for indexRow < length && indexColumn < length {
+        value := target[indexRow][indexColumn]
         if 0 != value {
-            product.value = product.value / target[product.indexRow - size][product.indexColumn - size] * value
-            product.indexRow++
-            product.indexColumn++
+            product = product / target[indexRow - size][indexColumn - size] * value
+            indexRow++
+            indexColumn++
         } else {
-            product.value = 1
-            product.indexRow++
-            product.indexColumn++
-            multiplyRight(target, length, size, product)
+            product, indexRow, indexColumn = multiplyRight(target, length, size, indexRow + 1, indexColumn + 1)
         }
-        if pivot < product.value {
-            pivot = product.value
+        if pivot < product {
+            pivot = product
         }
     }
     return pivot
 }
 
-func multiplyRow(target [][]int, length int, size int, product *Product) {
-    if product.indexColumn + size > length {
-        product.value = 1
-        product.indexColumn = length
-        return
+func multiplyRow(target [][]int, length int, size int, indexRow int, indexColumn int) (int, int) {
+    if indexColumn + size > length {
+        return 1, length
     }
 
+    result := 1
     for i := 0; i < size; i++ {
-        value := target[product.indexRow][product.indexColumn]
+        value := target[indexRow][indexColumn]
         if 0 == value {
-            product.value = 1
-            product.indexColumn++
-            multiplyRow(target, length, size, product)
-            return
+            return multiplyRow(target, length, size, indexRow, indexColumn + 1)
+
         }
 
-        product.value *= value
-        product.indexColumn++
+        result *= value
+        indexColumn++
     }
+    return result, indexColumn
 }
 
-func multiplyColumn(target [][]int, length int, size int, product *Product) {
-    if product.indexRow + size > length {
-        product.value = 1
-        product.indexRow = length
-        return
+func multiplyColumn(target [][]int, length int, size int, indexRow int, indexColumn int) (int, int) {
+    if indexRow + size > length {
+        return 1, length
     }
 
+    result := 1
     for i := 0; i < size; i++ {
-        value := target[product.indexRow][product.indexColumn]
+        value := target[indexRow][indexColumn]
         if 0 == value {
-            product.value = 1
-            product.indexRow++
-            multiplyColumn(target, length, size, product)
-            return
+            return multiplyColumn(target, length, size, indexRow + 1, indexColumn)
         }
 
-        product.value *= value
-        product.indexRow++
+        result *= value
+        indexRow++
     }
+    return result, indexRow
 }
 
-func multiplyLeft(target [][]int, length int, size int, product *Product) {
-    if product.indexRow + size > length || product.indexColumn - size + 1 < 0 {
-        product.value = 1
-        product.indexRow = length
-        product.indexColumn = -1
-        return
+func multiplyLeft(target [][]int, length int, size int, indexRow int, indexColumn int) (int, int, int) {
+    if indexRow + size > length || indexColumn - size + 1 < 0 {
+        return 1, length, -1
     }
 
+    result := 1
     for i := 0; i < size; i++ {
-        value := target[product.indexRow][product.indexColumn]
+        value := target[indexRow][indexColumn]
         if 0 == value {
-            product.value = 1
-            product.indexRow++
-            product.indexColumn--
-            multiplyLeft(target, length, size, product)
-            return
+            return multiplyLeft(target, length, size, indexRow + 1, indexColumn - 1)
         }
 
-        product.value *= value
-        product.indexRow++
-        product.indexColumn--
+        result *= value
+        indexRow++
+        indexColumn--
     }
+    return result, indexRow, indexColumn
 }
 
-func multiplyRight(target [][]int, length int, size int, product *Product) {
-    if product.indexRow + size > length || product.indexColumn + size > length {
-        product.value = 1
-        product.indexRow = length
-        product.indexColumn = length
-        return
+func multiplyRight(target [][]int, length int, size int, indexRow int, indexColumn int) (int, int, int) {
+    if indexRow + size > length || indexColumn + size > length {
+        return 1, length, length
     }
 
+    result := 1
     for i := 0; i < size; i++ {
-        value := target[product.indexRow][product.indexColumn]
+        value := target[indexRow][indexColumn]
         if 0 == value {
-            product.value = 1
-            product.indexRow++
-            product.indexColumn++
-            multiplyRight(target, length, size, product)
-            return
+            return multiplyRight(target, length, size, indexRow + 1, indexColumn + 1)
         }
 
-        product.value *= value
-        product.indexRow++
-        product.indexColumn++
+        result *= value
+        indexRow++
+        indexColumn++
     }
-}
-
-type Product struct {
-    value int
-    indexRow int
-    indexColumn int
+    return result, indexRow, indexColumn
 }

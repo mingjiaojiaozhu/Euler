@@ -25,50 +25,37 @@ func Problem008() {
             "71636269561882670428252483600823257530420752963450"
     size := 13
     length := len(target)
-
-    product := Product{int64(1), 0}
-    multiply(target, length, size, &product)
-
-    result := product.value
-    for product.index < length {
-        value := target[product.index] - '0'
+    product, index := multiply(target, length, size, 0)
+    result := product
+    for index < length {
+        value := target[index] - '0'
         if 0 != value {
-            product.value = product.value / int64(target[product.index - size] - '0') * int64(value)
-            product.index++
+            product = product / int64(target[index - size] - '0') * int64(value)
+            index++
         } else {
-            product.value = int64(1)
-            product.index++
-            multiply(target, length, size, &product)
+            product, index = multiply(target, length, size, index + 1)
         }
-        if result < product.value {
-            result = product.value
+        if result < product {
+            result = product
         }
     }
     fmt.Println(result)
 }
 
-func multiply(target string, length int, size int, product *Product) {
-    if product.index + size >= length {
-        product.value = int64(1)
-        product.index = length
-        return
+func multiply(target string, length int, size int, index int) (int64, int) {
+    if index + size >= length {
+        return int64(1), length
     }
 
+    result := int64(1)
     for i := 0; i < size; i++ {
-        value := target[product.index] - '0'
+        value := target[index] - '0'
         if 0 == value {
-            product.value = int64(1)
-            product.index++
-            multiply(target, length, size, product)
-            return
+            return multiply(target, length, size, index + 1)
         }
 
-        product.value *= int64(value)
-        product.index++
+        result *= int64(value)
+        index++
     }
-}
-
-type Product struct {
-    value int64
-    index int
+    return result, index
 }

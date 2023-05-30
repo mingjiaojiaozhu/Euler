@@ -21,52 +21,39 @@ function Problem008() {
             '71636269561882670428252483600823257530420752963450'
     let size = 13
     let length = target.length
-
-    let product = new Product(1, 0)
-    multiply(target, length, size, product)
-
-    let result = product.value
-    while (product.index < length) {
-        let value = target[product.index] - '0'
+    let [product, index] = multiply(target, length, size, 0)
+    let result = product
+    while (index < length) {
+        let value = target[index] - '0'
         if (value) {
-            product.value = product.value / (target[product.index - size] - '0') * value
-            ++product.index
+            product = product / (target[index - size] - '0') * value
+            ++index
         } else {
-            product.value = 1
-            ++product.index
-            multiply(target, length, size, product)
+            [product, index] = multiply(target, length, size, index)
         }
-        if (result < product.value) {
-            result = product.value
+        if (result < product) {
+            result = product
         }
     }
     console.log(result)
 }
 
-function multiply(target, length, size, product) {
-    if (product.index + size >= length) {
-        product.value = 1
-        product.index = length
-        return
+function multiply(target, length, size, index) {
+    if (index + size >= length) {
+        return [1, length]
     }
 
+    let result = 1
     for (let i = 0; i < size; ++i) {
-        let value = target[product.index] - '0'
+        let value = target[index] - '0'
         if (!value) {
-            product.value = 1
-            ++product.index
-            multiply(target, length, size, product)
-            return
+            return multiply(target, length, size, index + 1)
         }
 
-        product.value *= value
-        ++product.index
+        result *= value
+        ++index
     }
-}
-
-function Product(value, index) {
-    this.value = value
-    this.index = index
+    return [result, index]
 }
 
 module.exports = {

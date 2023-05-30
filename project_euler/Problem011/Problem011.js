@@ -22,247 +22,199 @@ function Problem011() {
     let size = 4
     let length = target.length
 
-    let product = new Product(1, 0, 0)
-    let result = calculateRow(target, length, size, product, 0)
-    result = calculateColumn(target, length, size, product, result)
-    result = calculateDiagonalLeft(target, length, size, product, result)
-    result = calculateDiagonalRight(target, length, size, product, result)
+    let result = calculateRow(target, length, size, 0)
+    result = calculateColumn(target, length, size, result)
+    result = calculateDiagonalLeft(target, length, size, result)
+    result = calculateDiagonalRight(target, length, size, result)
     console.log(result)
 }
 
-function calculateRow(target, length, size, product, pivot) {
+function calculateRow(target, length, size, pivot) {
     for (let i = 0; i < length; ++i) {
-        product.value = 1
-        product.indexRow = i
-        product.indexColumn = 0
-        multiplyRow(target, length, size, product)
-        if (pivot < product.value) {
-            pivot = product.value
+        let [product, indexColumn] = multiplyRow(target, length, size, i, 0)
+        if (pivot < product) {
+            pivot = product
         }
 
-        while (product.indexColumn < length) {
-            let value = target[product.indexRow][product.indexColumn]
+        while (indexColumn < length) {
+            let value = target[i][indexColumn]
             if (value) {
-                product.value = product.value / target[product.indexRow][product.indexColumn - size] * value
-                ++product.indexColumn
+                product = product / target[i][indexColumn - size] * value
+                ++indexColumn
             } else {
-                product.value = 1
-                ++product.indexColumn
-                multiplyRow(target, length, size, product)
+                [product, indexColumn] = multiplyRow(target, length, size, i, indexColumn + 1)
             }
-            if (pivot < product.value) {
-                pivot = product.value
+            if (pivot < product) {
+                pivot = product
             }
         }
     }
     return pivot
 }
 
-function calculateColumn(target, length, size, product, pivot) {
+function calculateColumn(target, length, size, pivot) {
     for (let i = 0; i < length; ++i) {
-        product.value = 1
-        product.indexRow = 0
-        product.indexColumn = i
-        multiplyColumn(target, length, size, product)
-        if (pivot < product.value) {
-            pivot = product.value
+        let [product, indexRow] = multiplyColumn(target, length, size, 0, i)
+        if (pivot < product) {
+            pivot = product
         }
 
-        while (product.indexRow < length) {
-            let value = target[product.indexRow][product.indexColumn]
+        while (indexRow < length) {
+            let value = target[indexRow][i]
             if (value) {
-                product.value = product.value / target[product.indexRow - size][product.indexColumn] * value
-                ++product.indexRow
+                product = product / target[indexRow - size][i] * value
+                ++indexRow
             } else {
-                product.value = 1
-                ++product.indexRow
-                multiplyColumn(target, length, size, product)
+                [product, indexRow] = multiplyColumn(target, length, size, indexRow + 1, i)
             }
-            if (pivot < product.value) {
-                pivot = product.value
+            if (pivot < product) {
+                pivot = product
             }
         }
     }
     return pivot
 }
 
-function calculateDiagonalLeft(target, length, size, product, pivot) {
+function calculateDiagonalLeft(target, length, size, pivot) {
     for (let i = size - 1; i < length; ++i) {
-        product.value = 1
-        product.indexRow = 0
-        product.indexColumn = i
-        pivot = calculateLeft(target, length, size, product, pivot)
+        pivot = calculateLeft(target, length, size, 0, i, pivot)
     }
 
     for (let i = length - size; i > 0; --i) {
-        product.value = 1
-        product.indexRow = i
-        product.indexColumn = length - 1
-        pivot = calculateLeft(target, length, size, product, pivot)
+        pivot = calculateLeft(target, length, size, i, length - 1, pivot)
     }
     return pivot
 }
 
-function calculateDiagonalRight(target, length, size, product, pivot) {
+function calculateDiagonalRight(target, length, size, pivot) {
     for (let i = length - size; i >= 0; --i) {
-        product.value = 1
-        product.indexRow = 0
-        product.indexColumn = i
-        pivot = calculateRight(target, length, size, product, pivot)
+        pivot = calculateRight(target, length, size, 0, i, pivot)
     }
 
     for (let i = length - size; i > 0; --i) {
-        product.value = 1
-        product.indexRow = i
-        product.indexColumn = 0
-        pivot = calculateRight(target, length, size, product, pivot)
+        pivot = calculateRight(target, length, size, i, 0, pivot)
     }
     return pivot
 }
 
-function calculateLeft(target, length, size, product, pivot) {
-    multiplyLeft(target, length, size, product)
-    if (pivot < product.value) {
-        pivot = product.value
+function calculateLeft(target, length, size, indexRow, indexColumn, pivot) {
+    let product
+    [product, indexRow, indexColumn] = multiplyLeft(target, length, size, indexRow, indexColumn)
+    if (pivot < product) {
+        pivot = product
     }
 
-    while (product.indexRow < length && product.indexColumn >= 0) {
-        let value = target[product.indexRow][product.indexColumn]
+    while (indexRow < length && indexColumn >= 0) {
+        let value = target[indexRow][indexColumn]
         if (value) {
-            product.value = product.value / target[product.indexRow - size][product.indexColumn + size] * value
-            ++product.indexRow
-            --product.indexColumn
+            product = product / target[indexRow - size][indexColumn + size] * value
+            ++indexRow
+            --indexColumn
         } else {
-            product.value = 1
-            ++product.indexRow
-            --product.indexColumn
-            multiplyLeft(target, length, size, product)
+            [product, indexRow, indexColumn] = multiplyLeft(target, length, size, indexRow + 1, indexColumn - 1)
         }
-        if (pivot < product.value) {
-            pivot = product.value
+        if (pivot < product) {
+            pivot = product
         }
     }
     return pivot
 }
 
-function calculateRight(target, length, size, product, pivot) {
-    multiplyRight(target, length, size, product)
-    if (pivot < product.value) {
-        pivot = product.value
+function calculateRight(target, length, size, indexRow, indexColumn, pivot) {
+    let product
+    [product, indexRow, indexColumn] = multiplyRight(target, length, size, indexRow, indexColumn)
+    if (pivot < product) {
+        pivot = product
     }
 
-    while (product.indexRow < length && product.indexColumn < length) {
-        let value = target[product.indexRow][product.indexColumn]
+    while (indexRow < length && indexColumn < length) {
+        let value = target[indexRow][indexColumn]
         if (value) {
-            product.value = product.value / target[product.indexRow - size][product.indexColumn - size] * value
-            ++product.indexRow
-            ++product.indexColumn
+            product = product / target[indexRow - size][indexColumn - size] * value
+            ++indexRow
+            ++indexColumn
         } else {
-            product.value = 1
-            ++product.indexRow
-            ++product.indexColumn
-            multiplyRight(target, length, size, product)
+            [product, indexRow, indexColumn] = multiplyRight(target, length, size, indexRow + 1, indexColumn + 1)
         }
-        if (pivot < product.value) {
-            pivot = product.value
+        if (pivot < product) {
+            pivot = product
         }
     }
     return pivot
 }
 
-function multiplyRow(target, length, size, product) {
-    if (product.indexColumn + size > length) {
-        product.value = 1
-        product.indexColumn = length
-        return
+function multiplyRow(target, length, size, indexRow, indexColumn) {
+    if (indexColumn + size > length) {
+        return [1, length]
     }
 
+    let result = 1
     for (let i = 0; i < size; ++i) {
-        let value = target[product.indexRow][product.indexColumn]
+        let value = target[indexRow][indexColumn]
         if (!value) {
-            product.value = 1
-            ++product.indexColumn
-            multiplyRow(target, length, size, product)
-            return
+            return multiplyRow(target, length, size, indexRow, indexColumn + 1)
         }
 
-        product.value *= value
-        ++product.indexColumn
+        result *= value
+        ++indexColumn
     }
+    return [result, indexColumn]
 }
 
-function multiplyColumn(target, length, size, product) {
-    if (product.indexRow + size > length) {
-        product.value = 1
-        product.indexRow = length
-        return
+function multiplyColumn(target, length, size, indexRow, indexColumn) {
+    if (indexRow + size > length) {
+        return [1, length]
     }
 
+    let result = 1
     for (let i = 0; i < size; ++i) {
-        let value = target[product.indexRow][product.indexColumn]
+        let value = target[indexRow][indexColumn]
         if (!value) {
-            product.value = 1
-            ++product.indexRow
-            multiplyColumn(target, length, size, product)
-            return
+            return multiplyColumn(target, length, size, indexRow + 1, indexColumn)
         }
 
-        product.value *= value
-        ++product.indexRow
+        result *= value
+        ++indexRow
     }
+    return [result, indexRow]
 }
 
-function multiplyLeft(target, length, size, product) {
-    if (product.indexRow + size > length || product.indexColumn - size + 1 < 0) {
-        product.value = 1
-        product.indexRow = length
-        product.indexColumn = -1
-        return
+function multiplyLeft(target, length, size, indexRow, indexColumn) {
+    if (indexRow + size > length || indexColumn - size + 1 < 0) {
+        return [1, length, -1]
     }
 
+    let result = 1
     for (let i = 0; i < size; ++i) {
-        let value = target[product.indexRow][product.indexColumn]
+        let value = target[indexRow][indexColumn]
         if (!value) {
-            product.value = 1
-            ++product.indexRow
-            --product.indexColumn
-            multiplyLeft(target, length, size, product)
-            return
+            return multiplyLeft(target, length, size, indexRow + 1, indexColumn - 1)
         }
 
-        product.value *= value
-        ++product.indexRow
-        --product.indexColumn
+        result *= value
+        ++indexRow
+        --indexColumn
     }
+    return [result, indexRow, indexColumn]
 }
 
-function multiplyRight(target, length, size, product) {
-    if (product.indexRow + size > length || product.indexColumn + size > length) {
-        product.value = 1
-        product.indexRow = length
-        product.indexColumn = length
-        return
+function multiplyRight(target, length, size, indexRow, indexColumn) {
+    if (indexRow + size > length || indexColumn + size > length) {
+        return [1, length, length]
     }
 
+    let result = 1
     for (let i = 0; i < size; ++i) {
-        let value = target[product.indexRow][product.indexColumn]
+        let value = target[indexRow][indexColumn]
         if (!value) {
-            product.value = 1
-            ++product.indexRow
-            ++product.indexColumn
-            multiplyRight(target, length, size, product)
-            return
+            return multiplyRight(target, length, size, indexRow + 1, indexColumn + 1)
         }
 
-        product.value *= value
-        ++product.indexRow
-        ++product.indexColumn
+        result *= value
+        ++indexRow
+        ++indexColumn
     }
-}
-
-function Product(value, indexRow, indexColumn) {
-    this.indexRow = indexRow
-    this.indexColumn = indexColumn
+    return [result, indexRow, indexColumn]
 }
 
 module.exports = {
