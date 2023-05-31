@@ -1,19 +1,14 @@
 function Problem031() {
     let target = 200
     let coins = [1, 2, 5, 10, 20, 50, 100, 200]
-    let result = getWays(target, coins, coins.length - 1)
-    console.log(result)
-}
-
-function getWays(target, coins, index) {
-    if (!target || !index) {
-        return 1
+    let ways = Array(target + 1).fill(0)
+    ways[0] = 1
+    for (let coin of coins) {
+        for (let i = coin; i <= target; ++i) {
+            ways[i] += ways[i - coin]
+        }
     }
-
-    if (target < coins[index]) {
-        return getWays(target, coins, index - 1)
-    }
-    return getWays(target, coins, index - 1) + getWays(target - coins[index], coins, index)
+    console.log(ways[target])
 }
 
 module.exports = {

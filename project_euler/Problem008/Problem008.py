@@ -34,7 +34,7 @@ class Problem008:
                 result = product
         print(result)
 
-    def __multiply(self, target: str, length: int, size: int, index: int) -> tuple:
+    def __multiply(self, target: str, length: int, size: int, index: int) -> tuple[int, int]:
         if index + size >= length:
             return 1, length
 

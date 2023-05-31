@@ -16,7 +16,7 @@ class Problem032:
             result += product
         print(result)
 
-    def __get_products(self, multiplicand: int, multiplier: int, digits: List[bool], products: set):
+    def __get_products(self, multiplicand: int, multiplier: int, digits: List[bool], products: set[int]):
         digits[:] = [False for _ in range(9)]
         if self.__is_pandigital(multiplicand, digits) and self.__is_pandigital(multiplier, digits):
             product = multiplicand * multiplier

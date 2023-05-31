@@ -1,5 +1,3 @@
-# Project Euler
-
 * [001. Multiples of 3 or 5](project_euler/Problem001/README.md)
 * [002. Even Fibonacci numbers](project_euler/Problem002/README.md)
 * [003. Largest prime factor](project_euler/Problem003/README.md)
@@ -70,3 +68,9 @@
 * [068. Magic 5-gon ring](project_euler/Problem068/README.md)
 * [069. Totient maximum](project_euler/Problem069/README.md)
 * [070. Totient permutation](project_euler/Problem070/README.md)
+* [071. Ordered fractions](project_euler/Problem071/README.md)
+* [072. Counting fractions](project_euler/Problem072/README.md)
+* [073. Counting fractions in a range](project_euler/Problem073/README.md)
+* [074. Digit factorial chains](project_euler/Problem074/README.md)
+* [075. Singular integer right triangles](project_euler/Problem075/README.md)
+* [076. Counting summations](project_euler/Problem076/README.md)

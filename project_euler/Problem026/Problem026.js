@@ -33,7 +33,7 @@ function isPrime(value) {
 }
 
 function getDigit(value, remainders) {
-    remainders = []
+    remainders.length = 0
     let remainder = 1
     while (true) {
         remainders.push(remainder)

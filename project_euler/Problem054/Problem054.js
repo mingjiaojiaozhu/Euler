@@ -24,7 +24,7 @@ function Problem054() {
 
 function setCards(player, elements, start, counts, pairs) {
     player.suits.clear()
-    player.ranks = []
+    player.ranks.length = 0
 
     for (let i = 0; i < 5; ++i) {
         let value = elements[start + i]

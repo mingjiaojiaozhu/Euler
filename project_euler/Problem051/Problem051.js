@@ -32,7 +32,7 @@ function getNextPrime(value) {
 
 function checkDigits(value, digits) {
     for (let i = 0; i < 3; ++i) {
-        digits[i] = []
+        digits[i].length = 0
     }
 
     value = Math.floor(value / 10)
@@ -61,8 +61,8 @@ function checkPrimeFamily(pivot, target, digits, steps, auxiliary) {
             continue
         }
 
-        steps = []
-        auxiliary = []
+        steps.length = 0
+        auxiliary.length = 0
         combination(digit, 0, 3, digit.length, steps, auxiliary)
         for (let step of steps) {
             let count = 10 - target - i

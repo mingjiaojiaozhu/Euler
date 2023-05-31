@@ -17,7 +17,7 @@ function Problem066() {
 }
 
 function getSolution(value, factors, previous, current, auxiliary) {
-    factors = []
+    factors.length = 0
     let start = getPeriod(value, factors)
     if (!start) {
         return false;
