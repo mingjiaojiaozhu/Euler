@@ -13,7 +13,7 @@ class Problem038:
         while value:
             index = value % 10 - 1
             if index < 0 or digits[index]:
-                 return False
+                return False
             digits[index] = True
             value //= 10
         return True

@@ -2,7 +2,6 @@ class Problem067:
     def solution(self) -> None:
         file_name, border = 'triangle.txt', 100
         target = [[0 for _ in range(border)] for _ in range(border)]
-
         with open(file_name, 'r') as handle:
             index = 0
             for line in handle:

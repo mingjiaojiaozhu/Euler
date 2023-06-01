@@ -11,6 +11,6 @@ class Problem029:
 
         result = len(terms)
         for i in range(result - 1, 0, -1):
-            if math.fabs(terms[i] - terms[i - 1]) < 0.00000001:
+            if abs(terms[i] - terms[i - 1]) < 0.00000001:
                 result -= 1
         print(result)

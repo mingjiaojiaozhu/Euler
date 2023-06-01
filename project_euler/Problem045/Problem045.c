@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-static long long is_pentagon(long long value);
+static int is_pentagon(long long value);
 
 void Problem045(void) {
     long long index = 144;
@@ -15,7 +15,7 @@ void Problem045(void) {
     }
 }
 
-static long long is_pentagon(long long value) {
+static int is_pentagon(long long value) {
     long long delta = value * 24 + 1;
     return (fabs(floor(sqrt(delta) + 0.5) - sqrt(delta)) < 0.00000001 && !(((long long) sqrt(delta) + 1) % 6)) ? 1 : 0;
 }

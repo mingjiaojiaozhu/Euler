@@ -78,6 +78,6 @@ class Problem051:
             return
 
         for i in range(start, length):
-            auxiliary.append(int(math.pow(10, digits[i])))
+            auxiliary.append(10 ** digits[i])
             self.__combination(digits, i + 1, count, length, steps, auxiliary)
             auxiliary.pop()

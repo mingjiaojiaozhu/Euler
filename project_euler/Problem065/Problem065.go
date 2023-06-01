@@ -9,6 +9,10 @@ func Problem065() {
     target := 100
     previous := Decimal{make([]int, 100), 0}
     current := Decimal{make([]int, 100), 0}
+    for i := 0; i < 100; i++ {
+        previous.value[i] = 0
+        current.value[i] = 0
+    }
     setValue(1, &previous)
     setValue(2, &current)
     for i := 2; i <= target; i++ {

@@ -9,6 +9,6 @@ class Problem042:
                 for letter in line.strip():
                     value += ord(letter) - ord('A') + 1
                 delta = (value << 3) + 1
-                if math.fabs(math.floor(math.sqrt(delta) + 0.5) - math.sqrt(delta)) < 0.00000001 and (int(math.sqrt(delta)) & 1):
+                if abs(math.floor(math.sqrt(delta) + 0.5) - math.sqrt(delta)) < 0.00000001 and (int(math.sqrt(delta)) & 1):
                     result += 1
         print(result)

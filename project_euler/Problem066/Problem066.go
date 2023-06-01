@@ -11,9 +11,17 @@ func Problem066() {
     previous := Decimal{make([]int, 100), 0}
     current := Decimal{make([]int, 100), 0}
     auxiliary := Decimal{make([]int, 100), 0}
+    for i := 0; i < 100; i++ {
+        previous.value[i] = 0
+        current.value[i] = 0
+        auxiliary.value[i] = 0
+    }
 
     result := 0
     pivot := Decimal{make([]int, 100), 0}
+    for i := 0; i < 100; i++ {
+        pivot.value[i] = 0
+    }
     for i := 5; i <= target; i++ {
         if getSolution(i, factors, &previous, &current, &auxiliary) && isGreater(&current, &pivot) {
             swapDecimal(&current, &pivot)

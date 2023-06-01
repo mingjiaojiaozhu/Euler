@@ -1,11 +1,10 @@
-import math
 from typing import List
 
 class Problem040:
     def solution(self) -> None:
         target, borders, index = 1000000, [], 0
         while True:
-            value = (int(math.pow(10, index)) * (9 * index - 1) + 1) // 9
+            value = (10 ** index * (9 * index - 1) + 1) // 9
             borders.append(value)
             if value > target:
                 break
@@ -20,7 +19,7 @@ class Problem040:
     def __get_champernowne(self, value: int, borders: List[int]) -> int:
         index = self.__get_index(value, borders) - 1
         value -= borders[index] + 1
-        digit = int(math.pow(10, index)) + value // (index + 1)
+        digit = 10 ** index + value // (index + 1)
         for i in range(value % (index + 1), index):
             digit //= 10
         return digit % 10

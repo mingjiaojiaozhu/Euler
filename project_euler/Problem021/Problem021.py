@@ -1,4 +1,3 @@
-import math
 from typing import List
 
 class Problem021:
@@ -13,7 +12,7 @@ class Problem021:
         result = 0
         for i in range(2, target + 1):
             divisor = divisors[i - 1]
-            if divisor > i and divisor <= target and divisors[divisor - 1] == i:
+            if target >= divisor > i == divisors[divisor - 1]:
                 result += i + divisor
         print(result)
 
@@ -21,7 +20,7 @@ class Problem021:
         if -1 == divisors[value - 1]:
             index, count = value, 1
             while index <= length:
-                divisors[index - 1] = (int(math.pow(value, count + 1)) - 1) // (value - 1)
+                divisors[index - 1] = (value ** (count + 1) - 1) // (value - 1)
                 index *= value
                 count += 1
 

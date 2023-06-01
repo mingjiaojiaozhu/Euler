@@ -60,7 +60,7 @@ class Problem060:
         return True
 
     def __merge(self, head: int, tail: int) -> int:
-        return head * int(math.pow(10, int(math.log10(tail)) + 1)) + tail
+        return head * 10 ** (int(math.log10(tail)) + 1) + tail
 
     def __search(self, primes: List[int], edges: List[List[int]], cliques: List[int], indexes: List[int], target: int) -> None:
         if not indexes:

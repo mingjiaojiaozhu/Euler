@@ -4,7 +4,7 @@ class Problem062:
     def solution(self) -> None:
         target, cubes, index, pivot = 5, {}, 5, 0
         while True:
-            value = int(math.pow(index, 3))
+            value = index ** 3
             digits, count = self.__get_digits(value), int(math.log10(value))
             if pivot != count:
                 cubes.clear()

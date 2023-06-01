@@ -1,11 +1,10 @@
-import math
 from typing import List
 
 class Problem030:
     def solution(self) -> None:
         target, powers = 5, [0 for _ in range(10)]
         for i in range(0, 10):
-            powers[i] = int(math.pow(i, target))
+            powers[i] = i ** target
 
         result = 0
         for i in range(6 * powers[9], 9, -1):

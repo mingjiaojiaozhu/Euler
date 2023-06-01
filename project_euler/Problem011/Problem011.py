@@ -142,7 +142,7 @@ class Problem011:
             index_row += 1
         return result, index_row
 
-    def __multiply_left(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple[int, int]:
+    def __multiply_left(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple[int, int, int]:
         if index_row + size > length or index_column - size + 1 < 0:
             return 1, length, -1
 
@@ -157,7 +157,7 @@ class Problem011:
             index_column -= 1
         return result, index_row, index_column
 
-    def __multiply_right(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple[int, int]:
+    def __multiply_right(self, target: List[List[int]], length: int, size: int, index_row: int, index_column: int) -> tuple[int, int, int]:
         if index_row + size > length or index_column + size > length:
             return 1, length, length
 

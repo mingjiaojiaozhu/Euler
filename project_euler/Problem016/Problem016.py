@@ -1,5 +1,3 @@
-import math
-
 class Problem016:
     def solution(self) -> None:
         target = 1000
@@ -11,7 +9,7 @@ class Problem016:
 
     def __get_power(self, value: int) -> int:
         if value < 8:
-            return int(math.pow(2, value))
+            return 2 ** value
 
         result = self.__get_power(value >> 1)
         result *= result

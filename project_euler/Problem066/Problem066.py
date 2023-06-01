@@ -28,7 +28,7 @@ class Problem066:
         return numerator * denominator << 1
 
     def __get_period(self, value: int, factors: List[int]) -> int:
-        if math.fabs(math.floor(math.sqrt(value) + 0.5) - math.sqrt(value)) < 0.00000001:
+        if abs(math.floor(math.sqrt(value) + 0.5) - math.sqrt(value)) < 0.00000001:
             return 0
 
         initial = int(math.sqrt(value))

@@ -74,3 +74,7 @@
 * [074. Digit factorial chains](project_euler/Problem074/README.md)
 * [075. Singular integer right triangles](project_euler/Problem075/README.md)
 * [076. Counting summations](project_euler/Problem076/README.md)
+* [077. Prime summations](project_euler/Problem077/README.md)
+* [078. Coin partitions](project_euler/Problem078/README.md)
+* [079. Passcode derivation](project_euler/Problem079/README.md)
+* [080. Square root digital expansion](project_euler/Problem080/README.md)
