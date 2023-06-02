@@ -1,12 +1,15 @@
 package project_euler
 
-import "fmt"
+import (
+    "fmt"
+    "math"
+)
 
 func Problem078() {
     target := 1000000
     ways := make([]Decimal, 0)
-    ways = append(ways, setValue(1))
-    ways = append(ways, setValue(1))
+    ways = append(ways, setValue(1, 1))
+    ways = append(ways, setValue(1, 1))
 
     length := 0
     for target >= int(1e5) {
@@ -14,9 +17,13 @@ func Problem078() {
         target /= int(1e5)
     }
 
+    current := Decimal{make([]int, 100), 0}
+    for i := 1; i < 100; i++ {
+        current.value[i] = 0
+    }
     result := 2
     for true {
-        way := getWay(result, &ways)
+        way := getWay(result, &ways, &current)
         if isDivideExactly(way, length, target) {
             fmt.Println(result)
             return
@@ -25,9 +32,9 @@ func Problem078() {
     }
 }
 
-func setValue(value int) Decimal {
-    decimal := Decimal{make([]int, 100), 0}
-    for i := 1; i < 100; i++ {
+func setValue(value int, length int) Decimal {
+    decimal := Decimal{make([]int, length), 0}
+    for i := 1; i < length; i++ {
         decimal.value[i] = 0
     }
     decimal.value[0] = value
@@ -35,15 +42,19 @@ func setValue(value int) Decimal {
     return decimal
 }
 
-func getWay(target int, ways *[]Decimal) Decimal {
-    result := setValue(0)
+func getWay(target int, ways *[]Decimal, current *Decimal) Decimal {
     factor := 1
     for i := 1; i <= target; i++ {
-        if !addDecimal(target - (i * (i * 3 - 1) >> 1), *ways, factor, &result) || !addDecimal(target - (i * (i * 3 + 1) >> 1), *ways, factor, &result) {
+        if !addDecimal(target - (i * (i * 3 - 1) >> 1), *ways, factor, current) || !addDecimal(target - (i * (i * 3 + 1) >> 1), *ways, factor, current) {
             break
         }
         factor *= -1
     }
+    result := Decimal{make([]int, current.length), 0}
+    for i := 1; i < current.length; i++ {
+        result.value[i] = 0
+    }
+    swapDecimal(current, &result)
     *ways = append(*ways, result)
     return result
 }
@@ -61,12 +72,20 @@ func isDivideExactly(way Decimal, length int, target int) bool {
     return 0 == way.value[length] % target
 }
 
-func addDecimal(index int, ways []Decimal, factor int, result *Decimal) bool {
+func addDecimal(index int, ways []Decimal, factor int, summation *Decimal) bool {
     if index < 0 {
         return false
     }
-    getSummation(&ways[index], factor, result)
+    getSummation(&ways[index], factor, summation)
     return true
+}
+
+func swapDecimal(previous *Decimal, current *Decimal) {
+    length := int(math.Max(float64(previous.length), float64(current.length)))
+    for i := 0; i < length; i++ {
+        previous.value[i], current.value[i] = current.value[i], previous.value[i]
+    }
+    previous.length, current.length = current.length, previous.length
 }
 
 func getSummation(decimal *Decimal, factor int, summation *Decimal) {

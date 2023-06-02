@@ -91,7 +91,7 @@ function setHead(player, counts, pairs) {
         }
     }
 
-    let isFlush = (1 === player.suits.length)
+    let isFlush = (1 === player.suits.size)
     if (isStraight) {
         if (isFlush) {
             player.hand = 0

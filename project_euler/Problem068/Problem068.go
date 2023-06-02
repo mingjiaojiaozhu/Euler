@@ -4,13 +4,14 @@ import "fmt"
 
 func Problem068() {
     target := 10
-    ring := make([]int, 0)
     border := target >> 1
     start := border + 1
-    ring = append(ring, start)
-    ring = append(ring, border)
     summation := ((target * (target + 1) >> 1) + (border * (border + 1) >> 1)) / border
     pivot := summation - border - start
+
+    ring := make([]int, 0)
+    ring = append(ring, start)
+    ring = append(ring, border)
     ring = append(ring, pivot)
     for i := target; i > start; i-- {
         ring = append(ring, i)

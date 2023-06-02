@@ -1,13 +1,12 @@
 class Problem068:
     def solution(self) -> None:
-        target, ring = 10, []
+        target = 10
         border = target >> 1
         start = border + 1
-        ring.append(start)
-        ring.append(border)
         summation = ((target * (target + 1) >> 1) + (border * (border + 1) >> 1)) // border
         pivot = summation - border - start
-        ring.append(pivot)
+
+        ring = [start, border, pivot]
         for i in range(target, start, -1):
             ring.append(i)
             ring.append(pivot)

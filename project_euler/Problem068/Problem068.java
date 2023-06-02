@@ -6,13 +6,14 @@ import java.util.List;
 public class Problem068 {
     public void solution() {
         int target = 10;
-        List<Integer> ring = new ArrayList<>();
         int border = target >> 1;
         int start = border + 1;
-        ring.add(start);
-        ring.add(border);
         int summation = ((target * (target + 1) >> 1) + (border * (border + 1) >> 1)) / border;
         int pivot = summation - border - start;
+
+        List<Integer> ring = new ArrayList<>();
+        ring.add(start);
+        ring.add(border);
         ring.add(pivot);
         for (int i = target; i > start; --i) {
             ring.add(i);

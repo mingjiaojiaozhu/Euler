@@ -14,12 +14,14 @@ typedef struct {
     int capacity;
 } Array;
 
-static Decimal *set_value(int value);
-static Decimal *get_way(int target, Array *ways);
+static Decimal *set_value(int value, int length);
+static Decimal *get_way(int target, Array *ways, Decimal *current);
 static int is_divide_exactly(Decimal *way, int length, int target);
 static int add_decimal(int index, Array *ways, int factor, Decimal *result);
+static void swap_decimal(Decimal *previous, Decimal *current);
 static void get_summation(Decimal *decimal, int factor, Decimal *summation);
 static void append(Decimal *value, Array *array);
+static Decimal *create_array(int length);
 
 void Problem078(void) {
     int target = 1000000;
@@ -27,8 +29,8 @@ void Problem078(void) {
     ways->value = (Decimal **) malloc(sizeof(Decimal *) * SIZE);
     ways->length = 0;
     ways->capacity = SIZE;
-    append(set_value(1), ways);
-    append(set_value(1), ways);
+    append(set_value(1, 1), ways);
+    append(set_value(1, 1), ways);
 
     int length = 0;
     while (target >= (int) 1e5) {
@@ -36,9 +38,10 @@ void Problem078(void) {
         target /= (int) 1e5;
     }
 
+    Decimal *current = create_array(100);
     int result = 2;
     while (1) {
-        Decimal *way = get_way(result, ways);
+        Decimal *way = get_way(result, ways, current);
         if (is_divide_exactly(way, length, target)) {
             printf("%d\n", result);
             return;
@@ -47,26 +50,23 @@ void Problem078(void) {
     }
 }
 
-static Decimal *set_value(int value) {
-    Decimal *decimal = (Decimal *) malloc(sizeof(Decimal));
-    decimal->value = (int *) malloc(sizeof(int) * 100);
-    for (int i = 1; i < 100; ++i) {
-        decimal->value[i] = 0;
-    }
+static Decimal *set_value(int value, int length) {
+    Decimal *decimal = create_array(length);
     decimal->value[0] = value;
     decimal->length = 1;
     return decimal;
 }
 
-static Decimal *get_way(int target, Array *ways) {
-    Decimal *result = set_value(0);
+static Decimal *get_way(int target, Array *ways, Decimal *current) {
     int factor = 1;
     for (int i = 1; i <= target; ++i) {
-        if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, result) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, result)) {
+        if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
             break;
         }
         factor *= -1;
     }
+    Decimal *result = create_array(current->length);
+    swap_decimal(current, result);
     append(result, ways);
     return result;
 }
@@ -84,12 +84,24 @@ static int is_divide_exactly(Decimal *way, int length, int target) {
     return !(way->value[length] % target) ? 1 : 0;
 }
 
-static int add_decimal(int index, Array *ways, int factor, Decimal *result) {
+static int add_decimal(int index, Array *ways, int factor, Decimal *summation) {
     if (index < 0) {
         return 0;
     }
-    get_summation(ways->value[index], factor, result);
+    get_summation(ways->value[index], factor, summation);
     return 1;
+}
+
+static void swap_decimal(Decimal *previous, Decimal *current) {
+    int length = (previous->length < current->length) ? current->length : previous->length;
+    for (int i = 0; i < length; ++i) {
+        previous->value[i] ^= current->value[i];
+        current->value[i] ^= previous->value[i];
+        previous->value[i] ^= current->value[i];
+    }
+    previous->length ^= current->length;
+    current->length ^= previous->length;
+    previous->length ^= current->length;
 }
 
 static void get_summation(Decimal *decimal, int factor, Decimal *summation) {
@@ -129,4 +141,14 @@ static void append(Decimal *value, Array *array) {
 
     array->value[array->length] = value;
     ++array->length;
+}
+
+static Decimal *create_array(int length) {
+    Decimal *decimal = (Decimal *) malloc(sizeof(Decimal));
+    decimal->value = (int *) malloc(sizeof(int) * length);
+    for (int i = 0; i < length; ++i) {
+        decimal->value[i] = 0;
+    }
+    decimal->length = 0;
+    return decimal;
 }

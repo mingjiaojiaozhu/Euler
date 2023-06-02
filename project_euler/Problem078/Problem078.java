@@ -8,8 +8,8 @@ public class Problem078 {
     public void solution() {
         int target = 1000000;
         List<Decimal> ways = new ArrayList<>();
-        ways.add(setValue(1));
-        ways.add(setValue(1));
+        ways.add(setValue(1, 1));
+        ways.add(setValue(1, 1));
 
         int length = 0;
         while (target >= (int) 1e5) {
@@ -17,33 +17,42 @@ public class Problem078 {
             target /= (int) 1e5;
         }
 
-        int result = 2;
+        Decimal current = new Decimal(100, 0);
+        for (int i = 2; i < 100; ++i) {
+            Decimal way = getWay(i, ways, current);
+            for (int j = way.length - 1; j >= 0; --j) {
+                System.out.printf("%05d", way.value[j]);
+            }
+            System.out.println();
+        }
+        /*int result = 2;
         while (true) {
-            Decimal way = getWay(result, ways);
+            Decimal way = getWay(result, ways, current);
             if (isDivideExactly(way, length, target)) {
                 System.out.println(result);
                 return;
             }
             ++result;
-        }
+        }*/
     }
 
-    private Decimal setValue(int value) {
-        Decimal decimal = new Decimal(100, 0);
+    private Decimal setValue(int value, int length) {
+        Decimal decimal = new Decimal(length, 0);
         decimal.value[0] = value;
         decimal.length = 1;
         return decimal;
     }
 
-    private Decimal getWay(int target, List<Decimal> ways) {
-        Decimal result = setValue(0);
+    private Decimal getWay(int target, List<Decimal> ways, Decimal current) {
         int factor = 1;
         for (int i = 1; i <= target; ++i) {
-            if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, result) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, result)) {
+            if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
                 break;
             }
             factor *= -1;
         }
+        Decimal result = new Decimal(current.length, 0);
+        swapDecimal(current, result);
         ways.add(result);
         return result;
     }
@@ -61,12 +70,24 @@ public class Problem078 {
         return 0 == way.value[length] % target;
     }
 
-    private boolean addDecimal(int index, List<Decimal> ways, int factor, Decimal result) {
+    private boolean addDecimal(int index, List<Decimal> ways, int factor, Decimal summation) {
         if (index < 0) {
             return false;
         }
-        getSummation(ways.get(index), factor, result);
+        getSummation(ways.get(index), factor, summation);
         return true;
+    }
+
+    private void swapDecimal(Decimal previous, Decimal current) {
+        int length = Math.max(previous.length, current.length);
+        for (int i = 0; i < length; ++i) {
+            previous.value[i] ^= current.value[i];
+            current.value[i] ^= previous.value[i];
+            previous.value[i] ^= current.value[i];
+        }
+        previous.length ^= current.length;
+        current.length ^= previous.length;
+        previous.length ^= current.length;
     }
 
     private void getSummation(Decimal decimal, int factor, Decimal summation) {

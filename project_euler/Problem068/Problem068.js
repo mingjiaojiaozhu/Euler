@@ -1,13 +1,11 @@
 function Problem068() {
     let target = 10
-    let ring = []
     let border = target >>> 1
     let start = border + 1
-    ring.push(start)
-    ring.push(border)
     let summation = ((target * (target + 1) >>> 1) + (border * (border + 1) >>> 1)) / border
     let pivot = summation - border - start
-    ring.push(pivot)
+
+    let ring = [start, border, pivot]
     for (let i = target; i > start; --i) {
         ring.push(i)
         ring.push(pivot)

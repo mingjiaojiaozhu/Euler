@@ -5,7 +5,7 @@ class Problem045:
         index = 144
         while True:
             hexagon = index * ((index << 1) - 1)
-            if self.__is_pentagon(index * ((index << 1) - 1)):
+            if self.__is_pentagon(hexagon):
                 print(hexagon)
                 return
             index += 1

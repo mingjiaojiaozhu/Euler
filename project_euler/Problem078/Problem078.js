@@ -1,6 +1,6 @@
 function Problem078() {
     let target = 1000000
-    let ways = [setValue(1), setValue(1)]
+    let ways = [setValue(1, 1), setValue(1, 1)]
 
     let length = 0
     while (target >= 1e5) {
@@ -8,9 +8,10 @@ function Problem078() {
         target = Math.floor(target / 1e5)
     }
 
+    let current = new Decimal(100, 0)
     let result = 2
     while (true) {
-        let way = getWay(result, ways)
+        let way = getWay(result, ways, current)
         if (isDivideExactly(way, length, target)) {
             console.log(result)
             return
@@ -19,22 +20,23 @@ function Problem078() {
     }
 }
 
-function setValue(value) {
-    let decimal = new Decimal(100, 0)
+function setValue(value, length) {
+    let decimal = new Decimal(length, 0)
     decimal.value[0] = value
     decimal.length = 1
     return decimal
 }
 
-function getWay(target, ways) {
-    let result = setValue(0)
+function getWay(target, ways, current) {
     let factor = 1
     for (let i = 1; i <= target; ++i) {
-        if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, result) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, result)) {
+        if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
             break
         }
         factor *= -1
     }
+    let result = new Decimal(current.length, 0)
+    swapDecimal(current, result)
     ways.push(result)
     return result
 }
@@ -52,12 +54,24 @@ function isDivideExactly(way, length, target) {
     return 0 === way.value[length] % target
 }
 
-function addDecimal(index, ways, factor, result) {
+function addDecimal(index, ways, factor, summation) {
     if (index < 0) {
         return false
     }
-    getSummation(ways[index], factor, result)
+    getSummation(ways[index], factor, summation)
     return true
+}
+
+function swapDecimal(previous, current) {
+    let length = Math.max(previous.length, current.length)
+    for (let i = 0; i < length; ++i) {
+        previous.value[i] ^= current.value[i]
+        current.value[i] ^= previous.value[i]
+        previous.value[i] ^= current.value[i]
+    }
+    previous.length ^= current.length
+    current.length ^= previous.length
+    previous.length ^= current.length
 }
 
 function getSummation(decimal, factor, summation) {

@@ -13,16 +13,17 @@ static void append(int value, Array *array);
 
 void Problem068(void) {
     int target = 10;
+    int border = target >> 1;
+    int start = border + 1;
+    int summation = ((target * (target + 1) >> 1) + (border * (border + 1) >> 1)) / border;
+    int pivot = summation - border - start;
+
     Array *ring = (Array *) malloc(sizeof(Array));
     ring->value = (int *) malloc(sizeof(int) * SIZE);
     ring->length = 0;
     ring->capacity = SIZE;
-    int border = target >> 1;
-    int start = border + 1;
     append(start, ring);
     append(border, ring);
-    int summation = ((target * (target + 1) >> 1) + (border * (border + 1) >> 1)) / border;
-    int pivot = summation - border - start;
     append(pivot, ring);
     for (int i = target; i > start; --i) {
         append(i, ring);
