@@ -15,7 +15,7 @@ public:
         for (int i = 2; i <= target; ++i) {
             if (fabs(floor(sqrt(i) + 0.5) - sqrt(i)) > 0.00000001) {
                 get_digits(i, current, auxiliary, length, pivot);
-                result += get_summation(current, pivot);
+                result += get_summation(current);
             }
         }
         cout << result << endl;
@@ -44,8 +44,8 @@ private:
         }
     }
 
-    int get_summation(Decimal *current, int pivot) {
-        int result = add_digit(current->value[0] / pivot / 10);
+    int get_summation(Decimal *current) {
+        int result = add_digit(current->value[0] / (int) 1e3);
         for (int i = 1; i < current->length; i++) {
             result += add_digit(current->value[i]);
         }

@@ -8,10 +8,10 @@ function Problem078() {
         target = Math.floor(target / 1e5)
     }
 
-    let current = new Decimal(100, 0)
+    let auxiliary = new Decimal(100, 0)
     let result = 2
     while (true) {
-        let way = getWay(result, ways, current)
+        let way = getWay(result, ways, auxiliary)
         if (isDivideExactly(way, length, target)) {
             console.log(result)
             return
@@ -27,16 +27,16 @@ function setValue(value, length) {
     return decimal
 }
 
-function getWay(target, ways, current) {
+function getWay(target, ways, auxiliary) {
     let factor = 1
     for (let i = 1; i <= target; ++i) {
-        if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
+        if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
             break
         }
         factor *= -1
     }
-    let result = new Decimal(current.length, 0)
-    swapDecimal(current, result)
+    let result = new Decimal(auxiliary.length, 0)
+    swapDecimal(auxiliary, result)
     ways.push(result)
     return result
 }

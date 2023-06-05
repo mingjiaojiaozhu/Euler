@@ -15,7 +15,7 @@ typedef struct {
 } Array;
 
 static Decimal *set_value(int value, int length);
-static Decimal *get_way(int target, Array *ways, Decimal *current);
+static Decimal *get_way(int target, Array *ways, Decimal *auxiliary);
 static int is_divide_exactly(Decimal *way, int length, int target);
 static int add_decimal(int index, Array *ways, int factor, Decimal *result);
 static void swap_decimal(Decimal *previous, Decimal *current);
@@ -38,10 +38,10 @@ void Problem078(void) {
         target /= (int) 1e5;
     }
 
-    Decimal *current = create_array(100);
+    Decimal *auxiliary = create_array(100);
     int result = 2;
     while (1) {
-        Decimal *way = get_way(result, ways, current);
+        Decimal *way = get_way(result, ways, auxiliary);
         if (is_divide_exactly(way, length, target)) {
             printf("%d\n", result);
             return;
@@ -57,16 +57,16 @@ static Decimal *set_value(int value, int length) {
     return decimal;
 }
 
-static Decimal *get_way(int target, Array *ways, Decimal *current) {
+static Decimal *get_way(int target, Array *ways, Decimal *auxiliary) {
     int factor = 1;
     for (int i = 1; i <= target; ++i) {
-        if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
+        if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
             break;
         }
         factor *= -1;
     }
-    Decimal *result = create_array(current->length);
-    swap_decimal(current, result);
+    Decimal *result = create_array(auxiliary->length);
+    swap_decimal(auxiliary, result);
     append(result, ways);
     return result;
 }

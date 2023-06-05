@@ -13,7 +13,7 @@ public class Problem080 {
         for (int i = 2; i <= target; ++i) {
             if (Math.abs(Math.floor(Math.sqrt(i) + 0.5) - Math.sqrt(i)) > 0.00000001) {
                 getDigits(i, current, auxiliary, length, pivot);
-                result += getSummation(current, pivot);
+                result += getSummation(current);
             }
         }
         System.out.println(result);
@@ -34,8 +34,8 @@ public class Problem080 {
         }
     }
 
-    private int getSummation(Decimal current, int pivot) {
-        int result = addDigit(current.value[0] / pivot / 10);
+    private int getSummation(Decimal current) {
+        int result = addDigit(current.value[0] / (int) 1e3);
         for (int i = 1; i < current.length; i++) {
             result += addDigit(current.value[i]);
         }

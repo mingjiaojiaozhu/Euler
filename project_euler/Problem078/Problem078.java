@@ -17,23 +17,16 @@ public class Problem078 {
             target /= (int) 1e5;
         }
 
-        Decimal current = new Decimal(100, 0);
-        for (int i = 2; i < 100; ++i) {
-            Decimal way = getWay(i, ways, current);
-            for (int j = way.length - 1; j >= 0; --j) {
-                System.out.printf("%05d", way.value[j]);
-            }
-            System.out.println();
-        }
-        /*int result = 2;
+        Decimal auxiliary = new Decimal(100, 0);
+        int result = 2;
         while (true) {
-            Decimal way = getWay(result, ways, current);
+            Decimal way = getWay(result, ways, auxiliary);
             if (isDivideExactly(way, length, target)) {
                 System.out.println(result);
                 return;
             }
             ++result;
-        }*/
+        }
     }
 
     private Decimal setValue(int value, int length) {
@@ -43,16 +36,16 @@ public class Problem078 {
         return decimal;
     }
 
-    private Decimal getWay(int target, List<Decimal> ways, Decimal current) {
+    private Decimal getWay(int target, List<Decimal> ways, Decimal auxiliary) {
         int factor = 1;
         for (int i = 1; i <= target; ++i) {
-            if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
+            if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
                 break;
             }
             factor *= -1;
         }
-        Decimal result = new Decimal(current.length, 0);
-        swapDecimal(current, result);
+        Decimal result = new Decimal(auxiliary.length, 0);
+        swapDecimal(auxiliary, result);
         ways.add(result);
         return result;
     }

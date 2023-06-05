@@ -19,7 +19,7 @@ func Problem080() {
     for i := 2; i <= target; i++ {
         if math.Abs(math.Floor(math.Sqrt(float64(i)) + 0.5) - math.Sqrt(float64(i))) > 0.00000001 {
             getDigits(i, &current, &auxiliary, length, pivot)
-            result += getSummation(&current, pivot)
+            result += getSummation(&current)
         }
     }
     fmt.Println(result)
@@ -40,8 +40,8 @@ func getDigits(value int, current *Decimal, auxiliary *Decimal, length int, pivo
     }
 }
 
-func getSummation(current *Decimal, pivot int) int {
-    result := addDigit(current.value[0] / pivot / 10)
+func getSummation(current *Decimal) int {
+    result := addDigit(current.value[0] / int(1e3))
     for i := 1; i < current.length; i++ {
         result += addDigit(current.value[i])
     }

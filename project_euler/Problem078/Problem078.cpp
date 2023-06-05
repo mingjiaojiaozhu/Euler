@@ -16,10 +16,10 @@ public:
             target /= (int) 1e5;
         }
 
-        Decimal *current = new Decimal(100, 0);
+        Decimal *auxiliary = new Decimal(100, 0);
         int result = 2;
         while (true) {
-            Decimal *way = get_way(result, ways, current);
+            Decimal *way = get_way(result, ways, auxiliary);
             if (is_divide_exactly(way, length, target)) {
                 cout << result << endl;
                 return;
@@ -43,16 +43,16 @@ private:
         return decimal;
     }
 
-    Decimal *get_way(int target, vector<Decimal *> &ways, Decimal *current) {
+    Decimal *get_way(int target, vector<Decimal *> &ways, Decimal *auxiliary) {
         int factor = 1;
         for (int i = 1; i <= target; ++i) {
-            if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, current) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, current)) {
+            if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
                 break;
             }
             factor *= -1;
         }
-        Decimal *result = new Decimal(current->length, 0);
-        swap_decimal(current, result);
+        Decimal *result = new Decimal(auxiliary->length, 0);
+        swap_decimal(auxiliary, result);
         ways.emplace_back(result);
         return result;
     }

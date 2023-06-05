@@ -8,7 +8,7 @@ function Problem080() {
     for (let i = 2; i <= target; ++i) {
         if (Math.abs(Math.floor(Math.sqrt(i) + 0.5) - Math.sqrt(i)) > 0.00000001) {
             getDigits(i, current, auxiliary, length, pivot)
-            result += getSummation(current, pivot)
+            result += getSummation(current)
         }
     }
     console.log(result)
@@ -29,8 +29,8 @@ function getDigits(value, current, auxiliary, length, pivot) {
     }
 }
 
-function getSummation(current, pivot) {
-    let result = addDigit(Math.floor(Math.floor(current.value[0] / pivot) / 10))
+function getSummation(current) {
+    let result = addDigit(Math.floor(current.value[0] / 1e3))
     for (let i = 1; i < current.length; i++) {
         result += addDigit(current.value[i])
     }

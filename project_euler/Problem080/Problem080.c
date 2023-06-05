@@ -8,7 +8,7 @@ typedef struct {
 } Decimal;
 
 static void get_digits(int value, Decimal *current, Decimal *auxiliary, int length, int pivot);
-static int get_summation(Decimal *current, int pivot);
+static int get_summation(Decimal *current);
 static void set_value(int value, Decimal *decimal);
 static int check_length(Decimal *current, int length, int pivot);
 static int is_greater(Decimal *current, Decimal *pivot);
@@ -29,7 +29,7 @@ void Problem080(void) {
     for (int i = 2; i <= target; ++i) {
         if (fabs(floor(sqrt(i) + 0.5) - sqrt(i)) > 0.00000001) {
             get_digits(i, current, auxiliary, length, pivot);
-            result += get_summation(current, pivot);
+            result += get_summation(current);
         }
     }
     printf("%d\n", result);
@@ -50,8 +50,8 @@ static void get_digits(int value, Decimal *current, Decimal *auxiliary, int leng
     }
 }
 
-static int get_summation(Decimal *current, int pivot) {
-    int result = add_digit(current->value[0] / pivot / 10);
+static int get_summation(Decimal *current) {
+    int result = add_digit(current->value[0] / (int) 1e3);
     for (int i = 1; i < current->length; i++) {
         result += add_digit(current->value[i]);
     }

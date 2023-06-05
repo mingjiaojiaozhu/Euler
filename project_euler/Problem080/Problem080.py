@@ -3,11 +3,11 @@ import math
 class Problem080:
     def solution(self) -> None:
         target = 100
-        pivot, divisor, result = 10 ** (target + 2), 10 ** 3, 0
+        pivot, result = 10 ** (target + 2), 0
         for i in range(2, target + 1):
             if abs(math.floor(math.sqrt(i) + 0.5) - math.sqrt(i)) > 0.00000001:
                 value = self.__get_digits(i, pivot)
-                result += self.__get_summation(value // divisor)
+                result += self.__get_summation(value // int(1e3))
         print(result)
 
     def __get_digits(self, value: int, pivot: int) -> int:

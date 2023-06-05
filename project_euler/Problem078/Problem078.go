@@ -17,13 +17,13 @@ func Problem078() {
         target /= int(1e5)
     }
 
-    current := Decimal{make([]int, 100), 0}
+    auxiliary := Decimal{make([]int, 100), 0}
     for i := 1; i < 100; i++ {
-        current.value[i] = 0
+        auxiliary.value[i] = 0
     }
     result := 2
     for true {
-        way := getWay(result, &ways, &current)
+        way := getWay(result, &ways, &auxiliary)
         if isDivideExactly(way, length, target) {
             fmt.Println(result)
             return
@@ -42,19 +42,19 @@ func setValue(value int, length int) Decimal {
     return decimal
 }
 
-func getWay(target int, ways *[]Decimal, current *Decimal) Decimal {
+func getWay(target int, ways *[]Decimal, auxiliary *Decimal) Decimal {
     factor := 1
     for i := 1; i <= target; i++ {
-        if !addDecimal(target - (i * (i * 3 - 1) >> 1), *ways, factor, current) || !addDecimal(target - (i * (i * 3 + 1) >> 1), *ways, factor, current) {
+        if !addDecimal(target - (i * (i * 3 - 1) >> 1), *ways, factor, auxiliary) || !addDecimal(target - (i * (i * 3 + 1) >> 1), *ways, factor, auxiliary) {
             break
         }
         factor *= -1
     }
-    result := Decimal{make([]int, current.length), 0}
-    for i := 1; i < current.length; i++ {
+    result := Decimal{make([]int, auxiliary.length), 0}
+    for i := 1; i < auxiliary.length; i++ {
         result.value[i] = 0
     }
-    swapDecimal(current, &result)
+    swapDecimal(auxiliary, &result)
     *ways = append(*ways, result)
     return result
 }
