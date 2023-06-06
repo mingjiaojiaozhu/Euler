@@ -28,12 +28,16 @@ function setValue(value, length) {
 }
 
 function getWay(target, ways, auxiliary) {
+    let delta = Math.floor(Math.sqrt(target * 24 + 1))
+    let borders = [Math.floor((delta + 1) / 6) + 1, Math.floor((delta - 1) / 6) + 1]
     let factor = 1
-    for (let i = 1; i <= target; ++i) {
-        if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
-            break
-        }
+    for (let i = 1; i < borders[1]; ++i) {
+        getSummation(ways[target - (i * (i * 3 - 1) >> 1)], factor, auxiliary)
+        getSummation(ways[target - (i * (i * 3 + 1) >> 1)], factor, auxiliary)
         factor *= -1
+    }
+    if (borders[0] !== borders[1]) {
+        getSummation(ways[target - (borders[1] * (borders[1] * 3 - 1) >> 1)], factor, auxiliary)
     }
     let result = new Decimal(auxiliary.length, 0)
     swapDecimal(auxiliary, result)
@@ -52,26 +56,6 @@ function isDivideExactly(way, length, target) {
         }
     }
     return 0 === way.value[length] % target
-}
-
-function addDecimal(index, ways, factor, summation) {
-    if (index < 0) {
-        return false
-    }
-    getSummation(ways[index], factor, summation)
-    return true
-}
-
-function swapDecimal(previous, current) {
-    let length = Math.max(previous.length, current.length)
-    for (let i = 0; i < length; ++i) {
-        previous.value[i] ^= current.value[i]
-        current.value[i] ^= previous.value[i]
-        previous.value[i] ^= current.value[i]
-    }
-    previous.length ^= current.length
-    current.length ^= previous.length
-    previous.length ^= current.length
 }
 
 function getSummation(decimal, factor, summation) {
@@ -100,6 +84,18 @@ function getSummation(decimal, factor, summation) {
             --summation.length
         }
     }
+}
+
+function swapDecimal(previous, current) {
+    let length = Math.max(previous.length, current.length)
+    for (let i = 0; i < length; ++i) {
+        previous.value[i] ^= current.value[i]
+        current.value[i] ^= previous.value[i]
+        previous.value[i] ^= current.value[i]
+    }
+    previous.length ^= current.length
+    current.length ^= previous.length
+    previous.length ^= current.length
 }
 
 function Decimal(capacity, length) {

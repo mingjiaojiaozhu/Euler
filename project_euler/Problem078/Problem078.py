@@ -1,3 +1,4 @@
+import math
 from typing import List
 
 class Problem078:
@@ -12,16 +13,13 @@ class Problem078:
             result += 1
 
     def __get_ways(self, target: int, ways: List[int]) -> int:
+        delta = int(math.sqrt(target * 24 + 1))
+        borders = [(delta + 1) // 6 + 1, (delta - 1) // 6 + 1]
         result, factor = 0, 1
-        for i in range(1, target + 1):
-            index = target - (i * (i * 3 - 1) >> 1)
-            if index < 0:
-                break
-            result += factor * ways[index]
-            index = target - (i * (i * 3 + 1) >> 1)
-            if index < 0:
-                break
-            result += factor * ways[index]
+        for i in range(1, borders[1]):
+            result += factor * ways[target - (i * (i * 3 - 1) >> 1)] + factor * ways[target - (i * (i * 3 + 1) >> 1)]
             factor *= -1
+        if borders[0] != borders[1]:
+            result += factor * ways[target - (borders[1] * (borders[1] * 3 - 1) >> 1)]
         ways.append(result)
         return result

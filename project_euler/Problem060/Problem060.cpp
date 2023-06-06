@@ -79,11 +79,19 @@ private:
         }
 
         int border = (int) sqrt(value);
-        for (int prime : primes) {
-            if (prime > border) {
-                break;
+        int start = 0;
+        int end = (int) primes.size() - 1;
+        while (start <= end) {
+            int current = start + ((end - start) >> 1);
+            if (primes[current] <= border) {
+                start = current + 1;
+            } else {
+                end = current - 1;
             }
-            if (!(value % prime)) {
+        }
+
+        for (int i = 0; i < start; ++i) {
+            if (!(value % primes[i])) {
                 return false;
             }
         }

@@ -89,86 +89,68 @@ void Problem061(void) {
 }
 
 static void add_triangle(Array_polygonal *polygonals) {
-    int index = (int) ceil((sqrt(8001) - 1) / 2);
-    while (1) {
-        int value = index * (index + 1) >> 1;
-        if (value >= 10000) {
-            return;
-        }
+    int start = (int) ceil((sqrt(8001) - 1) / 2);
+    int end = (int) ceil((sqrt(80001) - 1) / 2);
+    for (int i = start; i <= end; ++i) {
+        int value = i * (i + 1) >> 1;
         if (value % 100 >= 10) {
             append_polygonal(value, 0, polygonals);
         }
-        ++index;
     }
 }
 
 static void add_square(Array_polygonal *polygonals) {
-    int index = (int) ceil(sqrt(1000));
-    while (1) {
-        int value = index * index;
-        if (value >= 10000) {
-            return;
-        }
+    int start = (int) ceil(sqrt(1000));
+    int end = (int) ceil(sqrt(10000));
+    for (int i = start; i <= end; ++i) {
+        int value = i * i;
         if (value % 100 >= 10) {
             append_polygonal(value, 1, polygonals);
         }
-        ++index;
     }
 }
 
 static void add_pentagonal(Array_polygonal *polygonals) {
-    int index = (int) ceil((sqrt(24001) + 1) / 6);
-    while (1) {
-        int value = index * (3 * index - 1) >> 1;
-        if (value >= 10000) {
-            return;
-        }
+    int start = (int) ceil((sqrt(24001) + 1) / 6);
+    int end = (int) ceil((sqrt(240001) + 1) / 6);
+    for (int i = start; i <= end; ++i) {
+        int value = i * (3 * i - 1) >> 1;
         if (value % 100 >= 10) {
             append_polygonal(value, 2, polygonals);
         }
-        ++index;
     }
 }
 
 static void add_hexagonal(Array_polygonal *polygonals) {
-    int index = (int) ceil((sqrt(8001) + 1) / 4);
-    while (1) {
-        int value = index * ((index << 1) - 1);
-        if (value >= 10000) {
-            return;
-        }
+    int start = (int) ceil((sqrt(8001) + 1) / 4);
+    int end = (int) ceil((sqrt(80001) + 1) / 4);
+    for (int i = start; i <= end; ++i) {
+        int value = i * ((i << 1) - 1);
         if (value % 100 >= 10) {
             append_polygonal(value, 3, polygonals);
         }
-        ++index;
     }
 }
 
 static void add_heptagonal(Array_polygonal *polygonals) {
-    int index = (int) ceil((sqrt(40009) + 3) / 10);
-    while (1) {
-        int value = index * (5 * index - 3) >> 1;
-        if (value >= 10000) {
-            return;
-        }
+    int start = (int) ceil((sqrt(40009) + 3) / 10);
+    int end = (int) ceil((sqrt(400009) + 3) / 10);
+    for (int i = start; i <= end; ++i) {
+        int value = i * (5 * i - 3) >> 1;
         if (value % 100 >= 10) {
             append_polygonal(value, 4, polygonals);
         }
-        ++index;
     }
 }
 
 static void add_octagonal(Array_polygonal *polygonals) {
-    int index = (int) ceil((sqrt(12002) + 2) / 6);
-    while (1) {
-        int value = index * (3 * index - 2);
-        if (value >= 10000) {
-            return;
-        }
+    int start = (int) ceil((sqrt(12002) + 2) / 6);
+    int end = (int) ceil((sqrt(120002) + 2) / 6);
+    for (int i = start; i <= end; ++i) {
+        int value = i * (3 * i - 2);
         if (value % 100 >= 10) {
             append_polygonal(value, 5, polygonals);
         }
-        ++index;
     }
 }
 

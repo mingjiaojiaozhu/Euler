@@ -4,7 +4,7 @@
 static int is_pentagon(long long value);
 
 void Problem045(void) {
-    long long index = 144;
+    long long index = 144L;
     while (1) {
         long long hexagon = index * ((index << 1) - 1);
         if (is_pentagon(hexagon)) {

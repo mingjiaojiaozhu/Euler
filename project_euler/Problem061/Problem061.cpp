@@ -57,86 +57,68 @@ private:
     };
 
     void add_triangle(vector<Polygonal *> &polygonals) {
-        int index = (int) ceil((sqrt(8001) - 1) / 2);
-        while (true) {
-            int value = index * (index + 1) >> 1;
-            if (value >= 10000) {
-                return;
-            }
+        int start = (int) ceil((sqrt(8001) - 1) / 2);
+        int end = (int) ceil((sqrt(80001) - 1) / 2);
+        for (int i = start; i < end; ++i) {
+            int value = i * (i + 1) >> 1;
             if (value % 100 >= 10) {
                 polygonals.emplace_back(new Polygonal(value, 0));
             }
-            ++index;
         }
     }
 
     void add_square(vector<Polygonal *> &polygonals) {
-        int index = (int) ceil(sqrt(1000));
-        while (true) {
-            int value = index * index;
-            if (value >= 10000) {
-                return;
-            }
+        int start = (int) ceil(sqrt(1000));
+        int end = (int) ceil(sqrt(10000));
+        for (int i = start; i < end; ++i) {
+            int value = i * i;
             if (value % 100 >= 10) {
                 polygonals.emplace_back(new Polygonal(value, 1));
             }
-            ++index;
         }
     }
 
     void add_pentagonal(vector<Polygonal *> &polygonals) {
-        int index = (int) ceil((sqrt(24001) + 1) / 6);
-        while (true) {
-            int value = index * (3 * index - 1) >> 1;
-            if (value >= 10000) {
-                return;
-            }
+        int start = (int) ceil((sqrt(24001) + 1) / 6);
+        int end = (int) ceil((sqrt(240001) + 1) / 6);
+        for (int i = start; i < end; ++i) {
+            int value = i * (3 * i - 1) >> 1;
             if (value % 100 >= 10) {
                 polygonals.emplace_back(new Polygonal(value, 2));
             }
-            ++index;
         }
     }
 
     void add_hexagonal(vector<Polygonal *> &polygonals) {
-        int index = (int) ceil((sqrt(8001) + 1) / 4);
-        while (true) {
-            int value = index * ((index << 1) - 1);
-            if (value >= 10000) {
-                return;
-            }
+        int start = (int) ceil((sqrt(8001) + 1) / 4);
+        int end = (int) ceil((sqrt(80001) + 1) / 4);
+        for (int i = start; i < end; ++i) {
+            int value = i * ((i << 1) - 1);
             if (value % 100 >= 10) {
                 polygonals.emplace_back(new Polygonal(value, 3));
             }
-            ++index;
         }
     }
 
     void add_heptagonal(vector<Polygonal *> &polygonals) {
-        int index = (int) ceil((sqrt(40009) + 3) / 10);
-        while (true) {
-            int value = index * (5 * index - 3) >> 1;
-            if (value >= 10000) {
-                return;
-            }
+        int start = (int) ceil((sqrt(40009) + 3) / 10);
+        int end = (int) ceil((sqrt(400009) + 3) / 10);
+        for (int i = start; i < end; ++i) {
+            int value = i * (5 * i - 3) >> 1;
             if (value % 100 >= 10) {
                 polygonals.emplace_back(new Polygonal(value, 4));
             }
-            ++index;
         }
     }
 
     void add_octagonal(vector<Polygonal *> &polygonals) {
-        int index = (int) ceil((sqrt(12002) + 2) / 6);
-        while (true) {
-            int value = index * (3 * index - 2);
-            if (value >= 10000) {
-                return;
-            }
+        int start = (int) ceil((sqrt(12002) + 2) / 6);
+        int end = (int) ceil((sqrt(120002) + 2) / 6);
+        for (int i = start; i < end; ++i) {
+            int value = i * (3 * i - 2);
             if (value % 100 >= 10) {
                 polygonals.emplace_back(new Polygonal(value, 5));
             }
-            ++index;
         }
     }
 

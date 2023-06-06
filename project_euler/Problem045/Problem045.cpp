@@ -5,7 +5,7 @@ using namespace std;
 class Problem045 {
 public:
     void solution() {
-        long long index = 144;
+        long long index = 144L;
         while (true) {
             long long hexagon = index * ((index << 1) - 1);
             if (is_pentagon(hexagon)) {

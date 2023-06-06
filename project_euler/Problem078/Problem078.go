@@ -43,12 +43,16 @@ func setValue(value int, length int) Decimal {
 }
 
 func getWay(target int, ways *[]Decimal, auxiliary *Decimal) Decimal {
+    delta := int(math.Sqrt(float64(target * 24 + 1)))
+    borders := []int{(delta + 1) / 6 + 1, (delta - 1) / 6 + 1}
     factor := 1
-    for i := 1; i <= target; i++ {
-        if !addDecimal(target - (i * (i * 3 - 1) >> 1), *ways, factor, auxiliary) || !addDecimal(target - (i * (i * 3 + 1) >> 1), *ways, factor, auxiliary) {
-            break
-        }
+    for i := 1; i < borders[1]; i++ {
+        getSummation(&(*ways)[target - (i * (i * 3 - 1) >> 1)], factor, auxiliary)
+        getSummation(&(*ways)[target - (i * (i * 3 + 1) >> 1)], factor, auxiliary)
         factor *= -1
+    }
+    if borders[0] != borders[1] {
+        getSummation(&(*ways)[target - (borders[1] * (borders[1] * 3 - 1) >> 1)], factor, auxiliary)
     }
     result := Decimal{make([]int, auxiliary.length), 0}
     for i := 1; i < auxiliary.length; i++ {
@@ -70,22 +74,6 @@ func isDivideExactly(way Decimal, length int, target int) bool {
         }
     }
     return 0 == way.value[length] % target
-}
-
-func addDecimal(index int, ways []Decimal, factor int, summation *Decimal) bool {
-    if index < 0 {
-        return false
-    }
-    getSummation(&ways[index], factor, summation)
-    return true
-}
-
-func swapDecimal(previous *Decimal, current *Decimal) {
-    length := int(math.Max(float64(previous.length), float64(current.length)))
-    for i := 0; i < length; i++ {
-        previous.value[i], current.value[i] = current.value[i], previous.value[i]
-    }
-    previous.length, current.length = current.length, previous.length
 }
 
 func getSummation(decimal *Decimal, factor int, summation *Decimal) {
@@ -114,6 +102,14 @@ func getSummation(decimal *Decimal, factor int, summation *Decimal) {
             summation.length--
         }
     }
+}
+
+func swapDecimal(previous *Decimal, current *Decimal) {
+    length := int(math.Max(float64(previous.length), float64(current.length)))
+    for i := 0; i < length; i++ {
+        previous.value[i], current.value[i] = current.value[i], previous.value[i]
+    }
+    previous.length, current.length = current.length, previous.length
 }
 
 type Decimal struct {

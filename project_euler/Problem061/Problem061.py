@@ -34,64 +34,46 @@ class Problem061:
             indexes.pop()
 
     def __add_triangle(self, polygonals: List['__Polygonal']) -> None:
-        index = math.ceil((math.sqrt(8001) - 1) / 2)
-        while True:
-            value = index * (index + 1) >> 1
-            if value >= 10000:
-                return
+        start, end = math.ceil((math.sqrt(8001) - 1) / 2), math.ceil((math.sqrt(80001) - 1) / 2)
+        for i in range(start, end):
+            value = i * (i + 1) >> 1
             if value % 100 >= 10:
                 polygonals.append(self.__Polygonal(value, 0))
-            index += 1
 
     def __add_square(self, polygonals: List['__Polygonal']) -> None:
-        index = math.ceil(math.sqrt(1000))
-        while True:
-            value = index * index
-            if value >= 10000:
-                return
+        start, end = math.ceil(math.sqrt(1000)), math.ceil(math.sqrt(10000))
+        for i in range(start, end):
+            value = i * i
             if value % 100 >= 10:
                 polygonals.append(self.__Polygonal(value, 1))
-            index += 1
 
     def __add_pentagonal(self, polygonals: List['__Polygonal']) -> None:
-        index = math.ceil((math.sqrt(24001) + 1) / 6)
-        while True:
-            value = index * (3 * index - 1) >> 1
-            if value >= 10000:
-                return
+        start, end = math.ceil((math.sqrt(24001) + 1) / 6), math.ceil((math.sqrt(240001) + 1) / 6)
+        for i in range(start, end):
+            value = i * (3 * i - 1) >> 1
             if value % 100 >= 10:
                 polygonals.append(self.__Polygonal(value, 2))
-            index += 1
 
     def __add_hexagonal(self, polygonals: List['__Polygonal']) -> None:
-        index = math.ceil((math.sqrt(8001) + 1) / 4)
-        while True:
-            value = index * ((index << 1) - 1)
-            if value >= 10000:
-                return
+        start, end = math.ceil((math.sqrt(8001) + 1) / 4), math.ceil((math.sqrt(80001) + 1) / 4)
+        for i in range(start, end):
+            value = i * ((i << 1) - 1)
             if value % 100 >= 10:
                 polygonals.append(self.__Polygonal(value, 3))
-            index += 1
 
     def __add_heptagonal(self, polygonals: List['__Polygonal']) -> None:
-        index = math.ceil((math.sqrt(40009) + 3) / 10)
-        while True:
-            value = index * (5 * index - 3) >> 1
-            if value >= 10000:
-                return
+        start, end = math.ceil((math.sqrt(40009) + 3) / 10), math.ceil((math.sqrt(400009) + 3) / 10)
+        for i in range(start, end):
+            value = i * (5 * i - 3) >> 1
             if value % 100 >= 10:
                 polygonals.append(self.__Polygonal(value, 4))
-            index += 1
 
     def __add_octagonal(self, polygonals: List['__Polygonal']) -> None:
-        index = math.ceil((math.sqrt(12002) + 2) / 6)
-        while True:
-            value = index * (3 * index - 2)
-            if value >= 10000:
-                return
+        start, end = math.ceil((math.sqrt(12002) + 2) / 6), math.ceil((math.sqrt(120002) + 2) / 6)
+        for i in range(start, end):
+            value = i * (3 * i - 2)
             if value % 100 >= 10:
                 polygonals.append(self.__Polygonal(value, 5))
-            index += 1
 
     def __search(self, polygonals: List['__Polygonal'], edges: List[List[int]], start: int, indexes: List[int], steps: List[bool], target: int) -> None:
         if len(indexes) == target:

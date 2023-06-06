@@ -73,10 +73,18 @@ function checkPrime(value, primes) {
     }
 
     let border = Math.floor(Math.sqrt(value))
-    for (let prime of primes) {
-        if (prime > border) {
-            break
+    let start = 0
+    let end = primes.length - 1
+    while (start <= end) {
+        let current = start + ((end - start) >>> 1)
+        if (primes[current] <= border) {
+            start = current + 1
+        } else {
+            end = current - 1
         }
+    }
+
+    for (let prime of primes.slice(0, start)) {
         if (!(value % prime)) {
             return false
         }

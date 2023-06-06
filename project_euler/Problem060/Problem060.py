@@ -51,10 +51,15 @@ class Problem060:
                     end = current - 1
             return False
 
-        border = int(math.sqrt(value))
-        for prime in primes:
-            if prime > border:
-                break
+        border, start, end = int(math.sqrt(value)), 0, len(primes) - 1
+        while start <= end:
+            current = start + ((end - start) >> 1)
+            if primes[current] <= border:
+                start = current + 1
+            else:
+                end = current - 1
+
+        for prime in primes[:start]:
             if not value % prime:
                 return False
         return True

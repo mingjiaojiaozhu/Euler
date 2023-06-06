@@ -79,13 +79,22 @@ func checkPrime(value int, primes []int) bool {
                 end = current - 1
             }
         }
+        return false
     }
 
     border := int(math.Sqrt(float64(value)))
-    for _, prime := range primes {
-        if prime > border {
-            break
+    start := 0
+    end := len(primes) - 1
+    for start <= end {
+        current := start + ((end - start) >> 1)
+        if primes[current] <= border {
+            start = current + 1
+        } else {
+            end = current - 1
         }
+    }
+
+    for _, prime := range primes[:start] {
         if 0 == value % prime {
             return false
         }

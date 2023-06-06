@@ -37,12 +37,16 @@ public class Problem078 {
     }
 
     private Decimal getWay(int target, List<Decimal> ways, Decimal auxiliary) {
+        int delta = (int) Math.sqrt(target * 24 + 1);
+        int[] borders = new int[]{(delta + 1) / 6 + 1, (delta - 1) / 6 + 1};
         int factor = 1;
-        for (int i = 1; i <= target; ++i) {
-            if (!addDecimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !addDecimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
-                break;
-            }
+        for (int i = 1; i < borders[1]; ++i) {
+            getSummation(ways.get(target - (i * (i * 3 - 1) >> 1)), factor, auxiliary);
+            getSummation(ways.get(target - (i * (i * 3 + 1) >> 1)), factor, auxiliary);
             factor *= -1;
+        }
+        if (borders[0] != borders[1]) {
+            getSummation(ways.get(target - (borders[1] * (borders[1] * 3 - 1) >> 1)), factor, auxiliary);
         }
         Decimal result = new Decimal(auxiliary.length, 0);
         swapDecimal(auxiliary, result);
@@ -61,26 +65,6 @@ public class Problem078 {
             }
         }
         return 0 == way.value[length] % target;
-    }
-
-    private boolean addDecimal(int index, List<Decimal> ways, int factor, Decimal summation) {
-        if (index < 0) {
-            return false;
-        }
-        getSummation(ways.get(index), factor, summation);
-        return true;
-    }
-
-    private void swapDecimal(Decimal previous, Decimal current) {
-        int length = Math.max(previous.length, current.length);
-        for (int i = 0; i < length; ++i) {
-            previous.value[i] ^= current.value[i];
-            current.value[i] ^= previous.value[i];
-            previous.value[i] ^= current.value[i];
-        }
-        previous.length ^= current.length;
-        current.length ^= previous.length;
-        previous.length ^= current.length;
     }
 
     private void getSummation(Decimal decimal, int factor, Decimal summation) {
@@ -109,6 +93,18 @@ public class Problem078 {
                 --summation.length;
             }
         }
+    }
+
+    private void swapDecimal(Decimal previous, Decimal current) {
+        int length = Math.max(previous.length, current.length);
+        for (int i = 0; i < length; ++i) {
+            previous.value[i] ^= current.value[i];
+            current.value[i] ^= previous.value[i];
+            previous.value[i] ^= current.value[i];
+        }
+        previous.length ^= current.length;
+        current.length ^= previous.length;
+        previous.length ^= current.length;
     }
 
     private static class Decimal {

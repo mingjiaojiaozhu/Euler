@@ -80,11 +80,19 @@ public class Problem060 {
         }
 
         int border = (int) Math.sqrt(value);
-        for (int prime : primes) {
-            if (prime > border) {
-                break;
+        int start = 0;
+        int end = primes.size() - 1;
+        while (start <= end) {
+            int current = start + ((end - start) >> 1);
+            if (primes.get(current) <= border) {
+                start = current + 1;
+            } else {
+                end = current - 1;
             }
-            if (0 == value % prime) {
+        }
+
+        for (int i = 0; i < start; ++i) {
+            if (0 == value % primes.get(i)) {
                 return false;
             }
         }

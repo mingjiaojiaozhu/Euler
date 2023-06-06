@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 class Problem078 {
@@ -44,12 +45,16 @@ private:
     }
 
     Decimal *get_way(int target, vector<Decimal *> &ways, Decimal *auxiliary) {
+        int delta = (int) sqrt(target * 24 + 1);
+        vector<int> borders = {(delta + 1) / 6 + 1, (delta - 1) / 6 + 1};
         int factor = 1;
-        for (int i = 1; i <= target; ++i) {
-            if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
-                break;
-            }
+        for (int i = 1; i < borders[1]; ++i) {
+            get_summation(ways[target - (i * (i * 3 - 1) >> 1)], factor, auxiliary);
+            get_summation(ways[target - (i * (i * 3 + 1) >> 1)], factor, auxiliary);
             factor *= -1;
+        }
+        if (borders[0] != borders[1]) {
+            get_summation(ways[target - (borders[1] * (borders[1] * 3 - 1) >> 1)], factor, auxiliary);
         }
         Decimal *result = new Decimal(auxiliary->length, 0);
         swap_decimal(auxiliary, result);
@@ -68,26 +73,6 @@ private:
             }
         }
         return !(way->value[length] % target);
-    }
-
-    bool add_decimal(int index, vector<Decimal *> &ways, int factor, Decimal *summation) {
-        if (index < 0) {
-            return false;
-        }
-        get_summation(ways[index], factor, summation);
-        return true;
-    }
-
-    void swap_decimal(Decimal *previous, Decimal *current) {
-        int length = max(previous->length, current->length);
-        for (int i = 0; i < length; ++i) {
-            previous->value[i] ^= current->value[i];
-            current->value[i] ^= previous->value[i];
-            previous->value[i] ^= current->value[i];
-        }
-        previous->length ^= current->length;
-        current->length ^= previous->length;
-        previous->length ^= current->length;
     }
 
     void get_summation(Decimal *decimal, int factor, Decimal *summation) {
@@ -116,5 +101,17 @@ private:
                 --summation->length;
             }
         }
+    }
+
+    void swap_decimal(Decimal *previous, Decimal *current) {
+        int length = max(previous->length, current->length);
+        for (int i = 0; i < length; ++i) {
+            previous->value[i] ^= current->value[i];
+            current->value[i] ^= previous->value[i];
+            previous->value[i] ^= current->value[i];
+        }
+        previous->length ^= current->length;
+        current->length ^= previous->length;
+        previous->length ^= current->length;
     }
 };

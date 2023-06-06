@@ -96,12 +96,19 @@ static int check_prime(int value, Array *primes) {
     }
 
     int border = (int) sqrt(value);
-    for (int i = 0; i < primes->length; ++i) {
-        int prime = primes->value[i];
-        if (prime > border) {
-            break;
+    int start = 0;
+    int end = primes->length - 1;
+    while (start <= end) {
+        int current = start + ((end - start) >> 1);
+        if (primes->value[current] <= border) {
+            start = current + 1;
+        } else {
+            end = current - 1;
         }
-        if (!(value % prime)) {
+    }
+
+    for (int i = 0; i < start; ++i) {
+        if (!(value % primes->value[i])) {
             return 0;
         }
     }

@@ -44,86 +44,68 @@ function Problem061() {
 }
 
 function addTriangle(polygonals) {
-    let index = Math.ceil((Math.sqrt(8001) - 1) / 2)
-    while (true) {
-        let value = index * (index + 1) >>> 1
-        if (value >= 10000) {
-            return
-        }
+    let start = Math.ceil((Math.sqrt(8001) - 1) / 2)
+    let end = Math.ceil((Math.sqrt(80001) - 1) / 2)
+    for (let i = start; i < end; ++i) {
+        let value = i * (i + 1) >>> 1
         if (value % 100 >= 10) {
             polygonals.push(new Polygonal(value, 0))
         }
-        ++index
     }
 }
 
 function addSquare(polygonals) {
-    let index = Math.ceil(Math.sqrt(1000))
-    while (true) {
-        let value = index * index
-        if (value >= 10000) {
-            return
-        }
+    let start = Math.ceil(Math.sqrt(1000))
+    let end = Math.ceil(Math.sqrt(10000))
+    for (let i = start; i < end; ++i) {
+        let value = i * i
         if (value % 100 >= 10) {
             polygonals.push(new Polygonal(value, 1))
         }
-        ++index
     }
 }
 
 function addPentagonal(polygonals) {
-    let index = Math.ceil((Math.sqrt(24001) + 1) / 6)
-    while (true) {
-        let value = index * (3 * index - 1) >>> 1
-        if (value >= 10000) {
-            return
-        }
+    let start = Math.ceil((Math.sqrt(24001) + 1) / 6)
+    let end = Math.ceil((Math.sqrt(240001) + 1) / 6)
+    for (let i = start; i < end; ++i) {
+        let value = i * (3 * i - 1) >>> 1
         if (value % 100 >= 10) {
             polygonals.push(new Polygonal(value, 2))
         }
-        ++index
     }
 }
 
 function addHexagonal(polygonals) {
-    let index = Math.ceil((Math.sqrt(8001) + 1) / 4)
-    while (true) {
-        let value = index * ((index << 1) - 1)
-        if (value >= 10000) {
-            return
-        }
+    let start = Math.ceil((Math.sqrt(8001) + 1) / 4)
+    let end = Math.ceil((Math.sqrt(80001) + 1) / 4)
+    for (let i = start; i < end; ++i) {
+        let value = i * ((i << 1) - 1)
         if (value % 100 >= 10) {
             polygonals.push(new Polygonal(value, 3))
         }
-        ++index
     }
 }
 
 function addHeptagonal(polygonals) {
-    let index = Math.ceil((Math.sqrt(40009) + 3) / 10)
-    while (true) {
-        let value = index * (5 * index - 3) >>> 1
-        if (value >= 10000) {
-            return
-        }
+    let start = Math.ceil((Math.sqrt(40009) + 3) / 10)
+    let end = Math.ceil((Math.sqrt(400009) + 3) / 10)
+    for (let i = start; i < end; ++i) {
+        let value = i * (5 * i - 3) >>> 1
         if (value % 100 >= 10) {
             polygonals.push(new Polygonal(value, 4))
         }
-        ++index
     }
 }
 
 function addOctagonal(polygonals) {
-    let index = Math.ceil((Math.sqrt(12002) + 2) / 6)
-    while (true) {
-        let value = index * (3 * index - 2)
-        if (value >= 10000) {
-            return
-        }
+    let start = Math.ceil((Math.sqrt(12002) + 2) / 6)
+    let end = Math.ceil((Math.sqrt(120002) + 2) / 6)
+    for (let i = start; i < end; ++i) {
+        let value = i * (3 * i - 2)
         if (value % 100 >= 10) {
             polygonals.push(new Polygonal(value, 5))
         }
-        ++index
     }
 }
 

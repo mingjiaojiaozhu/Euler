@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define SIZE 64
 
@@ -17,9 +18,8 @@ typedef struct {
 static Decimal *set_value(int value, int length);
 static Decimal *get_way(int target, Array *ways, Decimal *auxiliary);
 static int is_divide_exactly(Decimal *way, int length, int target);
-static int add_decimal(int index, Array *ways, int factor, Decimal *result);
-static void swap_decimal(Decimal *previous, Decimal *current);
 static void get_summation(Decimal *decimal, int factor, Decimal *summation);
+static void swap_decimal(Decimal *previous, Decimal *current);
 static void append(Decimal *value, Array *array);
 static Decimal *create_array(int length);
 
@@ -58,12 +58,16 @@ static Decimal *set_value(int value, int length) {
 }
 
 static Decimal *get_way(int target, Array *ways, Decimal *auxiliary) {
+    int delta = (int) sqrt(target * 24 + 1);
+    int borders[2] = {(delta + 1) / 6 + 1, (delta - 1) / 6 + 1};
     int factor = 1;
-    for (int i = 1; i <= target; ++i) {
-        if (!add_decimal(target - (i * (i * 3 - 1) >> 1), ways, factor, auxiliary) || !add_decimal(target - (i * (i * 3 + 1) >> 1), ways, factor, auxiliary)) {
-            break;
-        }
+    for (int i = 1; i < borders[1]; ++i) {
+        get_summation(ways->value[target - (i * (i * 3 - 1) >> 1)], factor, auxiliary);
+        get_summation(ways->value[target - (i * (i * 3 + 1) >> 1)], factor, auxiliary);
         factor *= -1;
+    }
+    if (borders[0] != borders[1]) {
+        get_summation(ways->value[target - (borders[1] * (borders[1] * 3 - 1) >> 1)], factor, auxiliary);
     }
     Decimal *result = create_array(auxiliary->length);
     swap_decimal(auxiliary, result);
@@ -82,26 +86,6 @@ static int is_divide_exactly(Decimal *way, int length, int target) {
         }
     }
     return !(way->value[length] % target) ? 1 : 0;
-}
-
-static int add_decimal(int index, Array *ways, int factor, Decimal *summation) {
-    if (index < 0) {
-        return 0;
-    }
-    get_summation(ways->value[index], factor, summation);
-    return 1;
-}
-
-static void swap_decimal(Decimal *previous, Decimal *current) {
-    int length = (previous->length < current->length) ? current->length : previous->length;
-    for (int i = 0; i < length; ++i) {
-        previous->value[i] ^= current->value[i];
-        current->value[i] ^= previous->value[i];
-        previous->value[i] ^= current->value[i];
-    }
-    previous->length ^= current->length;
-    current->length ^= previous->length;
-    previous->length ^= current->length;
 }
 
 static void get_summation(Decimal *decimal, int factor, Decimal *summation) {
@@ -131,6 +115,18 @@ static void get_summation(Decimal *decimal, int factor, Decimal *summation) {
         }
     }
 
+}
+
+static void swap_decimal(Decimal *previous, Decimal *current) {
+    int length = (previous->length < current->length) ? current->length : previous->length;
+    for (int i = 0; i < length; ++i) {
+        previous->value[i] ^= current->value[i];
+        current->value[i] ^= previous->value[i];
+        previous->value[i] ^= current->value[i];
+    }
+    previous->length ^= current->length;
+    current->length ^= previous->length;
+    previous->length ^= current->length;
 }
 
 static void append(Decimal *value, Array *array) {

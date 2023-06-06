@@ -57,86 +57,68 @@ func Problem061() {
 }
 
 func addTriangle(polygonals *[]Polygonal) {
-    index := int(math.Ceil((math.Sqrt(8001) - 1) / 2))
-    for true {
-        value := index * (index + 1) >> 1
-        if value >= 10000 {
-            return
-        }
+    start := int(math.Ceil((math.Sqrt(8001) - 1) / 2))
+    end := int(math.Ceil((math.Sqrt(80001) - 1) / 2))
+    for i := start; i < end; i++ {
+        value := i * (i + 1) >> 1
         if value % 100 >= 10 {
             *polygonals = append(*polygonals, Polygonal{value / 100, value % 100, 0})
         }
-        index++
     }
 }
 
 func addSquare(polygonals *[]Polygonal) {
-    index := int(math.Ceil(math.Sqrt(1000)))
-    for true {
-        value := index * index
-        if value >= 10000 {
-            return
-        }
+    start := int(math.Ceil(math.Sqrt(1000)))
+    end := int(math.Ceil(math.Sqrt(10000)))
+    for i := start; i < end; i++ {
+        value := i * i
         if value % 100 >= 10 {
             *polygonals = append(*polygonals, Polygonal{value / 100, value % 100, 1})
         }
-        index++
     }
 }
 
 func addPentagonal(polygonals *[]Polygonal) {
-    index := int(math.Ceil((math.Sqrt(24001) + 1) / 6))
-    for true {
-        value := index * (3 * index - 1) >> 1
-        if value >= 10000 {
-            return
-        }
+    start := int(math.Ceil((math.Sqrt(24001) + 1) / 6))
+    end := int(math.Ceil((math.Sqrt(240001) + 1) / 6))
+    for i := start; i < end; i++ {
+        value := i * (3 * i - 1) >> 1
         if value % 100 >= 10 {
             *polygonals = append(*polygonals, Polygonal{value / 100, value % 100, 2})
         }
-        index++
     }
 }
 
 func addHexagonal(polygonals *[]Polygonal) {
-    index := int(math.Ceil((math.Sqrt(8001) + 1) / 4))
-    for true {
-        value := index * ((index << 1) - 1)
-        if value >= 10000 {
-            return
-        }
+    start := int(math.Ceil((math.Sqrt(8001) + 1) / 4))
+    end := int(math.Ceil((math.Sqrt(80001) + 1) / 4))
+    for i := start; i < end; i++ {
+        value := i * ((i << 1) - 1)
         if value % 100 >= 10 {
             *polygonals = append(*polygonals, Polygonal{value / 100, value % 100, 3})
         }
-        index++
     }
 }
 
 func addHeptagonal(polygonals *[]Polygonal) {
-    index := int(math.Ceil((math.Sqrt(40009) + 3) / 10))
-    for true {
-        value := index * (5 * index - 3) >> 1
-        if value >= 10000 {
-            return
-        }
+    start := int(math.Ceil((math.Sqrt(40009) + 3) / 10))
+    end := int(math.Ceil((math.Sqrt(400009) + 3) / 10))
+    for i := start; i < end; i++ {
+        value := i * (5 * i - 3) >> 1
         if value % 100 >= 10 {
             *polygonals = append(*polygonals, Polygonal{value / 100, value % 100, 4})
         }
-        index++
     }
 }
 
 func addOctagonal(polygonals *[]Polygonal) {
-    index := int(math.Ceil((math.Sqrt(12002) + 2) / 6))
-    for true {
-        value := index * (3 * index - 2)
-        if value >= 10000 {
-            return
-        }
+    start := int(math.Ceil((math.Sqrt(12002) + 2) / 6))
+    end := int(math.Ceil((math.Sqrt(120002) + 2) / 6))
+    for i := start; i < end; i++ {
+        value := i * (3 * i - 2)
         if value % 100 >= 10 {
             *polygonals = append(*polygonals, Polygonal{value / 100, value % 100, 5})
         }
-        index++
     }
 }
 
