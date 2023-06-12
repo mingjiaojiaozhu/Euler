@@ -7,14 +7,11 @@ typedef struct {
     int length;
 } Decimal;
 
-static int is_lychrel(int value, int target, Decimal *decimal, int *auxiliary);
-static int reverse_value(int value);
-static int is_palindrome(int value);
-static int is_lychrel_decimal(int value, int count, Decimal *decimal, int *auxiliary);
+static int is_lychrel(int value, Decimal *decimal, int *auxiliary);
 static void set_value(int value, Decimal *decimal);
-static void reverse_decimal(Decimal *decimal, int *auxiliary);
+static void reverse_value(Decimal *decimal, int *auxiliary);
 static void get_summation(Decimal *decimal, int *auxiliary);
-static int is_palindrome_decimal(Decimal *decimal, int *auxiliary);
+static int is_equal(Decimal *decimal, int *auxiliary);
 
 void Problem055(void) {
     int target = 10000;
@@ -27,65 +24,25 @@ void Problem055(void) {
     int auxiliary[100];
     int result = 0;
     for (int i = 1; i < target; ++i) {
-        if (is_lychrel(i, target, decimal, auxiliary)) {
+        if (is_lychrel(i, decimal, auxiliary)) {
             ++result;
         }
     }
     printf("%d\n", result);
 }
 
-static int is_lychrel(int value, int target, Decimal *decimal, int *auxiliary) {
+static int is_lychrel(int value, Decimal *decimal, int *auxiliary) {
+    set_value(value, decimal);
+    reverse_value(decimal, auxiliary);
+    get_summation(decimal, auxiliary);
+    
     int count = 0;
     while (count < 50) {
-        if (value <= target) {
-            value += reverse_value(value);
-            if (is_palindrome(value)) {
-                return 0;
-            }
-        } else {
-            return is_lychrel_decimal(value, count, decimal, auxiliary);
-        }
-        ++count;
-    }
-    return 1;
-}
-
-static int reverse_value(int value) {
-    int result = 0;
-    while (value) {
-        result = result * 10 + value % 10;
-        value /= 10;
-    }
-    return result;
-}
-
-static int is_palindrome(int value) {
-    int divisor = 1;
-    while (10 <= value / divisor) {
-        divisor *= 10;
-    }
-
-    while (value > 1) {
-        int head = value / divisor;
-        int tail = value % 10;
-        if (head != tail) {
+        reverse_value(decimal, auxiliary);
+        if (is_equal(decimal, auxiliary)) {
             return 0;
         }
-
-        value = value % divisor / 10;
-        divisor /= 100;
-    }
-    return 1;
-}
-
-static int is_lychrel_decimal(int value, int count, Decimal *decimal, int *auxiliary) {
-    set_value(value, decimal);
-    reverse_decimal(decimal, auxiliary);
-    while (count < 50) {
         get_summation(decimal, auxiliary);
-        if (is_palindrome_decimal(decimal, auxiliary)) {
-            return 0;
-        }
         ++count;
     }
     return 1;
@@ -103,7 +60,7 @@ static void set_value(int value, Decimal *decimal) {
     }
 }
 
-static void reverse_decimal(Decimal *decimal, int *auxiliary) {
+static void reverse_value(Decimal *decimal, int *auxiliary) {
     for (int i = 0; i < 100; ++i) {
         auxiliary[i] = 0;
     }
@@ -147,8 +104,7 @@ static void get_summation(Decimal *decimal, int *auxiliary) {
     }
 }
 
-static int is_palindrome_decimal(Decimal *decimal, int *auxiliary) {
-    reverse_decimal(decimal, auxiliary);
+static int is_equal(Decimal *decimal, int *auxiliary) {
     for (int i = 0; i < decimal->length; ++i) {
         if (decimal->value[i] != auxiliary[i]) {
             return 0;

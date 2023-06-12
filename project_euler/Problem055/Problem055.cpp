@@ -11,7 +11,7 @@ public:
         vector<int> auxiliary(100);
         int result = 0;
         for (int i = 1; i < target; ++i) {
-            if (is_lychrel(i, target, decimal, auxiliary)) {
+            if (is_lychrel(i, decimal, auxiliary)) {
                 ++result;
             }
         }
@@ -26,58 +26,18 @@ private:
         Decimal(int capacity, int length): value(vector<int>(capacity, 0)), length(length) {}
     };
 
-    bool is_lychrel(int value, int target, Decimal *decimal, vector<int> &auxiliary) {
+    bool is_lychrel(int value, Decimal *decimal, vector<int> &auxiliary) {
+        set_value(value, decimal);
+        reverse_value(decimal, auxiliary);
+        get_summation(decimal, auxiliary);
+
         int count = 0;
         while (count < 50) {
-            if (value <= target) {
-                value += reverse_value(value);
-                if (is_palindrome(value)) {
-                    return false;
-                }
-            } else {
-                return is_lychrel_decimal(value, count, decimal, auxiliary);
-            }
-            ++count;
-        }
-        return true;
-    }
-
-    int reverse_value(int value) {
-        int result = 0;
-        while (value) {
-            result = result * 10 + value % 10;
-            value /= 10;
-        }
-        return result;
-    }
-
-    bool is_palindrome(int value) {
-        int divisor = 1;
-        while (10 <= value / divisor) {
-            divisor *= 10;
-        }
-
-        while (value > 1) {
-            int head = value / divisor;
-            int tail = value % 10;
-            if (head != tail) {
+            reverse_value(decimal, auxiliary);
+            if (is_equal(decimal, auxiliary)) {
                 return false;
             }
-
-            value = value % divisor / 10;
-            divisor /= 100;
-        }
-        return true;
-    }
-
-    bool is_lychrel_decimal(int value, int count, Decimal *decimal, vector<int> &auxiliary) {
-        set_value(value, decimal);
-        reverse_decimal(decimal, auxiliary);
-        while (count < 50) {
             get_summation(decimal, auxiliary);
-            if (is_palindrome_decimal(decimal, auxiliary)) {
-                return false;
-            }
             ++count;
         }
         return true;
@@ -93,7 +53,7 @@ private:
         }
     }
 
-    void reverse_decimal(Decimal *decimal, vector<int> &auxiliary) {
+    void reverse_value(Decimal *decimal, vector<int> &auxiliary) {
         auxiliary.assign(100, 0);
         int index = 0;
         int count = 0;
@@ -134,8 +94,7 @@ private:
         }
     }
 
-    int is_palindrome_decimal(Decimal *decimal, vector<int> &auxiliary) {
-        reverse_decimal(decimal, auxiliary);
+    int is_equal(Decimal *decimal, vector<int> &auxiliary) {
         for (int i = 0; i < decimal->length; ++i) {
             if (decimal->value[i] != auxiliary[i]) {
                 return false;

@@ -7,11 +7,13 @@ class Problem055:
         print(result)
 
     def __is_lychrel(self, value: int) -> bool:
+        value += self.__reverse_value(value)
         count = 0
         while count < 50:
-            value += self.__reverse_value(value)
-            if self.__is_palindrome(value):
+            auxiliary = self.__reverse_value(value)
+            if value == auxiliary:
                 return False
+            value += auxiliary
             count += 1
         return True
 
@@ -21,17 +23,3 @@ class Problem055:
             result = result * 10 + value % 10
             value //= 10
         return result
-
-    def __is_palindrome(self, value: int) -> bool:
-        divisor = 1
-        while 10 <= value // divisor:
-            divisor *= 10
-
-        while value > 1:
-            head, tail = value // divisor, value % 10
-            if head != tail:
-                return False
-
-            value = value % divisor // 10
-            divisor //= 100
-        return True

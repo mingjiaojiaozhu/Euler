@@ -14,65 +14,25 @@ func Problem055() {
     auxiliary := make([]int, 100)
     result := 0
     for i := 1; i < target; i++ {
-        if isLychrel(i, target, &decimal, auxiliary) {
+        if isLychrel(i, &decimal, auxiliary) {
             result++
         }
     }
     fmt.Println(result)
 }
 
-func isLychrel(value int, target int, decimal *Decimal, auxiliary []int) bool {
+func isLychrel(value int, decimal *Decimal, auxiliary []int) bool {
+    setValue(value, decimal)
+    reverseValue(decimal, auxiliary)
+    getSummation(decimal, auxiliary)
+
     count := 0
     for count < 50 {
-        if value <= target {
-            value += reverseValue(value)
-            if isPalindrome(value) {
-                return false
-            }
-        } else {
-            return isLychrelDecimal(value, count, decimal, auxiliary)
-        }
-        count++
-    }
-    return true
-}
-
-func reverseValue(value int) int {
-    result := 0
-    for 0 != value {
-        result = result * 10 + value % 10
-        value /= 10
-    }
-    return result
-}
-
-func isPalindrome(value int) bool {
-    divisor := 1
-    for 10 <= value / divisor {
-        divisor *= 10
-    }
-
-    for value > 1 {
-        head := value / divisor
-        tail := value % 10
-        if head != tail {
+        reverseValue(decimal, auxiliary)
+        if isEqual(decimal, auxiliary) {
             return false
         }
-
-        value = value % divisor / 10
-        divisor /= 100
-    }
-    return true
-}
-
-func isLychrelDecimal(value int, count int, decimal *Decimal, auxiliary []int) bool {
-    setValue(value, decimal)
-    reverseDecimal(decimal, auxiliary)
-    for count < 50 {
         getSummation(decimal, auxiliary)
-        if isPalindromeDecimal(decimal, auxiliary) {
-            return false
-        }
         count++
     }
     return true
@@ -90,7 +50,7 @@ func setValue(value int, decimal *Decimal) {
     }
 }
 
-func reverseDecimal(decimal *Decimal, auxiliary []int) {
+func reverseValue(decimal *Decimal, auxiliary []int) {
     for i := 0; i < 100; i++ {
         auxiliary[i] = 0
     }
@@ -134,8 +94,7 @@ func getSummation(decimal *Decimal, auxiliary []int) {
     }
 }
 
-func isPalindromeDecimal(decimal *Decimal, auxiliary []int) bool {
-    reverseDecimal(decimal, auxiliary)
+func isEqual(decimal *Decimal, auxiliary []int) bool {
     for i := 0; i < decimal.length; i++ {
         if decimal.value[i] != auxiliary[i] {
             return false

@@ -9,65 +9,25 @@ public class Problem055 {
         int[] auxiliary = new int[100];
         int result = 0;
         for (int i = 1; i < target; ++i) {
-            if (isLychrel(i, target, decimal, auxiliary)) {
+            if (isLychrel(i, decimal, auxiliary)) {
                 ++result;
             }
         }
         System.out.println(result);
     }
 
-    private boolean isLychrel(int value, int target, Decimal decimal, int[] auxiliary) {
+    private boolean isLychrel(int value, Decimal decimal, int[] auxiliary) {
+        setValue(value, decimal);
+        reverseValue(decimal, auxiliary);
+        getSummation(decimal, auxiliary);
+        
         int count = 0;
         while (count < 50) {
-            if (value <= target) {
-                value += reverseValue(value);
-                if (isPalindrome(value)) {
-                    return false;
-                }
-            } else {
-                return isLychrelDecimal(value, count, decimal, auxiliary);
-            }
-            ++count;
-        }
-        return true;
-    }
-
-    private int reverseValue(int value) {
-        int result = 0;
-        while (0 != value) {
-            result = result * 10 + value % 10;
-            value /= 10;
-        }
-        return result;
-    }
-
-    private boolean isPalindrome(int value) {
-        int divisor = 1;
-        while (10 <= value / divisor) {
-            divisor *= 10;
-        }
-
-        while (value > 1) {
-            int head = value / divisor;
-            int tail = value % 10;
-            if (head != tail) {
+            reverseValue(decimal, auxiliary);
+            if (isEqual(decimal, auxiliary)) {
                 return false;
             }
-
-            value = value % divisor / 10;
-            divisor /= 100;
-        }
-        return true;
-    }
-
-    private boolean isLychrelDecimal(int value, int count, Decimal decimal, int[] auxiliary) {
-        setValue(value, decimal);
-        reverseDecimal(decimal, auxiliary);
-        while (count < 50) {
             getSummation(decimal, auxiliary);
-            if (isPalindromeDecimal(decimal, auxiliary)) {
-                return false;
-            }
             ++count;
         }
         return true;
@@ -83,7 +43,7 @@ public class Problem055 {
         }
     }
 
-    private void reverseDecimal(Decimal decimal, int[] auxiliary) {
+    private void reverseValue(Decimal decimal, int[] auxiliary) {
         Arrays.fill(auxiliary, 0);
         int index = 0;
         int count = 0;
@@ -124,8 +84,7 @@ public class Problem055 {
         }
     }
 
-    private boolean isPalindromeDecimal(Decimal decimal, int[] auxiliary) {
-        reverseDecimal(decimal, auxiliary);
+    private boolean isEqual(Decimal decimal, int[] auxiliary) {
         for (int i = 0; i < decimal.length; ++i) {
             if (decimal.value[i] != auxiliary[i]) {
                 return false;
