@@ -78,3 +78,6 @@
 * [078. Coin partitions](project_euler/Problem078/README.md)
 * [079. Passcode derivation](project_euler/Problem079/README.md)
 * [080. Square root digital expansion](project_euler/Problem080/README.md)
+* [081. Path sum: two ways](project_euler/Problem081/README.md)
+* [082. Path sum: three ways](project_euler/Problem082/README.md)
+* [083. Path sum: four ways](project_euler/Problem083/README.md)
