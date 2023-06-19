@@ -35,7 +35,7 @@ static int is_lychrel(int value, Decimal *decimal, int *auxiliary) {
     set_value(value, decimal);
     reverse_value(decimal, auxiliary);
     get_summation(decimal, auxiliary);
-    
+
     int count = 0;
     while (count < 50) {
         reverse_value(decimal, auxiliary);

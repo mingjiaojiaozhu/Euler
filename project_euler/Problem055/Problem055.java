@@ -20,7 +20,7 @@ public class Problem055 {
         setValue(value, decimal);
         reverseValue(decimal, auxiliary);
         getSummation(decimal, auxiliary);
-        
+
         int count = 0;
         while (count < 50) {
             reverseValue(decimal, auxiliary);

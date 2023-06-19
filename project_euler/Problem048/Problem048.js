@@ -33,7 +33,7 @@ function getPower(base, index, product, auxiliary) {
 
 function getSquare(product, auxiliary) {
     auxiliary[0] = product[0] * product[0]
-    auxiliary[1] = product[0] * product[1] + product[1] * product[0]
+    auxiliary[1] = product[0] * product[1] * 2
     if (auxiliary[0] >= 1e5) {
         auxiliary[1] += Math.floor(auxiliary[0] / 1e5)
         auxiliary[0] %= 1e5
