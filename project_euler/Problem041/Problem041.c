@@ -6,6 +6,7 @@
 static int permutation(int *elements, int index, int pivot);
 static int is_prime(int value);
 static void swap(int *p, int *q);
+static int maximum(int i, int j);
 
 void Problem041(void) {
     int elements[LENGTH] = {7, 6, 5, 4, 3, 2, 1};
@@ -20,7 +21,7 @@ static int permutation(int *elements, int index, int pivot) {
             result = result * 10 + elements[i];
         }
         if (is_prime(result)) {
-            return (result < pivot) ? pivot : result;
+            return maximum(result, pivot);
         }
         return pivot;
     }
@@ -52,4 +53,8 @@ static void swap(int *p, int *q) {
     *p ^= *q;
     *q ^= *p;
     *p ^= *q;
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }

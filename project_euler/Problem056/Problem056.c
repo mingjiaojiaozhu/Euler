@@ -9,6 +9,7 @@ typedef struct {
 static void set_value(int value, Decimal *decimal);
 static void get_product(int value, Decimal *decimal);
 static int get_digital(Decimal *decimal, int pivot);
+static int maximum(int i, int j);
 
 void Problem056(void) {
     int target = 100;
@@ -63,5 +64,9 @@ static int get_digital(Decimal *decimal, int pivot) {
             value /= 10;
         }
     }
-    return (result < pivot) ? pivot : result;
+    return maximum(result, pivot);
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }

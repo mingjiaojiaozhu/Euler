@@ -2,6 +2,8 @@
 
 #define LENGTH 15
 
+static int maximum(int i, int j);
+
 void Problem018(void) {
     int target[LENGTH][LENGTH] = {{75},
             {95, 64},
@@ -21,8 +23,12 @@ void Problem018(void) {
 
     for (int i = LENGTH - 1; i > 0; --i) {
         for (int j = i - 1; j >= 0; --j) {
-            target[i - 1][j] += (target[i][j] > target[i][j + 1]) ? target[i][j] : target[i][j + 1];
+            target[i - 1][j] += maximum(target[i][j], target[i][j + 1]);
         }
     }
     printf("%d\n", target[0][0]);
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }

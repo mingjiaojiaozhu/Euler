@@ -10,6 +10,7 @@ typedef struct {
 static void set_value(int value, Decimal *decimal);
 static void get_summation(Decimal *decimal, Decimal *summation);
 static void swap_decimal(Decimal *numerator, Decimal *denominator);
+static int maximum(int i, int j);
 static Decimal *create_array(void);
 
 void Problem057(void) {
@@ -53,7 +54,7 @@ static void get_summation(Decimal *decimal, Decimal *summation) {
 }
 
 static void swap_decimal(Decimal *numerator, Decimal *denominator) {
-    int length = (numerator->length < denominator->length) ? denominator->length : numerator->length;
+    int length = maximum(numerator->length, denominator->length);
     for (int i = 0; i < length; ++i) {
         numerator->value[i] ^= denominator->value[i];
         denominator->value[i] ^= numerator->value[i];
@@ -62,6 +63,10 @@ static void swap_decimal(Decimal *numerator, Decimal *denominator) {
     numerator->length ^= denominator->length;
     denominator->length ^= numerator->length;
     numerator->length ^= denominator->length;
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }
 
 static Decimal *create_array(void) {

@@ -5,6 +5,7 @@
 #define LENGTH 1024
 
 static char **split(char *line, const char *delimiter, int length);
+static int maximum(int i, int j);
 
 void Problem067(void) {
     char *file_name = "triangle.txt";
@@ -31,7 +32,7 @@ void Problem067(void) {
 
     for (int i = border - 1; i > 0; --i) {
         for (int j = i - 1; j >= 0; --j) {
-            target[i - 1][j] += (target[i][j] > target[i][j + 1]) ? target[i][j] : target[i][j + 1];
+            target[i - 1][j] += maximum(target[i][j], target[i][j + 1]);
         }
     }
     printf("%d\n", target[0][0]);
@@ -45,4 +46,8 @@ static char **split(char *line, const char *delimiter, int length) {
         ++index;
     }
     return elements;
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }

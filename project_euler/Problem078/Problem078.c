@@ -20,6 +20,7 @@ static Decimal *get_way(int target, Array *ways, Decimal *auxiliary);
 static int is_divide_exactly(Decimal *way, int length, int target);
 static void get_summation(Decimal *decimal, int factor, Decimal *summation);
 static void swap_decimal(Decimal *previous, Decimal *current);
+static int maximum(int i, int j);
 static void append(Decimal *value, Array *array);
 static Decimal *create_array(int length);
 
@@ -118,7 +119,7 @@ static void get_summation(Decimal *decimal, int factor, Decimal *summation) {
 }
 
 static void swap_decimal(Decimal *previous, Decimal *current) {
-    int length = (previous->length < current->length) ? current->length : previous->length;
+    int length = maximum(previous->length, current->length);
     for (int i = 0; i < length; ++i) {
         previous->value[i] ^= current->value[i];
         current->value[i] ^= previous->value[i];
@@ -127,6 +128,10 @@ static void swap_decimal(Decimal *previous, Decimal *current) {
     previous->length ^= current->length;
     current->length ^= previous->length;
     previous->length ^= current->length;
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }
 
 static void append(Decimal *value, Array *array) {

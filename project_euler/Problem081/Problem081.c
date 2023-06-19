@@ -5,6 +5,7 @@
 #define LENGTH 1024
 
 static char **split(char *line, const char *delimiter, int length);
+static int minimum(int i, int j);
 
 void Problem081(void) {
     char *file_name = "matrix.txt";
@@ -35,7 +36,7 @@ void Problem081(void) {
     }
     for (int i = 1; i < border; ++i) {
         for (int j = 1; j < border; ++j) {
-            target[i][j] += (target[i - 1][j] < target[i][j - 1]) ? target[i - 1][j] : target[i][j - 1];
+            target[i][j] += minimum(target[i - 1][j], target[i][j - 1]);
         }
     }
     printf("%d\n", target[border - 1][border - 1]);
@@ -49,4 +50,8 @@ static char **split(char *line, const char *delimiter, int length) {
         ++index;
     }
     return elements;
+}
+
+static int minimum(int i, int j) {
+    return (i < j) ? i : j;
 }

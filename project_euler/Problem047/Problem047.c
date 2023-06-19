@@ -3,6 +3,7 @@
 
 static int get_factors(int value, int *factors, int length);
 static int is_relatively_prime(int i, int j);
+static int minimum(int i, int j);
 
 void Problem047(void) {
     int target = 4;
@@ -34,11 +35,11 @@ static int get_factors(int value, int *factors, int length) {
             index *= value;
         }
 
-        for (int i = (value - 1 < length / value) ? value - 1 : length / value; i >= 2; --i) {
+        for (int i = minimum(value - 1, length / value); i >= 2; --i) {
             factors[value * i - 1] = factors[value - 1] + factors[i - 1];
         }
     } else {
-        for (int i = (value - 1 < length / value) ? value - 1 : length / value; i >= 2; --i) {
+        for (int i = minimum(value - 1, length / value); i >= 2; --i) {
             if (is_relatively_prime(value, i) && -1 == factors[value * i - 1]) {
                 factors[value * i - 1] = factors[value - 1] + factors[i - 1];
             }
@@ -54,4 +55,8 @@ static int is_relatively_prime(int i, int j) {
         j = auxiliary;
     }
     return (1 == j) ? 1 : 0;
+}
+
+static int minimum(int i, int j) {
+    return (i < j) ? i : j;
 }

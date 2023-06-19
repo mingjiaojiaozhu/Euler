@@ -25,6 +25,7 @@ static void get_product(Decimal *multiplicand, Decimal *multiplier, Decimal *pro
 static void get_double(Decimal *decimal);
 static void get_summation(Decimal *decimal, int factor, Decimal *summation);
 static void carry(Decimal *decimal);
+static int maximum(int i, int j);
 static void append(int value, Array *array);
 static Decimal *create_array(void);
 
@@ -86,7 +87,7 @@ static int is_greater(Decimal *current, Decimal *pivot) {
 }
 
 static void swap_decimal(Decimal *previous, Decimal *current) {
-    int length = (previous->length < current->length) ? current->length : previous->length;
+    int length = maximum(previous->length, current->length);
     for (int i = 0; i < length; ++i) {
         previous->value[i] ^= current->value[i];
         current->value[i] ^= previous->value[i];
@@ -169,6 +170,10 @@ static void carry(Decimal *decimal) {
     if (decimal->value[decimal->length]) {
         ++decimal->length;
     }
+}
+
+static int maximum(int i, int j) {
+    return (i > j) ? i : j;
 }
 
 static void append(int value, Array *array) {
