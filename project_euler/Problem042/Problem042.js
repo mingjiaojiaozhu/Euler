@@ -9,8 +9,8 @@ function Problem042() {
         for (let letter of line.toString()) {
             value += letter.charCodeAt(0) - 'A'.charCodeAt(0) + 1
         }
-        let delta = (value << 3) + 1
-        if (Math.abs(Math.floor(Math.sqrt(delta) + 0.5) - Math.sqrt(delta)) < 0.00000001 && (Math.floor(Math.sqrt(delta)) & 1)) {
+        let auxiliary = Math.sqrt((value << 3) + 1)
+        if (Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && (Math.floor(auxiliary) & 1)) {
             ++result
         }
     }

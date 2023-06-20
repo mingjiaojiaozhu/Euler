@@ -11,7 +11,7 @@ void Problem010(void) {
         primes[i] = 1;
     }
 
-    int border = (int) sqrt(target) + 1;
+    int border = (int) sqrt(target);
     for (int i = 3; i <= border; i += 2) {
         if (primes[i >> 1]) {
             for (int j = i * i >> 1; j < length; j += i) {

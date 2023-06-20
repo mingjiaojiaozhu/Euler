@@ -16,8 +16,8 @@ public class Problem042 {
                 for (char letter : line.toCharArray()) {
                     value += letter - 'A' + 1;
                 }
-                int delta = (value << 3) + 1;
-                if (Math.abs(Math.floor(Math.sqrt(delta) + 0.5) - Math.sqrt(delta)) < 0.00000001 && 0 != ((int) Math.sqrt(delta) & 1)) {
+                double auxiliary = Math.sqrt((value << 3) + 1);
+                if (Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && 0 != ((int) auxiliary & 1)) {
                     ++result;
                 }
             }

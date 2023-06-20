@@ -14,7 +14,7 @@ public class Problem045 {
     }
 
     private boolean isPentagon(long value) {
-        long delta = value * 24 + 1;
-        return Math.abs(Math.floor(Math.sqrt(delta) + 0.5) - Math.sqrt(delta)) < 0.00000001 && 0L == ((long) Math.sqrt(delta) + 1) % 6;
+        double auxiliary = Math.sqrt(value * 24 + 1);
+        return Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && 0L == ((long) auxiliary + 1) % 6;
     }
 }

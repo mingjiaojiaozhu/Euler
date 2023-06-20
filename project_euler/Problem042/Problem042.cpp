@@ -16,8 +16,8 @@ public:
             for (char letter : line) {
                 value += letter - 'A' + 1;
             }
-            int delta = (value << 3) + 1;
-            if (fabs(floor(sqrt(delta) + 0.5) - sqrt(delta)) < 0.00000001 && ((int) sqrt(delta) & 1)) {
+            double auxiliary = sqrt((value << 3) + 1);
+            if (fabs(floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && ((int) auxiliary & 1)) {
                 ++result;
             }
         }

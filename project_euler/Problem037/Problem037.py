@@ -8,7 +8,7 @@ class Problem037:
         primes = [True for _ in range(length)]
         primes[0] = False
 
-        border = int(math.sqrt(target)) + 1
+        border = int(math.sqrt(target))
         for i in range(3, border + 1, 2):
             if primes[i >> 1]:
                 for j in range(i * i >> 1, length, i):

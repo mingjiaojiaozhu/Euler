@@ -15,8 +15,8 @@ void Problem042(void) {
         for (char *p = line; '\n' != *p; ++p) {
             value += *p - 'A' + 1;
         }
-        int delta = (value << 3) + 1;
-        if (fabs(floor(sqrt(delta) + 0.5) - sqrt(delta)) < 0.00000001 && ((int) sqrt(delta) & 1)) {
+        double auxiliary = sqrt((value << 3) + 1);
+        if (fabs(floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && ((int) auxiliary & 1)) {
             ++result;
         }
         memset(line, 0x00, sizeof(char) * LENGTH);

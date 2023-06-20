@@ -32,12 +32,12 @@ function getWay(target, ways, auxiliary) {
     let borders = [Math.floor((delta + 1) / 6) + 1, Math.floor((delta - 1) / 6) + 1]
     let factor = 1
     for (let i = 1; i < borders[1]; ++i) {
-        getSummation(ways[target - (i * (i * 3 - 1) >> 1)], factor, auxiliary)
-        getSummation(ways[target - (i * (i * 3 + 1) >> 1)], factor, auxiliary)
+        getSummation(ways[target - (i * (i * 3 - 1) >>> 1)], factor, auxiliary)
+        getSummation(ways[target - (i * (i * 3 + 1) >>> 1)], factor, auxiliary)
         factor *= -1
     }
     if (borders[0] !== borders[1]) {
-        getSummation(ways[target - (borders[1] * (borders[1] * 3 - 1) >> 1)], factor, auxiliary)
+        getSummation(ways[target - (borders[1] * (borders[1] * 3 - 1) >>> 1)], factor, auxiliary)
     }
     let result = new Decimal(auxiliary.length, 0)
     swapDecimal(auxiliary, result)

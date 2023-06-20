@@ -28,10 +28,11 @@ class Problem066:
         return numerator * denominator << 1
 
     def __get_period(self, value: int, factors: List[int]) -> int:
-        if abs(math.floor(math.sqrt(value) + 0.5) - math.sqrt(value)) < 0.00000001:
+        auxiliary = math.sqrt(value)
+        if abs(math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001:
             return 0
 
-        initial = int(math.sqrt(value))
+        initial = int(auxiliary)
         pivot, current, offset, factor = initial << 1, initial, 0, 1
         while current != pivot:
             offset = current * factor - offset

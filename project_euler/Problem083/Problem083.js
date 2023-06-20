@@ -71,7 +71,7 @@ function enqueue(index, weight, queue) {
     let child = queue.length
     queue.push(new Heap(0, 0))
     while (child > 0) {
-        let parent = (child - 1) >> 1
+        let parent = (child - 1) >>> 1
         if (queue[parent].weight <= weight) {
             break
         }

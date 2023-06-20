@@ -4,7 +4,7 @@ function Problem037() {
     let primes = Array(length).fill(true)
     primes[0] = false
 
-    let border = Math.floor(Math.sqrt(target)) + 1
+    let border = Math.floor(Math.sqrt(target))
     for (let i = 3; i <= border; i += 2) {
         if (primes[i >>> 1]) {
             for (let j = i * i >>> 1; j < length; j += i) {

@@ -11,8 +11,8 @@ function Problem045() {
 }
 
 function isPentagon(value) {
-    let delta = value * 24 + 1
-    return Math.abs(Math.floor(Math.sqrt(delta) + 0.5) - Math.sqrt(delta)) < 0.00000001 && !((Math.floor(Math.sqrt(delta)) + 1) % 6)
+    let auxiliary = Math.sqrt(value * 24 + 1)
+    return Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && !((Math.floor(auxiliary) + 1) % 6)
 }
 
 module.exports = {

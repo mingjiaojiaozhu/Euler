@@ -9,10 +9,11 @@ class Problem064:
         print(result)
 
     def __get_period(self, value: int) -> int:
-        if abs(math.floor(math.sqrt(value) + 0.5) - math.sqrt(value)) < 0.00000001:
+        auxiliary = math.sqrt(value)
+        if abs(math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001:
             return 0
 
-        initial = int(math.sqrt(value))
+        initial = int(auxiliary)
         pivot, current, offset, factor, count = initial << 1, initial, 0, 1, 0
         while current != pivot:
             offset = current * factor - offset

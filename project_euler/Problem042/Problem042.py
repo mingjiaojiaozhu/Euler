@@ -8,7 +8,7 @@ class Problem042:
                 value = 0
                 for letter in line.strip():
                     value += ord(letter) - ord('A') + 1
-                delta = (value << 3) + 1
-                if abs(math.floor(math.sqrt(delta) + 0.5) - math.sqrt(delta)) < 0.00000001 and (int(math.sqrt(delta)) & 1):
+                auxiliary = math.sqrt((value << 3) + 1)
+                if abs(math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 and (int(auxiliary) & 1):
                     result += 1
         print(result)

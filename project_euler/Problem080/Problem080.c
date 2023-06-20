@@ -27,7 +27,8 @@ void Problem080(void) {
     int pivot = (int) pow(10, (target + 2) % 5);
     int result = 0;
     for (int i = 2; i <= target; ++i) {
-        if (fabs(floor(sqrt(i) + 0.5) - sqrt(i)) > 0.00000001) {
+        double root = sqrt(i);
+        if (fabs(floor(root + 0.5) - root) > 0.00000001) {
             get_digits(i, current, auxiliary, length, pivot);
             result += get_summation(current);
         }

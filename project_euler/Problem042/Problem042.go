@@ -23,8 +23,8 @@ func Problem042() {
         for _, letter := range line {
             value += int(letter) - 'A' + 1
         }
-        delta := float64((value << 3) + 1)
-        if math.Abs(math.Floor(math.Sqrt(delta) + 0.5) - math.Sqrt(delta)) < 0.00000001 && 0 != (int(math.Sqrt(delta)) & 1) {
+        auxiliary := math.Sqrt(float64((value << 3) + 1))
+        if math.Abs(math.Floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && 0 != (int(auxiliary) & 1) {
             result++
         }
     }

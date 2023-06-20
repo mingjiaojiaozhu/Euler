@@ -72,11 +72,12 @@ public class Problem066 {
     }
 
     private int getPeriod(int value, List<Integer> factors) {
-        if (Math.abs(Math.floor(Math.sqrt(value) + 0.5) - Math.sqrt(value)) < 0.00000001) {
+        double auxiliary = Math.sqrt(value);
+        if (Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001) {
             return 0;
         }
 
-        int initial = (int) Math.sqrt(value);
+        int initial = (int) auxiliary;
         int pivot = initial << 1;
         int current = initial;
         int offset = 0;

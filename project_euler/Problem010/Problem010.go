@@ -14,7 +14,7 @@ func Problem010() {
         primes[i] = true
     }
 
-    border := int(math.Sqrt(float64(target))) + 1
+    border := int(math.Sqrt(float64(target)))
     for i := 3; i <= border; i += 2 {
         if primes[i >> 1] {
             for j := i * i >> 1; j < length; j += i {

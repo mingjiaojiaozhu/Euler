@@ -24,7 +24,7 @@ function getPower(base, index, product, auxiliary) {
         return
     }
 
-    getPower(base, index >> 1, product, auxiliary)
+    getPower(base, index >>> 1, product, auxiliary)
     getSquare(product, auxiliary)
     if (0 !== (index & 1)) {
         getProduct(base, product)

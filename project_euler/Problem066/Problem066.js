@@ -65,11 +65,12 @@ function swapDecimal(previous, current) {
 }
 
 function getPeriod(value, factors) {
-    if (Math.abs(Math.floor(Math.sqrt(value) + 0.5) - Math.sqrt(value)) < 0.00000001) {
+    let auxiliary = Math.sqrt(value)
+    if (Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001) {
         return 0
     }
 
-    let initial = Math.floor(Math.sqrt(value))
+    let initial = Math.floor(auxiliary)
     let pivot = initial << 1
     let current = initial
     let offset = 0

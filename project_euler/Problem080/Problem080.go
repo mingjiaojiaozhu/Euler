@@ -17,7 +17,8 @@ func Problem080() {
     pivot := int(math.Pow(10, float64((target + 2) % 5)))
     result := 0
     for i := 2; i <= target; i++ {
-        if math.Abs(math.Floor(math.Sqrt(float64(i)) + 0.5) - math.Sqrt(float64(i))) > 0.00000001 {
+        root := math.Sqrt(float64(i))
+        if math.Abs(math.Floor(root + 0.5) - root) > 0.00000001 {
             getDigits(i, &current, &auxiliary, length, pivot)
             result += getSummation(&current)
         }

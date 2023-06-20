@@ -83,3 +83,4 @@
 * [083. Path sum: four ways](project_euler/Problem083/README.md)
 * [084. Monopoly odds](project_euler/Problem084/README.md)
 * [085. Counting rectangles](project_euler/Problem085/README.md)
+* [086. Cuboid route](project_euler/Problem086/README.md)

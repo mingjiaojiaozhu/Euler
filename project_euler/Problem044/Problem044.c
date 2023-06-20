@@ -34,8 +34,8 @@ void Problem044(void) {
 }
 
 static int is_pentagon(int value) {
-    int delta = value * 24 + 1;
-    return (fabs(floor(sqrt(delta) + 0.5) - sqrt(delta)) < 0.00000001 && !(((int) sqrt(delta) + 1) % 6)) ? 1 : 0;
+    double auxiliary = sqrt(value * 24 + 1);
+    return (fabs(floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && !(((int) auxiliary + 1) % 6)) ? 1 : 0;
 }
 
 static void append(int value, Array *array) {

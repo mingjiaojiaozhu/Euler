@@ -11,7 +11,8 @@ public class Problem080 {
         int pivot = (int) Math.pow(10, (target + 2) % 5);
         int result = 0;
         for (int i = 2; i <= target; ++i) {
-            if (Math.abs(Math.floor(Math.sqrt(i) + 0.5) - Math.sqrt(i)) > 0.00000001) {
+            double root = Math.sqrt(i);
+            if (Math.abs(Math.floor(root + 0.5) - root) > 0.00000001) {
                 getDigits(i, current, auxiliary, length, pivot);
                 result += getSummation(current);
             }

@@ -2,7 +2,7 @@ function Problem044() {
     let pentagons = []
     let index = 1
     while (true) {
-        let current = index * (3 * index - 1) >> 1
+        let current = index * (3 * index - 1) >>> 1
         for (let pentagon of pentagons) {
             if (isPentagon(current + pentagon) && isPentagon(current - pentagon)) {
                 console.log(current - pentagon)
@@ -15,8 +15,8 @@ function Problem044() {
 }
 
 function isPentagon(value) {
-    let delta = value * 24 + 1
-    return Math.abs(Math.floor(Math.sqrt(delta) + 0.5) - Math.sqrt(delta)) < 0.00000001 && !((Math.floor(Math.sqrt(delta)) + 1) % 6)
+    let auxiliary = Math.sqrt(value * 24 + 1)
+    return Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && !((Math.floor(auxiliary) + 1) % 6)
 }
 
 module.exports = {

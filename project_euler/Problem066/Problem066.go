@@ -76,11 +76,12 @@ func swapDecimal(previous *Decimal, current *Decimal) {
 }
 
 func getPeriod(value int, factors *[]int) int {
-    if math.Abs(math.Floor(math.Sqrt(float64(value)) + 0.5) - math.Sqrt(float64(value))) < 0.00000001 {
+    auxiliary := math.Sqrt(float64(value))
+    if math.Abs(math.Floor(auxiliary + 0.5) - auxiliary) < 0.00000001 {
         return 0
     }
 
-    initial := int(math.Sqrt(float64(value)))
+    initial := int(auxiliary)
     pivot := initial << 1
     current := initial
     offset := 0

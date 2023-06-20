@@ -5,7 +5,8 @@ class Problem080:
         target = 100
         pivot, result = 10 ** (target + 2), 0
         for i in range(2, target + 1):
-            if abs(math.floor(math.sqrt(i) + 0.5) - math.sqrt(i)) > 0.00000001:
+            root = math.sqrt(i)
+            if abs(math.floor(root + 0.5) - root) > 0.00000001:
                 value = self.__get_digits(i, pivot)
                 result += self.__get_summation(value // int(1e3))
         print(result)

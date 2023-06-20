@@ -15,11 +15,12 @@ void Problem064(void) {
 }
 
 static int get_period(int value) {
-    if (fabs(floor(sqrt(value) + 0.5) - sqrt(value)) < 0.00000001) {
+    double auxiliary = sqrt(value);
+    if (fabs(floor(auxiliary + 0.5) - auxiliary) < 0.00000001) {
         return 0;
     }
 
-    int initial = (int) sqrt(value);
+    int initial = (int) auxiliary;
     int pivot = initial << 1;
     int current = initial;
     int offset = 0;
