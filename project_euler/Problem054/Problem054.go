@@ -38,7 +38,7 @@ func Problem054() {
     fmt.Println(result)
 }
 
-func setCards(player *Player, elements []string, start int, counts []int, pairs []int)  {
+func setCards(player *Player, elements []string, start int, counts []int, pairs []int) {
     player.suits = make(map[string]bool)
     player.ranks = make([]int, 0)
 

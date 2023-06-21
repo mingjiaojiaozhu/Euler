@@ -20,7 +20,6 @@ void Problem043(void) {
         ++start;
     }
 
-
     long long result = 0L;
     for (int i = start; i < 600; i += 11) {
         elements[6] = (i % 100) / 10;

@@ -84,3 +84,5 @@
 * [084. Monopoly odds](project_euler/Problem084/README.md)
 * [085. Counting rectangles](project_euler/Problem085/README.md)
 * [086. Cuboid route](project_euler/Problem086/README.md)
+* [087. Prime power triples](project_euler/Problem087/README.md)
+* [088. Product-sum numbers](project_euler/Problem088/README.md)

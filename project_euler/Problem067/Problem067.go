@@ -36,7 +36,7 @@ func Problem067() {
     }
     file.Close()
 
-    for  i := border - 1; i > 0; i-- {
+    for i := border - 1; i > 0; i-- {
         for j := i - 1; j >= 0; j-- {
             target[i - 1][j] += int(math.Max(float64(target[i][j]), float64(target[i][j + 1])))
         }

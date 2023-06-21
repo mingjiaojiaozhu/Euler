@@ -23,7 +23,7 @@ func Problem018() {
             {4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23}}
     length := len(target)
 
-    for  i := length - 1; i > 0; i-- {
+    for i := length - 1; i > 0; i-- {
         for j := i - 1; j >= 0; j-- {
             target[i - 1][j] += int(math.Max(float64(target[i][j]), float64(target[i][j + 1])))
         }

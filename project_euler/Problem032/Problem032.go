@@ -26,7 +26,7 @@ func Problem032() {
     fmt.Println(result)
 }
 
-func getProducts(multiplicand int, multiplier int, digits []bool, products map[int]bool)  {
+func getProducts(multiplicand int, multiplier int, digits []bool, products map[int]bool) {
     for i := 0; i < 9; i++ {
         digits[i] = false
     }

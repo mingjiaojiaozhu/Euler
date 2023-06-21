@@ -65,7 +65,7 @@ func getSquare(decimal *Decimal, auxiliary []int, length int) {
     copy(decimal.value, auxiliary)
 }
 
-func getDouble(decimal *Decimal)  {
+func getDouble(decimal *Decimal) {
     for i := 0; i < decimal.length; i++ {
         decimal.value[i] <<= 1
     }

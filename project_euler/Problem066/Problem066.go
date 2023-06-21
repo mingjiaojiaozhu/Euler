@@ -124,7 +124,7 @@ func getProduct(multiplicand *Decimal, multiplier *Decimal, product *Decimal) {
     carry(product)
 }
 
-func getDouble(decimal *Decimal)  {
+func getDouble(decimal *Decimal) {
     for i := 0; i < decimal.length; i++ {
         decimal.value[i] <<= 1
     }

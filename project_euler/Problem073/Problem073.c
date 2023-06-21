@@ -49,7 +49,7 @@ static int get_count(int value) {
     if (5 == remainder) {
         return quotient * (quotient * 3 - 2 + remainder) + 1;
     }
-    return quotient * (quotient * 3  - 2 + remainder);
+    return quotient * (quotient * 3 - 2 + remainder);
 }
 
 static void append(int key, int value, Map **map) {

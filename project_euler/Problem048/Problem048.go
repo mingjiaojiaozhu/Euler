@@ -50,7 +50,7 @@ func getSquare(product []int, auxiliary []int64) {
     }
 }
 
-func getProduct(value int, product []int)  {
+func getProduct(value int, product []int) {
     product[0] *= value
     product[1] *= value
     if product[0] >= int(1e5) {
