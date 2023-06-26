@@ -9,7 +9,7 @@ public:
         int target = 8;
         vector<vector<int>> digits(3, vector<int>(0));
         vector<int> steps(0);
-        vector<int> auxiliary(0);
+        vector<int> auxiliary(3);
 
         int result = 1111;
         while (true) {
@@ -67,8 +67,7 @@ private:
             }
 
             steps.clear();
-            auxiliary.clear();
-            combination(digits[i], 0, 3, (int) digits[i].size(), steps, auxiliary);
+            combination(digits[i], 0, 3, (int) digits[i].size(), steps, auxiliary, 0);
             for (int step : steps) {
                 int count = 10 - target - i;
                 int value = pivot;
@@ -101,8 +100,8 @@ private:
         return 1 != value;
     }
 
-    void combination(const vector<int> &digits, int start, int count, int length, vector<int> &steps, vector<int> &auxiliary) {
-        if (count == (int) auxiliary.size()) {
+    void combination(const vector<int> &digits, int start, int count, int length, vector<int> &steps, vector<int> &auxiliary, int size) {
+        if (count == size) {
             int value = 0;
             for (int digit : auxiliary) {
                 value += digit;
@@ -112,9 +111,10 @@ private:
         }
 
         for (int i = start; i < length; ++i) {
-            auxiliary.emplace_back((int) pow(10, digits[i]));
-            combination(digits, i + 1, count, length, steps, auxiliary);
-            auxiliary.pop_back();
+            auxiliary[size] = (int) pow(10, digits[i]);
+            ++size;
+            combination(digits, i + 1, count, length, steps, auxiliary, size);
+            --size;
         }
     }
 };

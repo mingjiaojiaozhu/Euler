@@ -11,7 +11,7 @@ public class Problem051 {
             digits[i] = new ArrayList<>();
         }
         List<Integer> steps = new ArrayList<>();
-        List<Integer> auxiliary = new ArrayList<>();
+        int[] auxiliary = new int[3];
 
         int result = 1111;
         while (true) {
@@ -60,7 +60,7 @@ public class Problem051 {
         return false;
     }
 
-    private boolean checkPrimeFamily(int pivot, int target, List<Integer>[] digits, List<Integer> steps, List<Integer> auxiliary) {
+    private boolean checkPrimeFamily(int pivot, int target, List<Integer>[] digits, List<Integer> steps, int[] auxiliary) {
         boolean isFamily = false;
         for (int i = 0; i < 3; ++i) {
             if (digits[i].size() < 3) {
@@ -68,8 +68,7 @@ public class Problem051 {
             }
 
             steps.clear();
-            auxiliary.clear();
-            combination(digits[i], 0, 3, digits[i].size(), steps, auxiliary);
+            combination(digits[i], 0, 3, digits[i].size(), steps, auxiliary, 0);
             for (int step : steps) {
                 int count = 10 - target - i;
                 int value = pivot;
@@ -102,8 +101,8 @@ public class Problem051 {
         return 1 != value;
     }
 
-    private void combination(List<Integer> digits, int start, int count, int length, List<Integer> steps, List<Integer> auxiliary) {
-        if (count == auxiliary.size()) {
+    private void combination(List<Integer> digits, int start, int count, int length, List<Integer> steps, int[] auxiliary, int size) {
+        if (count == size) {
             int value = 0;
             for (int digit : auxiliary) {
                 value += digit;
@@ -113,9 +112,10 @@ public class Problem051 {
         }
 
         for (int i = start; i < length; ++i) {
-            auxiliary.add((int) Math.pow(10, digits.get(i)));
-            combination(digits, i + 1, count, length, steps, auxiliary);
-            auxiliary.remove(auxiliary.size() - 1);
+            auxiliary[size] = (int) Math.pow(10, digits.get(i));
+            ++size;
+            combination(digits, i + 1, count, length, steps, auxiliary, size);
+            --size;
         }
     }
 }

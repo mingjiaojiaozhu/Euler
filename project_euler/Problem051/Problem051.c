@@ -12,9 +12,9 @@ typedef struct {
 
 static int get_next_prime(int value);
 static int check_digits(int value, Array **digits);
-static int check_prime_family(int pivot, int target, Array **digits, Array *steps, Array *auxiliary);
+static int check_prime_family(int pivot, int target, Array **digits, Array *steps, int *auxiliary);
 static int is_prime(int value);
-static void combination(Array *digits, int start, int count, Array *steps, Array *auxiliary);
+static void combination(Array *digits, int start, int count, Array *steps, int *auxiliary, int size);
 static Array *create_array(void);
 static void append(int value, Array *array);
 
@@ -25,7 +25,7 @@ void Problem051(void) {
         digits[i] = create_array();
     }
     Array *steps = create_array();
-    Array *auxiliary = create_array();
+    int *auxiliary = (int *) malloc(sizeof(int) * 3);
 
     int result = 1111;
     while (1) {
@@ -74,7 +74,7 @@ static int check_digits(int value, Array **digits) {
     return 0;
 }
 
-static int check_prime_family(int pivot, int target, Array **digits, Array *steps, Array *auxiliary) {
+static int check_prime_family(int pivot, int target, Array **digits, Array *steps, int *auxiliary) {
     int is_family = 0;
     for (int i = 0; i < 3; ++i) {
         if (digits[i]->length < 3) {
@@ -82,8 +82,7 @@ static int check_prime_family(int pivot, int target, Array **digits, Array *step
         }
 
         steps->length = 0;
-        auxiliary->length = 0;
-        combination(digits[i], 0, 3, steps, auxiliary);
+        combination(digits[i], 0, 3, steps, auxiliary, 0);
         for (int j = 0; j < steps->length; ++j) {
             int count = 10 - target - i;
             int value = pivot;
@@ -116,20 +115,21 @@ static int is_prime(int value) {
     return (1 != value) ? 1 : 0;
 }
 
-static void combination(Array *digits, int start, int count, Array *steps, Array *auxiliary) {
-    if (count == auxiliary->length) {
+static void combination(Array *digits, int start, int count, Array *steps, int *auxiliary, int size) {
+    if (count == size) {
         int value = 0;
-        for (int i = 0; i < auxiliary->length; ++i) {
-            value += auxiliary->value[i];
+        for (int i = 0; i < size; ++i) {
+            value += auxiliary[i];
         }
         append(value, steps);
         return;
     }
 
     for (int i = start; i < digits->length; ++i) {
-        append((int) pow(10, digits->value[i]), auxiliary);
-        combination(digits, i + 1, count, steps, auxiliary);
-        --auxiliary->length;
+        auxiliary[size] = (int) pow(10, digits->value[i]);
+        ++size;
+        combination(digits, i + 1, count, steps, auxiliary, size);
+        --size;
     }
 }
 

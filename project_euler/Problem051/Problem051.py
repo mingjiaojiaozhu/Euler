@@ -3,7 +3,7 @@ from typing import List
 
 class Problem051:
     def solution(self) -> None:
-        target, digits, steps, auxiliary = 8, [[] for _ in range(3)], [], []
+        target, digits, steps, auxiliary = 8, [[] for _ in range(3)], [], [0 for _ in range(3)]
         result = 1111
         while True:
             result = self.__get_next_prime(result)
@@ -46,8 +46,7 @@ class Problem051:
                 continue
 
             steps.clear()
-            auxiliary.clear()
-            self.__combination(digit, 0, 3, len(digit), steps, auxiliary)
+            self.__combination(digit, 0, 3, len(digit), steps, auxiliary, 0)
             for step in steps:
                 count, value = 10 - target - i, pivot
                 for _ in range(i, 9):
@@ -69,8 +68,8 @@ class Problem051:
                 return False
         return 1 != value
 
-    def __combination(self, digits: List[int], start: int, count: int, length: int, steps: List[int], auxiliary: List[int]) -> None:
-        if count == len(auxiliary):
+    def __combination(self, digits: List[int], start: int, count: int, length: int, steps: List[int], auxiliary: List[int], size: int) -> None:
+        if count == size:
             value = 0
             for digit in auxiliary:
                 value += digit
@@ -78,6 +77,7 @@ class Problem051:
             return
 
         for i in range(start, length):
-            auxiliary.append(10 ** digits[i])
-            self.__combination(digits, i + 1, count, length, steps, auxiliary)
-            auxiliary.pop()
+            auxiliary[size] = 10 ** digits[i]
+            size += 1
+            self.__combination(digits, i + 1, count, length, steps, auxiliary, size)
+            size -= 1

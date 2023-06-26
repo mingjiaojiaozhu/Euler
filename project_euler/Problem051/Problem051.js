@@ -5,7 +5,7 @@ function Problem051() {
         digits[i] = []
     }
     let steps = []
-    let auxiliary = []
+    let auxiliary = Array(3)
 
     let result = 1111
     while (true) {
@@ -62,8 +62,7 @@ function checkPrimeFamily(pivot, target, digits, steps, auxiliary) {
         }
 
         steps.length = 0
-        auxiliary.length = 0
-        combination(digit, 0, 3, digit.length, steps, auxiliary)
+        combination(digit, 0, 3, digit.length, steps, auxiliary, 0)
         for (let step of steps) {
             let count = 10 - target - i
             let value = pivot
@@ -96,8 +95,8 @@ function isPrime(value) {
     return 1 !== value
 }
 
-function combination(digits, start, count, length, steps, auxiliary) {
-    if (count === auxiliary.length) {
+function combination(digits, start, count, length, steps, auxiliary, size) {
+    if (count === size) {
         let value = 0
         for (let digit of auxiliary) {
             value += digit
@@ -107,9 +106,10 @@ function combination(digits, start, count, length, steps, auxiliary) {
     }
 
     for (let i = start; i < length; ++i) {
-        auxiliary.push(Math.pow(10, digits[i]))
-        combination(digits, i + 1, count, length, steps, auxiliary)
-        auxiliary.pop()
+        auxiliary[size] = Math.pow(10, digits[i])
+        ++size
+        combination(digits, i + 1, count, length, steps, auxiliary, size)
+        --size
     }
 }
 

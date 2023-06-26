@@ -12,7 +12,7 @@ func Problem051() {
         digits[i] = make([]int, 0)
     }
     steps := make([]int, 0)
-    auxiliary := make([]int, 0)
+    auxiliary := make([]int, 3)
 
     result := 1111
     for true {
@@ -69,8 +69,7 @@ func checkPrimeFamily(pivot int, target int, digits [][]int, steps []int, auxili
         }
 
         steps = make([]int, 0)
-        auxiliary = make([]int, 0)
-        combination(digit, 0, 3, len(digit), &steps, auxiliary)
+        combination(digit, 0, 3, len(digit), &steps, auxiliary, 0)
         for _, step := range steps {
             count := 10 - target - i
             value := pivot
@@ -89,23 +88,6 @@ func checkPrimeFamily(pivot int, target int, digits [][]int, steps []int, auxili
     return isFamily
 }
 
-func combination(digits []int, start int, count int, length int, steps *[]int, auxiliary []int) {
-    if count == len(auxiliary) {
-        value := 0
-        for _, digit := range auxiliary {
-            value += digit
-        }
-        *steps = append(*steps, value)
-        return
-    }
-
-    for i := start; i < length; i++ {
-        auxiliary = append(auxiliary, int(math.Pow(10, float64(digits[i]))))
-        combination(digits, i + 1, count, length, steps, auxiliary)
-        auxiliary = auxiliary[:len(auxiliary) - 1]
-    }
-}
-
 func isPrime(value int) bool {
     if 1 != value % 6 && 5 != value % 6 {
         return 2 == value || 3 == value
@@ -118,4 +100,22 @@ func isPrime(value int) bool {
         }
     }
     return 1 != value
+}
+
+func combination(digits []int, start int, count int, length int, steps *[]int, auxiliary []int, size int) {
+    if count == size {
+        value := 0
+        for _, digit := range auxiliary {
+            value += digit
+        }
+        *steps = append(*steps, value)
+        return
+    }
+
+    for i := start; i < length; i++ {
+        auxiliary[size] = int(math.Pow(10, float64(digits[i])))
+        size++
+        combination(digits, i + 1, count, length, steps, auxiliary, size)
+        size--
+    }
 }
