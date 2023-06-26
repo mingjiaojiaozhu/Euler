@@ -34,7 +34,7 @@ public class Problem023 {
         System.out.println(result);
     }
 
-    boolean isAbundant(int value) {
+    private boolean isAbundant(int value) {
         int border = (int) Math.sqrt(value);
         int summation = 1;
         for (int i = 2; i < border; ++i) {

@@ -42,7 +42,7 @@ public class Problem041 {
         return 1 != value;
     }
 
-    private static void swap(int[] arrays, int i, int j) {
+    private void swap(int[] arrays, int i, int j) {
         arrays[i] ^= arrays[j];
         arrays[j] ^= arrays[i];
         arrays[i] ^= arrays[j];

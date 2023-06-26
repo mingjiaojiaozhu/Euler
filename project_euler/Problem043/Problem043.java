@@ -89,7 +89,7 @@ public class Problem043 {
         return result;
     }
 
-    private static void swap(int[] arrays, int i, int j) {
+    private void swap(int[] arrays, int i, int j) {
         arrays[i] ^= arrays[j];
         arrays[j] ^= arrays[i];
         arrays[i] ^= arrays[j];
