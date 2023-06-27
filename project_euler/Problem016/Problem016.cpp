@@ -45,7 +45,7 @@ private:
         }
     }
 
-    static void get_square(Decimal *decimal, vector<int> &auxiliary, int length) {
+    void get_square(Decimal *decimal, vector<int> &auxiliary, int length) {
         auxiliary.assign(length, 0);
         for (int i = 0; i < decimal->length; ++i) {
             for (int j = 0; j < decimal->length; ++j) {
@@ -69,7 +69,7 @@ private:
         decimal->value.assign(auxiliary.begin(), auxiliary.begin() + decimal->length);
     }
 
-    static void get_double(Decimal *decimal) {
+    void get_double(Decimal *decimal) {
         for (int i = 0; i < decimal->length; ++i) {
             decimal->value[i] <<= 1;
         }

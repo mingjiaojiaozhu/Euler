@@ -27,13 +27,23 @@ function getPower(base, index, product, auxiliary) {
     getPower(base, index >>> 1, product, auxiliary)
     getSquare(product, auxiliary)
     if (0 !== (index & 1)) {
-        getProduct(base, product)
+        getProduct(base, product, auxiliary)
     }
 }
 
 function getSquare(product, auxiliary) {
     auxiliary[0] = product[0] * product[0]
     auxiliary[1] = product[0] * product[1] * 2
+    carry(product, auxiliary)
+}
+
+function getProduct(value, product, auxiliary) {
+    auxiliary[0] = product[0] * value
+    auxiliary[1] = product[1] * value
+    carry(product, auxiliary)
+}
+
+function carry(product, auxiliary) {
     if (auxiliary[0] >= 1e5) {
         auxiliary[1] += Math.floor(auxiliary[0] / 1e5)
         auxiliary[0] %= 1e5
@@ -41,16 +51,6 @@ function getSquare(product, auxiliary) {
     auxiliary[1] %= 1e5
     product[0] = auxiliary[0]
     product[1] = auxiliary[1]
-}
-
-function getProduct(value, product) {
-    product[0] *= value
-    product[1] *= value
-    if (product[0] >= 1e5) {
-        product[1] += Math.floor(product[0] / 1e5)
-        product[0] %= 1e5
-    }
-    product[1] %= 1e5
 }
 
 module.exports = {

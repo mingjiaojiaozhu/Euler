@@ -34,13 +34,23 @@ private:
         get_power(base, index >> 1, product, auxiliary);
         get_square(product, auxiliary);
         if (index & 1) {
-            get_product(base, product);
+            get_product(base, product, auxiliary);
         }
     }
 
-    static void get_square(vector<int> &product, vector<long long> &auxiliary) {
+    void get_square(vector<int> &product, vector<long long> &auxiliary) {
         auxiliary[0] = (long long) product[0] * product[0];
         auxiliary[1] = (long long) product[0] * product[1] << 1;
+        carry(product, auxiliary);
+    }
+
+    void get_product(int value, vector<int> &product, vector<long long> &auxiliary) {
+        auxiliary[0] = (long long) product[0] * value;
+        auxiliary[1] = (long long) product[1] * value;
+        carry(product, auxiliary);
+    }
+
+    void carry(vector<int> &product, vector<long long> &auxiliary) {
         if (auxiliary[0] >= (long long) 1e5) {
             auxiliary[1] += auxiliary[0] / (long long) 1e5;
             auxiliary[0] %= (long long) 1e5;
@@ -49,15 +59,5 @@ private:
         for (int i = 0; i < 2; ++i) {
             product[i] = (int) auxiliary[i];
         }
-    }
-
-    static void get_product(int value, vector<int> &product) {
-        product[0] *= value;
-        product[1] *= value;
-        if (product[0] >= (int) 1e5) {
-            product[1] += product[0] / (int) 1e5;
-            product[0] %= (int) 1e5;
-        }
-        product[1] %= (int) 1e5;
     }
 };

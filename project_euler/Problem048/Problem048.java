@@ -30,13 +30,23 @@ public class Problem048 {
         getPower(base, index >> 1, product, auxiliary);
         getSquare(product, auxiliary);
         if (0 != (index & 1)) {
-            getProduct(base, product);
+            getProduct(base, product, auxiliary);
         }
     }
 
     private void getSquare(int[] product, long[] auxiliary) {
         auxiliary[0] = (long) product[0] * product[0];
         auxiliary[1] = (long) product[0] * product[1] << 1;
+        carry(product, auxiliary);
+    }
+
+    private void getProduct(int value, int[] product, long[] auxiliary) {
+        auxiliary[0] = (long) product[0] * value;
+        auxiliary[1] = (long) product[1] * value;
+        carry(product, auxiliary);
+    }
+
+    private void carry(int[] product, long[] auxiliary) {
         if (auxiliary[0] >= (long) 1e5) {
             auxiliary[1] += auxiliary[0] / (long) 1e5;
             auxiliary[0] %= (long) 1e5;
@@ -45,15 +55,5 @@ public class Problem048 {
         for (int i = 0; i < 2; ++i) {
             product[i] = (int) auxiliary[i];
         }
-    }
-
-    private void getProduct(int value, int[] product) {
-        product[0] *= value;
-        product[1] *= value;
-        if (product[0] >= (int) 1e5) {
-            product[1] += product[0] / (int) 1e5;
-            product[0] %= (int) 1e5;
-        }
-        product[1] %= (int) 1e5;
     }
 }
