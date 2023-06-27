@@ -33,7 +33,7 @@ void Problem022(void) {
     qsort(names->value, names->length, sizeof(char *), compare);
 
     long long result = 0L;
-    for (int i = names->length - 1; i >= 0; --i) {
+    for (int i = 0; i < names->length; ++i) {
         int score = 0;
         for (char *p = names->value[i]; *p; ++p) {
             score += *p - 'A' + 1;

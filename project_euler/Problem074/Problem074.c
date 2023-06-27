@@ -30,9 +30,9 @@ static int get_summation(int value, int *factorials, int *counts);
 static Array *create_array(void);
 static void append_array(int value, Array *array);
 static void append_set(int value, Set **set);
-static void append_map(int key, int value, Map **map);
 static int contains(int value, Set **set);
 static int get_count(Set **set);
+static void append_map(int key, int value, Map **map);
 static int get_value(int key, Map **map);
 
 void Problem074(void) {
@@ -209,6 +209,29 @@ static void append_set(int value, Set **set) {
     current->next->next = NULL;
 }
 
+static int contains(int value, Set **set) {
+    Set *current = set[value % SIZE_SET];
+    while (current) {
+        if (current->value == value) {
+            return 1;
+        }
+        current = current->next;
+    }
+    return 0;
+}
+
+static int get_count(Set **set) {
+    int result = 0;
+    for (int i = 0; i < SIZE_SET; ++i) {
+        Set *current = set[i];
+        while (current) {
+            ++result;
+            current = current->next;
+        }
+    }
+    return result;
+}
+
 static void append_map(int key, int value, Map **map) {
     int index = key % SIZE_MAP;
     if (!map[index]) {
@@ -236,29 +259,6 @@ static void append_map(int key, int value, Map **map) {
     current->next->key = key;
     current->next->value = value;
     current->next->next = NULL;
-}
-
-static int contains(int value, Set **set) {
-    Set *current = set[value % SIZE_SET];
-    while (current) {
-        if (current->value == value) {
-            return 1;
-        }
-        current = current->next;
-    }
-    return 0;
-}
-
-static int get_count(Set **set) {
-    int result = 0;
-    for (int i = 0; i < SIZE_SET; ++i) {
-        Set *current = set[i];
-        while (current) {
-            ++result;
-            current = current->next;
-        }
-    }
-    return result;
 }
 
 static int get_value(int key, Map **map) {

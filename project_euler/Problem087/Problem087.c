@@ -22,8 +22,8 @@ static int is_prime(int value);
 static int get_index(int value, Array *primes);
 static Array *create_array(void);
 static void append_array(int value, Array *array);
-static int get_count(Set **set);
 static void append_set(int value, Set **set);
+static int get_count(Set **set);
 
 void Problem087(void) {
     int target = 50000000;
