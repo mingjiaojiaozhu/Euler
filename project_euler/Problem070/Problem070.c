@@ -13,7 +13,7 @@ typedef struct {
 static int get_previous_prime(int value);
 static int get_next_prime(int value);
 static void get_digits(int value, int *digits);
-static int check_digits(int *pivots, int *digits);
+static int check_digits(int **digits);
 static int is_prime(int value);
 static void append(int value, Array *array);
 
@@ -27,15 +27,17 @@ void Problem070(void) {
     primes->length = 0;
     primes->capacity = SIZE;
     append(end, primes);
-    int pivots[10];
-    int digits[10];
+    int **digits = (int **) malloc(sizeof(int *) * 2);
+    for (int i = 0; i < 2; ++i) {
+        digits[i] = (int *) malloc(sizeof(int) * 10);
+    }
     int result = 0;
     while (1) {
         for (int i = 0; i < primes->length; ++i) {
             int prime = primes->value[i];
-            get_digits(start * prime, pivots);
-            get_digits((start - 1) * (prime - 1), digits);
-            if (check_digits(pivots, digits)) {
+            get_digits(start * prime, digits[0]);
+            get_digits((start - 1) * (prime - 1), digits[1]);
+            if (check_digits(digits)) {
                 result = start * prime;
             }
         }
@@ -43,9 +45,9 @@ void Problem070(void) {
         end = get_next_prime(primes->value[primes->length - 1]);
         while (start * end < target) {
             append(end, primes);
-            get_digits(start * end, pivots);
-            get_digits((start - 1) * (end - 1), digits);
-            if (check_digits(pivots, digits)) {
+            get_digits(start * end, digits[0]);
+            get_digits((start - 1) * (end - 1), digits[1]);
+            if (check_digits(digits)) {
                 result = start * end;
             }
             end = get_next_prime(end);
@@ -96,9 +98,9 @@ static void get_digits(int value, int *digits) {
     }
 }
 
-static int check_digits(int *pivots, int *digits) {
+static int check_digits(int **digits) {
     for (int i = 0; i < 10; ++i) {
-        if (pivots[i] != digits[i]) {
+        if (digits[0][i] != digits[1][i]) {
             return 0;
         }
     }

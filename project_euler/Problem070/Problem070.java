@@ -12,14 +12,13 @@ public class Problem070 {
         int end = getNextPrime(pivot);
         List<Integer> primes = new ArrayList<>();
         primes.add(end);
-        int[] pivots = new int[10];
-        int[] digits = new int[10];
+        int[][] digits = new int[2][10];
         int result = 0;
         while (true) {
             for (int prime : primes) {
-                getDigits(start * prime, pivots);
-                getDigits((start - 1) * (prime - 1), digits);
-                if (checkDigits(pivots, digits)) {
+                getDigits(start * prime, digits[0]);
+                getDigits((start - 1) * (prime - 1), digits[1]);
+                if (checkDigits(digits)) {
                     result = start * prime;
                 }
             }
@@ -27,9 +26,9 @@ public class Problem070 {
             end = getNextPrime(primes.get(primes.size() - 1));
             while (start * end < target) {
                 primes.add(end);
-                getDigits(start * end, pivots);
-                getDigits((start - 1) * (end - 1), digits);
-                if (checkDigits(pivots, digits)) {
+                getDigits(start * end, digits[0]);
+                getDigits((start - 1) * (end - 1), digits[1]);
+                if (checkDigits(digits)) {
                     result = start * end;
                 }
                 end = getNextPrime(end);
@@ -77,9 +76,9 @@ public class Problem070 {
         }
     }
 
-    private boolean checkDigits(int[] pivots, int[] digits) {
+    private boolean checkDigits(int[][] digits) {
         for (int i = 0; i < 10; ++i) {
-            if (pivots[i] != digits[i]) {
+            if (digits[0][i] != digits[1][i]) {
                 return false;
             }
         }

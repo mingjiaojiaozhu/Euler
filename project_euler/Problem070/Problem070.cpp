@@ -12,14 +12,13 @@ public:
         int end = get_next_prime(pivot);
         vector<int> primes(0);
         primes.emplace_back(end);
-        vector<int> pivots(10);
-        vector<int> digits(10);
+        vector<vector<int>> digits(2, vector<int>(10));
         int result = 0;
         while (true) {
             for (int prime : primes) {
-                get_digits(start * prime, pivots);
-                get_digits((start - 1) * (prime - 1), digits);
-                if (check_digits(pivots, digits)) {
+                get_digits(start * prime, digits[0]);
+                get_digits((start - 1) * (prime - 1), digits[1]);
+                if (check_digits(digits)) {
                     result = start * prime;
                 }
             }
@@ -27,9 +26,9 @@ public:
             end = get_next_prime(primes[(int) primes.size() - 1]);
             while (start * end < target) {
                 primes.emplace_back(end);
-                get_digits(start * end, pivots);
-                get_digits((start - 1) * (end - 1), digits);
-                if (check_digits(pivots, digits)) {
+                get_digits(start * end, digits[0]);
+                get_digits((start - 1) * (end - 1), digits[1]);
+                if (check_digits(digits)) {
                     result = start * end;
                 }
                 end = get_next_prime(end);
@@ -78,9 +77,9 @@ private:
         }
     }
 
-    bool check_digits(const vector<int> &pivots, const vector<int> &digits) {
+    bool check_digits(const vector<vector<int>> &digits) {
         for (int i = 0; i < 10; ++i) {
-            if (pivots[i] != digits[i]) {
+            if (digits[0][i] != digits[1][i]) {
                 return false;
             }
         }

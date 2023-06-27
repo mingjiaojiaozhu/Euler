@@ -4,15 +4,17 @@ import "fmt"
 
 func Problem052() {
     target := 6
-    pivots := make([]int, 10)
-    digits := make([]int, 10)
+    digits := make([][]int, 2)
+    for i := 0; i < 2; i++ {
+        digits[i] = make([]int, 10)
+    }
     index := 10
     for true {
-        getDigits(index, pivots)
+        getDigits(index, digits[0])
         isSame := true
         for i := target; i > 1; i-- {
-            getDigits(index * i, digits)
-            if !checkDigits(pivots, digits) {
+            getDigits(index * i, digits[1])
+            if !checkDigits(digits) {
                 isSame = false
                 break
             }
@@ -36,9 +38,9 @@ func getDigits(value int, digits []int) {
     }
 }
 
-func checkDigits(pivots []int, digits []int) bool {
+func checkDigits(digits [][]int) bool {
     for i := 0; i < 10; i++ {
-        if pivots[i] != digits[i] {
+        if digits[0][i] != digits[1][i] {
             return false
         }
     }

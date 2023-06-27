@@ -4,14 +4,16 @@ function Problem070() {
     let start = getPreviousPrime(pivot)
     let end = getNextPrime(pivot)
     let primes = [end]
-    let pivots = Array(10)
-    let digits = Array(10)
+    let digits = Array(2)
+    for (let i = 0; i < 2; ++i) {
+        digits[i] = Array(10)
+    }
     let result = 0
     while (true) {
         for (let prime of primes) {
-            getDigits(start * prime, pivots)
-            getDigits((start - 1) * (prime - 1), digits)
-            if (checkDigits(pivots, digits)) {
+            getDigits(start * prime, digits[0])
+            getDigits((start - 1) * (prime - 1), digits[1])
+            if (checkDigits(digits)) {
                 result = start * prime
             }
         }
@@ -19,9 +21,9 @@ function Problem070() {
         end = getNextPrime(primes[primes.length - 1])
         while (start * end < target) {
             primes.push(end)
-            getDigits(start * end, pivots)
-            getDigits((start - 1) * (end - 1), digits)
-            if (checkDigits(pivots, digits)) {
+            getDigits(start * end, digits[0])
+            getDigits((start - 1) * (end - 1), digits[1])
+            if (checkDigits(digits)) {
                 result = start * end
             }
             end = getNextPrime(end)
@@ -69,9 +71,9 @@ function getDigits(value, digits) {
     }
 }
 
-function checkDigits(pivots, digits) {
+function checkDigits(digits) {
     for (let i = 0; i < 10; ++i) {
-        if (pivots[i] !== digits[i]) {
+        if (digits[0][i] !== digits[1][i]) {
             return false
         }
     }

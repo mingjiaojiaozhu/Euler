@@ -6,20 +6,20 @@ class Problem070:
         target = 10000000
         pivot = int(math.sqrt(target))
         start, end = self.__get_previous_prime(pivot), self.__get_next_prime(pivot)
-        primes, pivots, digits, result = [end], [0 for _ in range(10)], [0 for _ in range(10)], 0
+        primes, digits, result = [end], [[0 for _ in range(10)] for _ in range(2)], 0
         while True:
             for prime in primes:
-                self.__get_digits(start * prime, pivots)
-                self.__get_digits((start - 1) * (prime - 1), digits)
-                if self.__check_digits(pivots, digits):
+                self.__get_digits(start * prime, digits[0])
+                self.__get_digits((start - 1) * (prime - 1), digits[1])
+                if self.__check_digits(digits):
                     result = start * prime
 
             end = self.__get_next_prime(primes[-1])
             while start * end < target:
                 primes.append(end)
-                self.__get_digits(start * end, pivots)
-                self.__get_digits((start - 1) * (end - 1), digits)
-                if self.__check_digits(pivots, digits):
+                self.__get_digits(start * end, digits[0])
+                self.__get_digits((start - 1) * (end - 1), digits[1])
+                if self.__check_digits(digits):
                     result = start * end
                 end = self.__get_next_prime(end)
 
@@ -54,9 +54,9 @@ class Problem070:
             digits[value % 10] += 1
             value //= 10
 
-    def __check_digits(self, pivots: List[int], digits: List[int]) -> bool:
-        for pivot, digit in zip(pivots, digits):
-            if pivot != digit:
+    def __check_digits(self, digits: List[List[int]]) -> bool:
+        for i in range(10):
+            if digits[0][i] != digits[1][i]:
                 return False
         return True
 

@@ -1,14 +1,16 @@
 function Problem052() {
     let target = 6
-    let pivots = Array(10)
-    let digits = Array(10)
+    let digits = Array(2)
+    for (let i = 0; i < 2; ++i) {
+        digits[i] = Array(10)
+    }
     let index = 10
     while (true) {
-        getDigits(index, pivots)
+        getDigits(index, digits[0])
         let isSame = true
         for (let i = target; i > 1; --i) {
-            getDigits(index * i, digits)
-            if (!checkDigits(pivots, digits)) {
+            getDigits(index * i, digits[1])
+            if (!checkDigits(digits)) {
                 isSame = false
                 break
             }
@@ -29,9 +31,9 @@ function getDigits(value, digits) {
     }
 }
 
-function checkDigits(pivots, digits) {
+function checkDigits(digits) {
     for (let i = 0; i < 10; ++i) {
-        if (pivots[i] !== digits[i]) {
+        if (digits[0][i] !== digits[1][i]) {
             return false
         }
     }

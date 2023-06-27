@@ -5,15 +5,14 @@ import java.util.Arrays;
 public class Problem052 {
     public void solution() {
         int target = 6;
-        int[] pivots = new int[10];
-        int[] digits = new int[10];
+        int[][] digits = new int[2][10];
         int index = 10;
         while (true) {
-            getDigits(index, pivots);
+            getDigits(index, digits[0]);
             boolean isSame = true;
             for (int i = target; i > 1; --i) {
-                getDigits(index * i, digits);
-                if (!checkDigits(pivots, digits)) {
+                getDigits(index * i, digits[1]);
+                if (!checkDigits(digits)) {
                     isSame = false;
                     break;
                 }
@@ -34,9 +33,9 @@ public class Problem052 {
         }
     }
 
-    private boolean checkDigits(int[] pivots, int[] digits) {
+    private boolean checkDigits(int[][] digits) {
         for (int i = 0; i < 10; ++i) {
-            if (pivots[i] != digits[i]) {
+            if (digits[0][i] != digits[1][i]) {
                 return false;
             }
         }

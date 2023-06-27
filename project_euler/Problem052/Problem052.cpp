@@ -6,15 +6,14 @@ class Problem052 {
 public:
     void solution() {
         int target = 6;
-        vector<int> pivots(10);
-        vector<int> digits(10);
+        vector<vector<int>> digits(2, vector<int>(10));
         int index = 10;
         while (true) {
-            get_digits(index, pivots);
+            get_digits(index, digits[0]);
             bool is_same = true;
             for (int i = target; i > 1; --i) {
-                get_digits(index * i, digits);
-                if (!check_digits(pivots, digits)) {
+                get_digits(index * i, digits[1]);
+                if (!check_digits(digits)) {
                     is_same = false;
                     break;
                 }
@@ -36,9 +35,9 @@ private:
         }
     }
 
-    bool check_digits(const vector<int> &pivots, const vector<int> &digits) {
+    bool check_digits(const vector<vector<int>> &digits) {
         for (int i = 0; i < 10; ++i) {
-            if (pivots[i] != digits[i]) {
+            if (digits[0][i] != digits[1][i]) {
                 return false;
             }
         }

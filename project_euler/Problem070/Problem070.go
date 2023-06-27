@@ -12,14 +12,16 @@ func Problem070() {
     end := getNextPrime(pivot)
     primes := make([]int, 0)
     primes = append(primes, end)
-    pivots := make([]int, 10)
-    digits := make([]int, 10)
+    digits := make([][]int, 2)
+    for i := 0; i < 2; i++ {
+        digits[i] = make([]int, 10)
+    }
     result := 0
     for true {
         for _, prime := range primes {
-            getDigits(start * prime, pivots)
-            getDigits((start - 1) * (prime - 1), digits)
-            if checkDigits(pivots, digits) {
+            getDigits(start * prime, digits[0])
+            getDigits((start - 1) * (prime - 1), digits[1])
+            if checkDigits(digits) {
                 result = start * prime
             }
         }
@@ -27,9 +29,9 @@ func Problem070() {
         end = getNextPrime(primes[len(primes) - 1])
         for start * end < target {
             primes = append(primes, end)
-            getDigits(start * end, pivots)
-            getDigits((start - 1) * (end - 1), digits)
-            if checkDigits(pivots, digits) {
+            getDigits(start * end, digits[0])
+            getDigits((start - 1) * (end - 1), digits[1])
+            if checkDigits(digits) {
                 result = start * end
             }
             end = getNextPrime(end)
@@ -80,9 +82,9 @@ func getDigits(value int, digits []int) {
     }
 }
 
-func checkDigits(pivots []int, digits []int) bool {
+func checkDigits(digits [][]int) bool {
     for i := 0; i < 10; i++ {
-        if pivots[i] != digits[i] {
+        if digits[0][i] != digits[1][i] {
             return false
         }
     }
