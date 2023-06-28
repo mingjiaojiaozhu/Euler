@@ -49,7 +49,7 @@ private:
             remainder = remainder * 10 % value;
             vector<int>::iterator position = find(remainders.begin(), remainders.end(), remainder);
             if (position != remainders.end()) {
-                return (int) (remainders.size() - (position - remainders.begin()));
+                return (int) remainders.size() - (position - remainders.begin());
             }
         }
     }

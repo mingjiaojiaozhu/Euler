@@ -86,3 +86,5 @@
 * [086. Cuboid route](project_euler/Problem086/README.md)
 * [087. Prime power triples](project_euler/Problem087/README.md)
 * [088. Product-sum numbers](project_euler/Problem088/README.md)
+* [089. Roman numerals](project_euler/Problem089/README.md)
+* [090. Cube digit pairs](project_euler/Problem090/README.md)
