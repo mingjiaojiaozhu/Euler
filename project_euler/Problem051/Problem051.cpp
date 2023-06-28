@@ -100,7 +100,7 @@ private:
         return 1 != value;
     }
 
-    void combination(const vector<int> &digits, int start, int count, int length, vector<int> &steps, vector<int> &auxiliary, int size) {
+    void combination(const vector<int> &digits, int index, int count, int length, vector<int> &steps, vector<int> &auxiliary, int size) {
         if (count == size) {
             int value = 0;
             for (int digit : auxiliary) {
@@ -110,7 +110,7 @@ private:
             return;
         }
 
-        for (int i = start; i < length; ++i) {
+        for (int i = index; i < length; ++i) {
             auxiliary[size] = (int) pow(10, digits[i]);
             ++size;
             combination(digits, i + 1, count, length, steps, auxiliary, size);

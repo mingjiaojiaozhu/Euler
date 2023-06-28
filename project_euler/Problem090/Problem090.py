@@ -3,7 +3,7 @@ from typing import List
 class Problem090:
     def solution(self) -> None:
         elements, ways, auxiliary = [0, 1, 2, 3, 4, 5, 6, 7, 8, 6], [], [0 for _ in range(6)]
-        self.__combination(elements, 0, 6, len(elements), ways, auxiliary, 0)
+        self.__combination(elements, 0, 6, ways, auxiliary, 0)
 
         squares = []
         for i in range(1, 10):
@@ -16,15 +16,15 @@ class Problem090:
                     result += 1
         print(result)
 
-    def __combination(self, elements: List[int], start: int, count: int, length: int, ways: List[List[int]], auxiliary: List[int], size: int) -> None:
+    def __combination(self, elements: List[int], index: int, count: int, ways: List[List[int]], auxiliary: List[int], size: int) -> None:
         if count == size:
             ways.append(list(auxiliary))
             return
 
-        for i in range(start, length):
-            auxiliary[size] = elements[i]
+        for i, value in enumerate(elements[index:]):
+            auxiliary[size] = value
             size += 1
-            self.__combination(elements, i + 1, count, length, ways, auxiliary, size)
+            self.__combination(elements, index + i + 1, count, ways, auxiliary, size)
             size -= 1
 
     def __reverse_9_to_6(self, value: int) -> int:
@@ -34,7 +34,7 @@ class Problem090:
             value -= 3
         return value
 
-    def __check_digits(self, ways: List[List[int]], start: int, end: int, squares: List[int], arrangements: set) -> bool:
+    def __check_digits(self, ways: List[List[int]], start: int, end: int, squares: List[int], arrangements: set[int]) -> bool:
         arrangements.clear()
         for pivot in ways[start]:
             for value in ways[end]:

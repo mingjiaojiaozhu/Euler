@@ -6,7 +6,7 @@ func Problem090() {
     elements := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 6}
     ways := make([][]int, 0)
     auxiliary := make([]int, 6)
-    combination(elements, 0, 6, len(elements), &ways, auxiliary, 0)
+    combination(elements, 0, 6, &ways, auxiliary, 0)
 
     squares := make([]int, 0)
     for i := 1; i < 10; i++ {
@@ -25,17 +25,17 @@ func Problem090() {
     fmt.Println(result)
 }
 
-func combination(elements []int, start int, count int, length int, ways *[][]int, auxiliary []int, size int) {
+func combination(elements []int, index int, count int, ways *[][]int, auxiliary []int, size int) {
     if count == size {
         *ways = append(*ways, make([]int, count))
         copy((*ways)[len(*ways) - 1], auxiliary)
         return
     }
 
-    for i := start; i < length; i++ {
-        auxiliary[size] = elements[i]
+    for i, value := range elements[index:] {
+        auxiliary[size] = value
         size++
-        combination(elements, i + 1, count, length, ways, auxiliary, size)
+        combination(elements, index + i + 1, count, ways, auxiliary, size)
         size--
     }
 }

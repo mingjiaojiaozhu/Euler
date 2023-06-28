@@ -46,7 +46,7 @@ class Problem051:
                 continue
 
             steps.clear()
-            self.__combination(digit, 0, 3, len(digit), steps, auxiliary, 0)
+            self.__combination(digit, 0, 3, steps, auxiliary, 0)
             for step in steps:
                 count, value = 10 - target - i, pivot
                 for _ in range(i, 9):
@@ -68,7 +68,7 @@ class Problem051:
                 return False
         return 1 != value
 
-    def __combination(self, digits: List[int], start: int, count: int, length: int, steps: List[int], auxiliary: List[int], size: int) -> None:
+    def __combination(self, digits: List[int], index: int, count: int, steps: List[int], auxiliary: List[int], size: int) -> None:
         if count == size:
             value = 0
             for digit in auxiliary:
@@ -76,8 +76,8 @@ class Problem051:
             steps.append(value)
             return
 
-        for i in range(start, length):
-            auxiliary[size] = 10 ** digits[i]
+        for i, value in enumerate(digits[index:]):
+            auxiliary[size] = 10 ** value
             size += 1
-            self.__combination(digits, i + 1, count, length, steps, auxiliary, size)
+            self.__combination(digits, index + i + 1, count, steps, auxiliary, size)
             size -= 1

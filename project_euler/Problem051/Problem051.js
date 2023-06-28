@@ -62,7 +62,7 @@ function checkPrimeFamily(pivot, target, digits, steps, auxiliary) {
         }
 
         steps.length = 0
-        combination(digit, 0, 3, digit.length, steps, auxiliary, 0)
+        combination(digit, 0, 3, steps, auxiliary, 0)
         for (let step of steps) {
             let count = 10 - target - i
             let value = pivot
@@ -95,7 +95,7 @@ function isPrime(value) {
     return 1 !== value
 }
 
-function combination(digits, start, count, length, steps, auxiliary, size) {
+function combination(digits, index, count, steps, auxiliary, size) {
     if (count === size) {
         let value = 0
         for (let digit of auxiliary) {
@@ -105,10 +105,10 @@ function combination(digits, start, count, length, steps, auxiliary, size) {
         return
     }
 
-    for (let i = start; i < length; ++i) {
-        auxiliary[size] = Math.pow(10, digits[i])
+    for (let [i, value] of digits.slice(index).entries()) {
+        auxiliary[size] = Math.pow(10, value)
         ++size
-        combination(digits, i + 1, count, length, steps, auxiliary, size)
+        combination(digits, index + i + 1, count, steps, auxiliary, size)
         --size
     }
 }

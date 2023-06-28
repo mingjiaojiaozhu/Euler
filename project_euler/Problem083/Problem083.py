@@ -44,8 +44,8 @@ class Problem083:
                     heapq.heappush(queue, self.__Heap(i, weight + edges[index][i]))
 
     class __Heap:
-        def __init__(self, index: int, weight: int):
+        def __init__(self, index: int, weight: int) -> None:
             self.index, self.weight = index, weight
 
-        def __lt__(self, other):
+        def __lt__(self, other: '__Heap') -> None:
             return self.weight < other.weight

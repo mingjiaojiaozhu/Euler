@@ -88,3 +88,6 @@
 * [088. Product-sum numbers](project_euler/Problem088/README.md)
 * [089. Roman numerals](project_euler/Problem089/README.md)
 * [090. Cube digit pairs](project_euler/Problem090/README.md)
+* [091. Right triangles with integer coordinates](project_euler/Problem091/README.md)
+* [092. Square digit chains](project_euler/Problem092/README.md)
+* [093. Arithmetic expressions](project_euler/Problem093/README.md)

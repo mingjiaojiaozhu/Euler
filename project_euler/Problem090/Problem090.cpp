@@ -29,13 +29,13 @@ public:
     }
 
 private:
-    void combination(const vector<int> &elements, int start, int count, int length, vector<vector<int>> &ways, vector<int> &auxiliary, int size) {
+    void combination(const vector<int> &elements, int index, int count, int length, vector<vector<int>> &ways, vector<int> &auxiliary, int size) {
         if (count == size) {
             ways.emplace_back(vector<int>(auxiliary));
             return;
         }
 
-        for (int i = start; i < length; ++i) {
+        for (int i = index; i < length; ++i) {
             auxiliary[size] = elements[i];
             ++size;
             combination(elements, i + 1, count, length, ways, auxiliary, size);

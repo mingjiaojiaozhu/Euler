@@ -29,13 +29,13 @@ public class Problem090 {
         System.out.println(result);
     }
 
-    private void combination(int[] elements, int start, int count, int length, List<int[]> ways, int[] auxiliary, int size) {
+    private void combination(int[] elements, int index, int count, int length, List<int[]> ways, int[] auxiliary, int size) {
         if (count == size) {
             ways.add(auxiliary.clone());
             return;
         }
 
-        for (int i = start; i < length; ++i) {
+        for (int i = index; i < length; ++i) {
             auxiliary[size] = elements[i];
             ++size;
             combination(elements, i + 1, count, length, ways, auxiliary, size);

@@ -101,7 +101,7 @@ public class Problem051 {
         return 1 != value;
     }
 
-    private void combination(List<Integer> digits, int start, int count, int length, List<Integer> steps, int[] auxiliary, int size) {
+    private void combination(List<Integer> digits, int index, int count, int length, List<Integer> steps, int[] auxiliary, int size) {
         if (count == size) {
             int value = 0;
             for (int digit : auxiliary) {
@@ -111,7 +111,7 @@ public class Problem051 {
             return;
         }
 
-        for (int i = start; i < length; ++i) {
+        for (int i = index; i < length; ++i) {
             auxiliary[size] = (int) Math.pow(10, digits.get(i));
             ++size;
             combination(digits, i + 1, count, length, steps, auxiliary, size);

@@ -118,5 +118,5 @@ class Problem084:
             squares[0], squares[pivot] = squares[pivot], squares[0]
 
     class __Square:
-        def __init__(self, index: int, value: float):
+        def __init__(self, index: int, value: float) -> None:
             self.index, self.value = index, value

@@ -109,5 +109,5 @@ class Problem054:
             player.ranks.append(player.value[i])
 
     class __Player:
-        def __init__(self):
+        def __init__(self) -> None:
             self.value, self.suits, self.hand, self.ranks = [0 for _ in range(5)], set(), 0, []

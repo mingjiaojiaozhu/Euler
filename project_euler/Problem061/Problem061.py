@@ -96,5 +96,5 @@ class Problem061:
                     steps[step] = False
 
     class __Polygonal:
-        def __init__(self, value: int, step: int):
+        def __init__(self, value: int, step: int) -> None:
             self.head, self.tail, self.step, self.next = value // 100, value % 100, step, None

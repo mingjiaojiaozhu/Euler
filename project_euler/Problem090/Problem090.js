@@ -2,7 +2,7 @@ function Problem090() {
     let elements = [0, 1, 2, 3, 4, 5, 6, 7, 8, 6]
     let ways = []
     let auxiliary = Array(6)
-    combination(elements, 0, 6, elements.length, ways, auxiliary, 0)
+    combination(elements, 0, 6, ways, auxiliary, 0)
 
     let squares = []
     for (let i = 1; i < 10; ++i) {
@@ -21,16 +21,16 @@ function Problem090() {
     console.log(result)
 }
 
-function combination(elements, start, count, length, ways, auxiliary, size) {
+function combination(elements, index, count, ways, auxiliary, size) {
     if (count === size) {
         ways.push(auxiliary.slice())
         return
     }
 
-    for (let i = start; i < length; ++i) {
-        auxiliary[size] = elements[i]
+    for (let [i, value] of elements.slice(index).entries()) {
+        auxiliary[size] = value
         ++size
-        combination(elements, i + 1, count, length, ways, auxiliary, size)
+        combination(elements, index + i + 1, count, ways, auxiliary, size)
         --size
     }
 }

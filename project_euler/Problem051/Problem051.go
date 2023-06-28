@@ -69,7 +69,7 @@ func checkPrimeFamily(pivot int, target int, digits [][]int, steps []int, auxili
         }
 
         steps = make([]int, 0)
-        combination(digit, 0, 3, len(digit), &steps, auxiliary, 0)
+        combination(digit, 0, 3, &steps, auxiliary, 0)
         for _, step := range steps {
             count := 10 - target - i
             value := pivot
@@ -102,7 +102,7 @@ func isPrime(value int) bool {
     return 1 != value
 }
 
-func combination(digits []int, start int, count int, length int, steps *[]int, auxiliary []int, size int) {
+func combination(digits []int, index int, count int, steps *[]int, auxiliary []int, size int) {
     if count == size {
         value := 0
         for _, digit := range auxiliary {
@@ -112,10 +112,10 @@ func combination(digits []int, start int, count int, length int, steps *[]int, a
         return
     }
 
-    for i := start; i < length; i++ {
-        auxiliary[size] = int(math.Pow(10, float64(digits[i])))
+    for i, value := range digits[index:] {
+        auxiliary[size] = int(math.Pow(10, float64(value)))
         size++
-        combination(digits, i + 1, count, length, steps, auxiliary, size)
+        combination(digits, index + i + 1, count, steps, auxiliary, size)
         size--
     }
 }

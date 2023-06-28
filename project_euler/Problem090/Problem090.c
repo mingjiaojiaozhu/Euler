@@ -23,7 +23,7 @@ typedef struct node {
     struct node *next;
 } Set;
 
-static void combination(int *elements, int start, int count, Array_list *ways, int *auxiliary, int size);
+static void combination(int *elements, int index, int count, Array_list *ways, int *auxiliary, int size);
 static int reverse_9_to_6(int value);
 static int check_digits(Array_list *ways, int i, int j, Array *squares, Set **arrangements, int size);
 static void append_array(int value, Array *array);
@@ -63,13 +63,13 @@ void Problem090(void) {
     printf("%d\n", result);
 }
 
-static void combination(int *elements, int start, int count, Array_list *ways, int *auxiliary, int size) {
+static void combination(int *elements, int index, int count, Array_list *ways, int *auxiliary, int size) {
     if (count == size) {
         append_array_list(auxiliary, ways, count);
         return;
     }
 
-    for (int i = start; i < LENGTH; ++i) {
+    for (int i = index; i < LENGTH; ++i) {
         auxiliary[size] = elements[i];
         ++size;
         combination(elements, i + 1, count, ways, auxiliary, size);

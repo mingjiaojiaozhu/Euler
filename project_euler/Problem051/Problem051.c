@@ -14,7 +14,7 @@ static int get_next_prime(int value);
 static int check_digits(int value, Array **digits);
 static int check_prime_family(int pivot, int target, Array **digits, Array *steps, int *auxiliary);
 static int is_prime(int value);
-static void combination(Array *digits, int start, int count, Array *steps, int *auxiliary, int size);
+static void combination(Array *digits, int index, int count, Array *steps, int *auxiliary, int size);
 static Array *create_array(void);
 static void append(int value, Array *array);
 
@@ -115,7 +115,7 @@ static int is_prime(int value) {
     return (1 != value) ? 1 : 0;
 }
 
-static void combination(Array *digits, int start, int count, Array *steps, int *auxiliary, int size) {
+static void combination(Array *digits, int index, int count, Array *steps, int *auxiliary, int size) {
     if (count == size) {
         int value = 0;
         for (int i = 0; i < size; ++i) {
@@ -125,7 +125,7 @@ static void combination(Array *digits, int start, int count, Array *steps, int *
         return;
     }
 
-    for (int i = start; i < digits->length; ++i) {
+    for (int i = index; i < digits->length; ++i) {
         auxiliary[size] = (int) pow(10, digits->value[i]);
         ++size;
         combination(digits, i + 1, count, steps, auxiliary, size);
