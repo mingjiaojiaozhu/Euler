@@ -91,3 +91,8 @@
 * [091. Right triangles with integer coordinates](project_euler/Problem091/README.md)
 * [092. Square digit chains](project_euler/Problem092/README.md)
 * [093. Arithmetic expressions](project_euler/Problem093/README.md)
+* [094. Almost equilateral triangles](project_euler/Problem094/README.md)
+* [095. Amicable chains](project_euler/Problem095/README.md)
+* [096. Su Doku](project_euler/Problem096/README.md)
+* [097. Large non-Mersenne prime](project_euler/Problem097/README.md)
+* [098. Anagramic squares](project_euler/Problem098/README.md)

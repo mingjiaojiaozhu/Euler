@@ -102,7 +102,7 @@ public class Problem093 {
             return i * j;
         }
         if (Math.abs(j) < 0.00000001) {
-            return -1.0;
+            return -1;
         }
         return i / j;
     }

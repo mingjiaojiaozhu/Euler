@@ -139,7 +139,7 @@ static double calculate(char sign, double i, double j) {
         return i * j;
     }
     if (fabs(j) < 0.00000001) {
-        return -1.0;
+        return -1;
     }
     return i / j;
 }

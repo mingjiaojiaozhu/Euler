@@ -18,7 +18,7 @@ typedef struct {
 } Array;
 
 typedef struct {
-    int *value;
+    int value[5];
     Set **suits;
     int hand;
     Array *ranks;
@@ -28,7 +28,7 @@ static void set_cards(Player *player, char **elements, int start, int *counts, i
 static int is_winner(Player **players);
 static int get_value(char value);
 static void set_head(Player *player, int *counts, int *pairs);
-static char **split(char *line, const char *delimiter);
+static char **split(char *line, const char *delimiter, int length);
 static void append_set(char value, Set **set);
 static int get_count(Set **set);
 static void append_array(int value, Array *array);
@@ -36,10 +36,9 @@ static int compare(const void *p, const void *q);
 
 void Problem054(void) {
     char *file_name = "poker.txt";
-    Player **players = (Player **) malloc(sizeof(Player *) * 2);
+    Player *players[2];
     for (int i = 0; i < 2; ++i) {
         players[i] = (Player *) malloc(sizeof(Player));
-        players[i]->value = (int *) malloc(sizeof(int) * 5);
         players[i]->suits = (Set **) malloc(sizeof(Set *) * SIZE_SET);
         players[i]->hand = 0;
         players[i]->ranks = (Array *) malloc(sizeof(Array));
@@ -56,7 +55,7 @@ void Problem054(void) {
     int result = 0;
     while (fgets(line, LENGTH, handle)) {
         line[(int) strlen(line) - 1] = 0x00;
-        char **elements = split(line, " ");
+        char **elements = split(line, " ", 10);
         set_cards(players[0], elements, 0, counts, pairs);
         set_cards(players[1], elements, 5, counts, pairs);
         if (is_winner(players)) {
@@ -196,8 +195,8 @@ static void set_head(Player *player, int *counts, int *pairs) {
     }
 }
 
-static char **split(char *line, const char *delimiter) {
-    char **elements = (char **) malloc(sizeof(char *) * 10);
+static char **split(char *line, const char *delimiter, int length) {
+    char **elements = (char **) malloc(sizeof(char *) * length);
     int index = 0;
     for (char *current = strtok(line, delimiter); current; current = strtok(NULL, delimiter)) {
         elements[index] = current;

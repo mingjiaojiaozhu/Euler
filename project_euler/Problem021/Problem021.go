@@ -24,7 +24,6 @@ func Problem021() {
         if divisor > i && divisor <= target && divisors[divisor - 1] == i {
             result += i + divisor
         }
-
     }
     fmt.Println(result)
 }

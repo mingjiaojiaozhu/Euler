@@ -27,7 +27,7 @@ static int get_count(Set **set);
 
 void Problem087(void) {
     int target = 50000000;
-    Array **primes = (Array **) malloc(sizeof(Array *) * 3);
+    Array *primes[3];
     for (int i = 0; i < 3; ++i) {
         primes[i] = create_array();
     }

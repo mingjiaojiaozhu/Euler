@@ -5,10 +5,10 @@ class Problem003 {
 public:
     void solution() {
         long long target = 600851475143L;
-        while (!(target & 1L)) {
+        while (!(target & 1)) {
             target >>= 1;
         }
-        if (1L == target) {
+        if (1 == target) {
             target = 2L;
         }
 

@@ -24,9 +24,9 @@ class Problem008:
         product, index = self.__multiply(target, length, size, 0)
         result = product
         while index < length:
-            value = ord(target[index]) - ord('0')
+            value = int(target[index])
             if value:
-                product = product // (ord(target[index - size]) - ord('0')) * value
+                product = product // int(target[index - size]) * value
                 index += 1
             else:
                 product, index = self.__multiply(target, length, size, index + 1)
@@ -40,7 +40,7 @@ class Problem008:
 
         result = 1
         for i in range(size):
-            value = ord(target[index]) - ord('0')
+            value = int(target[index])
             if not value:
                 return self.__multiply(target, length, size, index + 1)
 

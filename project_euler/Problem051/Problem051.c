@@ -20,12 +20,12 @@ static void append(int value, Array *array);
 
 void Problem051(void) {
     int target = 8;
-    Array **digits = (Array **) malloc(sizeof(Array *) * 3);
+    Array *digits[3];
     for (int i = 0; i < 3; ++i) {
         digits[i] = create_array();
     }
     Array *steps = create_array();
-    int *auxiliary = (int *) malloc(sizeof(int) * 3);
+    int auxiliary[3];
 
     int result = 1111;
     while (1) {

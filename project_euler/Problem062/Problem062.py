@@ -21,6 +21,6 @@ class Problem062:
     def __get_digits(self, value: int) -> int:
         result = 0
         while value:
-            result += int(math.pow(10, value % 10))
+            result += 10 ** (value % 10)
             value //= 10
         return result

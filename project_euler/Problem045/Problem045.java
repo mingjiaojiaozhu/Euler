@@ -15,6 +15,6 @@ public class Problem045 {
 
     private boolean isPentagon(long value) {
         double auxiliary = Math.sqrt(value * 24 + 1);
-        return Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && 0L == ((long) auxiliary + 1) % 6;
+        return Math.abs(Math.floor(auxiliary + 0.5) - auxiliary) < 0.00000001 && 0 == ((long) auxiliary + 1) % 6;
     }
 }

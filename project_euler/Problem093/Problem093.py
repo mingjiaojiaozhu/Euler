@@ -73,7 +73,7 @@ class Problem093:
         if '*' == sign:
             return i * j
         if abs(j) < 0.00000001:
-            return -1.0
+            return -1
         return i / j
 
     class __Arithmetic:

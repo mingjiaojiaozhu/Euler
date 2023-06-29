@@ -27,7 +27,7 @@ void Problem059(void) {
     codes->value = (int *) malloc(sizeof(int) * SIZE_ARRAY);
     codes->length = 0;
     codes->capacity = SIZE_ARRAY;
-    Map ***counts = (Map ***) malloc(sizeof(Map **) * 3);
+    Map **counts[3];
     for (int i = 0; i < 3; ++i) {
         counts[i] = (Map **) malloc(sizeof(Map *) * SIZE_MAP);
         for (int j = 0; j < SIZE_MAP; ++j) {

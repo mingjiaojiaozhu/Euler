@@ -51,7 +51,7 @@ function reverseValue(decimal, auxiliary) {
             }
         }
         while (divisor) {
-            auxiliary[index] += Math.floor(value / divisor) * Math.floor(Math.pow(10, count))
+            auxiliary[index] += Math.floor(value / divisor) * Math.pow(10, count)
             value %= divisor
             divisor = Math.floor(divisor / 10)
             ++count

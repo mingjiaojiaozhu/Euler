@@ -93,7 +93,7 @@ function checkPrime(value, primes) {
 }
 
 function merge(head, tail) {
-    return head * Math.floor(Math.pow(10, Math.floor(Math.log10(tail)) + 1)) + tail
+    return head * Math.pow(10, Math.floor(Math.log10(tail)) + 1) + tail
 }
 
 function search(primes, edges, cliques, indexes, target) {

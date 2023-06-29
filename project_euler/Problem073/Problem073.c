@@ -27,7 +27,7 @@ void Problem073(void) {
 
 static int get_fractions(int target, Map **fractions) {
     int value = get_value(target, fractions);
-    if (-1L != value) {
+    if (-1 != value) {
         return value;
     }
 

@@ -34,7 +34,7 @@ public class Problem062 {
 
     private long getDigits(long value) {
         long result = 0L;
-        while (0L != value) {
+        while (0 != value) {
             result += (long) Math.pow(10, value % 10);
             value /= 10;
         }
