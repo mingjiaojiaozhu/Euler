@@ -96,3 +96,5 @@
 * [096. Su Doku](project_euler/Problem096/README.md)
 * [097. Large non-Mersenne prime](project_euler/Problem097/README.md)
 * [098. Anagramic squares](project_euler/Problem098/README.md)
+* [099. Largest exponential](project_euler/Problem099/README.md)
+* [100. Arranged probability](project_euler/Problem100/README.md)
